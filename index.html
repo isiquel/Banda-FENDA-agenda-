@@ -223,6 +223,27 @@
       font-size:15px;
     }
 
+    input[type="checkbox"]{
+      width:auto;
+      accent-color:#22c55e;
+      transform:scale(1.1);
+    }
+
+    .checkRow{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:12px 0;
+      padding:11px 12px;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      border-radius:15px;
+      color:#cbd5e1;
+      font-size:13px;
+      font-weight:900;
+      line-height:1.35;
+    }
+
     textarea{
       min-height:96px;
       resize:vertical;
@@ -669,6 +690,11 @@
         <label>Seu telefone</label>
         <input id="entryPhone" placeholder="Ex: 44999998888"/>
 
+        <label class="checkRow">
+          <input id="rememberPersonCheck" type="checkbox" checked>
+          <span>Salvar meu nome e telefone neste aparelho</span>
+        </label>
+
         <button class="btn primary full" style="margin-top:12px;" onclick="enterApp()">Entrar no app</button>
 
         <div class="divider"></div>
@@ -890,6 +916,11 @@
         <label>Senha do administrador</label>
         <input id="adminPasswordInput" type="password" placeholder="Digite a senha"/>
 
+        <label class="checkRow">
+          <input id="rememberAdminCheck" type="checkbox">
+          <span>Salvar login e senha do administrador neste aparelho</span>
+        </label>
+
         <button class="btn primary full" style="margin-top:12px;" onclick="loginAdmin()">Entrar como administrador</button>
 
         <div class="divider"></div>
@@ -899,7 +930,20 @@
         <label>Senha do criador</label>
         <input id="creatorPasswordInput" type="password" placeholder="Senha do criador"/>
 
+        <label class="checkRow">
+          <input id="rememberCreatorCheck" type="checkbox">
+          <span>Salvar senha do criador neste aparelho</span>
+        </label>
+
         <button class="btn purple full" style="margin-top:12px;" onclick="loginCreator()">Entrar como criador</button>
+
+        <div class="divider"></div>
+
+        <button class="btn red full" onclick="clearSavedLoginData()">Limpar dados salvos neste aparelho</button>
+
+        <p class="muted" style="margin-top:12px;">
+          Use esta opção somente em celular ou computador de confiança.
+        </p>
       </div>
 
       <div id="adminPanel" style="display:none;">
@@ -1395,6 +1439,100 @@
       return state.members.find(m=>cleanPhone(m.phone)===clean);
     }
 
+    function saveRememberedPerson(name,phone){
+      const remember=$("rememberPersonCheck")?.checked !== false;
+
+      if(remember){
+        localStorage.setItem("fenda_remember_person","yes");
+        localStorage.setItem("fenda_saved_name",name);
+        localStorage.setItem("fenda_saved_phone",phone);
+      }else{
+        localStorage.removeItem("fenda_remember_person");
+        localStorage.removeItem("fenda_saved_name");
+        localStorage.removeItem("fenda_saved_phone");
+      }
+    }
+
+    function saveRememberedAdmin(login,password){
+      const remember=$("rememberAdminCheck")?.checked === true;
+
+      if(remember){
+        localStorage.setItem("fenda_remember_admin","yes");
+        localStorage.setItem("fenda_saved_admin_login",login);
+        localStorage.setItem("fenda_saved_admin_password",password);
+      }else{
+        localStorage.removeItem("fenda_remember_admin");
+        localStorage.removeItem("fenda_saved_admin_login");
+        localStorage.removeItem("fenda_saved_admin_password");
+      }
+    }
+
+    function saveRememberedCreator(password){
+      const remember=$("rememberCreatorCheck")?.checked === true;
+
+      if(remember){
+        localStorage.setItem("fenda_remember_creator","yes");
+        localStorage.setItem("fenda_saved_creator_password",password);
+      }else{
+        localStorage.removeItem("fenda_remember_creator");
+        localStorage.removeItem("fenda_saved_creator_password");
+      }
+    }
+
+    function loadSavedLoginData(){
+      const rememberPerson=localStorage.getItem("fenda_remember_person")==="yes";
+      const rememberAdmin=localStorage.getItem("fenda_remember_admin")==="yes";
+      const rememberCreator=localStorage.getItem("fenda_remember_creator")==="yes";
+
+      const personCheck=$("rememberPersonCheck");
+      const adminCheck=$("rememberAdminCheck");
+      const creatorCheck=$("rememberCreatorCheck");
+
+      if(personCheck) personCheck.checked=true;
+      if(adminCheck) adminCheck.checked=rememberAdmin;
+      if(creatorCheck) creatorCheck.checked=rememberCreator;
+
+      const entryName=$("entryName");
+      const entryPhone=$("entryPhone");
+      const adminLogin=$("adminLoginInput");
+      const adminPassword=$("adminPasswordInput");
+      const creatorPassword=$("creatorPasswordInput");
+
+      if(entryName && !entryName.value) entryName.value=localStorage.getItem("fenda_saved_name") || "";
+      if(entryPhone && !entryPhone.value) entryPhone.value=localStorage.getItem("fenda_saved_phone") || "";
+
+      if(adminLogin && rememberAdmin) adminLogin.value=localStorage.getItem("fenda_saved_admin_login") || "";
+      if(adminPassword && rememberAdmin) adminPassword.value=localStorage.getItem("fenda_saved_admin_password") || "";
+      if(creatorPassword && rememberCreator) creatorPassword.value=localStorage.getItem("fenda_saved_creator_password") || "";
+    }
+
+    function clearSavedLoginData(){
+      [
+        "fenda_remember_person",
+        "fenda_saved_name",
+        "fenda_saved_phone",
+        "fenda_remember_admin",
+        "fenda_saved_admin_login",
+        "fenda_saved_admin_password",
+        "fenda_remember_creator",
+        "fenda_saved_creator_password"
+      ].forEach(k=>localStorage.removeItem(k));
+
+      const adminLogin=$("adminLoginInput");
+      const adminPassword=$("adminPasswordInput");
+      const creatorPassword=$("creatorPasswordInput");
+      const adminCheck=$("rememberAdminCheck");
+      const creatorCheck=$("rememberCreatorCheck");
+
+      if(adminLogin) adminLogin.value="";
+      if(adminPassword) adminPassword.value="";
+      if(creatorPassword) creatorPassword.value="";
+      if(adminCheck) adminCheck.checked=false;
+      if(creatorCheck) creatorCheck.checked=false;
+
+      toast("Dados salvos apagados deste aparelho.");
+    }
+
     window.addEventListener("beforeinstallprompt",e=>{
       e.preventDefault();
       deferredInstallPrompt=e;
@@ -1462,8 +1600,8 @@
       const nameInput=$("entryName");
       const phoneInput=$("entryPhone");
 
-      if(nameInput) nameInput.value=localStorage.getItem("fenda_name") || "";
-      if(phoneInput) phoneInput.value=localStorage.getItem("fenda_phone") || "";
+      if(nameInput) nameInput.value=localStorage.getItem("fenda_name") || localStorage.getItem("fenda_saved_name") || "";
+      if(phoneInput) phoneInput.value=localStorage.getItem("fenda_phone") || localStorage.getItem("fenda_saved_phone") || "";
     }
 
     async function enterApp(){
@@ -1474,6 +1612,8 @@
         toast("Digite seu nome e telefone.");
         return;
       }
+
+      saveRememberedPerson(name,phone);
 
       state.accessRole="";
       localStorage.removeItem("fenda_access_role");
@@ -1620,6 +1760,8 @@
       const password=($("adminPasswordInput")?.value || "").trim();
 
       if(login===state.config.adminLogin && password===state.config.adminPassword){
+        saveRememberedAdmin(login,password);
+
         state.accessRole="admin";
         state.personType="";
 
@@ -1642,6 +1784,8 @@
       const password=($("creatorPasswordInput")?.value || "").trim();
 
       if(password===CREATOR_PASSWORD){
+        saveRememberedCreator(password);
+
         state.accessRole="creator";
         state.personType="";
 
@@ -3119,6 +3263,7 @@
     window.loginAdmin=loginAdmin;
     window.loginCreator=loginCreator;
     window.logoutAccess=logoutAccess;
+    window.clearSavedLoginData=clearSavedLoginData;
     window.saveConfig=saveConfig;
     window.saveAdminAccount=saveAdminAccount;
     window.loadLogoFile=loadLogoFile;
@@ -3152,6 +3297,7 @@
 
     document.addEventListener("DOMContentLoaded",()=>{
       loadEntryLocal();
+      loadSavedLoginData();
       renderAll();
       listenFirestore();
     });
