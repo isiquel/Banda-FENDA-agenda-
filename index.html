@@ -7,22 +7,19 @@
 
   <style>
     :root{
-      --bg:#05070c;
-      --bg2:#0b1020;
+      --bg:#04060b;
       --card:#111827;
-      --card2:#161f34;
+      --card2:#182033;
       --text:#f8fafc;
       --muted:#94a3b8;
-      --line:rgba(255,255,255,.10);
-      --brand:#e5e7eb;
-      --brand2:#cbd5e1;
+      --line:rgba(255,255,255,.11);
       --blue:#38bdf8;
       --green:#22c55e;
       --red:#ef4444;
       --orange:#fb923c;
       --purple:#a855f7;
-      --shadow:0 18px 45px rgba(0,0,0,.35);
       --radius:22px;
+      --shadow:0 18px 45px rgba(0,0,0,.35);
     }
 
     *{
@@ -32,13 +29,13 @@
 
     body{
       margin:0;
-      font-family:Arial, Helvetica, sans-serif;
       min-height:100vh;
+      font-family:Arial, Helvetica, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(255,255,255,.08), transparent 24%),
-        radial-gradient(circle at bottom right, rgba(56,189,248,.12), transparent 28%),
-        linear-gradient(180deg, #020307 0%, #070c16 35%, #060912 100%);
+        radial-gradient(circle at top left, rgba(255,255,255,.09), transparent 25%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,.13), transparent 30%),
+        linear-gradient(180deg,#020307 0%,#070b14 45%,#04060b 100%);
     }
 
     button,input,textarea,select{
@@ -49,35 +46,33 @@
       width:100%;
       max-width:1100px;
       margin:0 auto;
-      padding:16px;
+      padding:14px;
       padding-bottom:90px;
     }
 
     .hero{
-      position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,.08), rgba(56,189,248,.08)),
-        rgba(17,24,39,.92);
+      background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(56,189,248,.08)),rgba(17,24,39,.94);
       border:1px solid var(--line);
       border-radius:30px;
-      padding:22px;
+      padding:20px;
       box-shadow:var(--shadow);
-      margin-bottom:14px;
+      margin-bottom:12px;
+      position:relative;
+      overflow:hidden;
     }
 
-    .hero::after{
+    .hero:after{
       content:"♪";
       position:absolute;
-      right:22px;
-      top:-10px;
+      right:20px;
+      top:-12px;
       font-size:120px;
       opacity:.06;
+      transform:rotate(-12deg);
       font-weight:900;
-      transform:rotate(-10deg);
     }
 
-    .brandWrap{
+    .brand{
       display:flex;
       align-items:center;
       gap:14px;
@@ -86,17 +81,17 @@
     }
 
     .logoBox{
-      width:78px;
-      height:78px;
+      width:76px;
+      height:76px;
       border-radius:24px;
       overflow:hidden;
-      background:linear-gradient(135deg,#ffffff,#d4d4d8);
+      background:#fff;
       display:flex;
       align-items:center;
       justify-content:center;
       flex:none;
+      border:1px solid rgba(255,255,255,.18);
       box-shadow:0 14px 30px rgba(255,255,255,.08);
-      border:1px solid rgba(255,255,255,.15);
     }
 
     .logoBox img{
@@ -108,15 +103,15 @@
 
     .logoFallback{
       font-size:34px;
-      font-weight:900;
       color:#111827;
+      font-weight:900;
     }
 
     h1{
       margin:0;
       font-size:28px;
+      letter-spacing:.6px;
       line-height:1.1;
-      letter-spacing:.5px;
     }
 
     .subtitle{
@@ -126,9 +121,9 @@
       line-height:1.45;
     }
 
-    .heroInfo{
+    .pills{
       display:flex;
-      gap:10px;
+      gap:8px;
       flex-wrap:wrap;
       margin-top:14px;
       position:relative;
@@ -138,25 +133,25 @@
     .pill{
       display:inline-flex;
       align-items:center;
-      gap:8px;
-      padding:9px 12px;
+      gap:7px;
+      padding:8px 11px;
       border-radius:999px;
-      font-size:12px;
-      font-weight:800;
+      background:rgba(255,255,255,.06);
       border:1px solid var(--line);
-      background:rgba(255,255,255,.05);
       color:#e5e7eb;
+      font-size:12px;
+      font-weight:900;
     }
 
     .tabs{
       position:sticky;
       top:0;
-      z-index:50;
+      z-index:30;
       display:grid;
       grid-template-columns:repeat(5,1fr);
-      gap:8px;
-      padding:10px 0;
-      background:rgba(4,7,12,.88);
+      gap:7px;
+      padding:9px 0;
+      background:rgba(4,6,11,.88);
       backdrop-filter:blur(12px);
       margin-bottom:12px;
     }
@@ -166,14 +161,14 @@
       background:rgba(17,24,39,.88);
       color:var(--muted);
       border-radius:15px;
-      padding:11px 8px;
-      cursor:pointer;
+      padding:11px 5px;
       font-size:12px;
       font-weight:900;
+      cursor:pointer;
     }
 
     .tab.active{
-      background:linear-gradient(135deg,#ffffff,#d1d5db);
+      background:linear-gradient(135deg,#fff,#d1d5db);
       color:#111827;
       border:0;
     }
@@ -189,12 +184,6 @@
     .grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
-      gap:12px;
-    }
-
-    .grid-3{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
       gap:12px;
     }
 
@@ -230,7 +219,7 @@
       font-weight:900;
     }
 
-    input, textarea, select{
+    input,textarea,select{
       width:100%;
       border:1px solid var(--line);
       background:rgba(15,23,42,.98);
@@ -242,21 +231,14 @@
     }
 
     textarea{
-      min-height:100px;
+      min-height:96px;
       resize:vertical;
       line-height:1.45;
     }
 
-    input:focus, textarea:focus, select:focus{
+    input:focus,textarea:focus,select:focus{
       border-color:rgba(255,255,255,.32);
       box-shadow:0 0 0 3px rgba(255,255,255,.08);
-    }
-
-    .actions{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:10px;
-      margin-top:12px;
     }
 
     .btn{
@@ -264,11 +246,11 @@
       background:var(--card2);
       color:var(--text);
       border-radius:15px;
-      padding:12px 14px;
       min-height:44px;
-      cursor:pointer;
+      padding:12px 14px;
       font-size:14px;
       font-weight:900;
+      cursor:pointer;
       display:inline-flex;
       align-items:center;
       justify-content:center;
@@ -276,48 +258,51 @@
       text-decoration:none;
     }
 
-    .btn:active{
-      transform:scale(.98);
-    }
-
     .btn.full{
       width:100%;
     }
 
     .btn.primary{
-      background:linear-gradient(135deg,#ffffff,#d1d5db);
+      background:linear-gradient(135deg,#fff,#d1d5db);
       color:#111827;
       border:0;
-    }
-
-    .btn.blue{
-      background:rgba(56,189,248,.16);
-      color:#bae6fd;
-      border-color:rgba(56,189,248,.30);
     }
 
     .btn.green{
       background:rgba(34,197,94,.16);
       color:#bbf7d0;
-      border-color:rgba(34,197,94,.30);
+      border-color:rgba(34,197,94,.3);
+    }
+
+    .btn.blue{
+      background:rgba(56,189,248,.16);
+      color:#bae6fd;
+      border-color:rgba(56,189,248,.3);
     }
 
     .btn.red{
       background:rgba(239,68,68,.16);
       color:#fecaca;
-      border-color:rgba(239,68,68,.30);
+      border-color:rgba(239,68,68,.3);
     }
 
     .btn.orange{
       background:rgba(251,146,60,.16);
       color:#fed7aa;
-      border-color:rgba(251,146,60,.30);
+      border-color:rgba(251,146,60,.3);
     }
 
     .btn.purple{
       background:rgba(168,85,247,.16);
       color:#e9d5ff;
-      border-color:rgba(168,85,247,.30);
+      border-color:rgba(168,85,247,.3);
+    }
+
+    .actions{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:12px;
     }
 
     .list{
@@ -328,7 +313,7 @@
     }
 
     .item{
-      background:linear-gradient(135deg, rgba(22,31,52,.98), rgba(15,23,42,.98));
+      background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
       border:1px solid var(--line);
       border-radius:20px;
       padding:15px;
@@ -338,8 +323,8 @@
     .itemHead{
       display:flex;
       justify-content:space-between;
-      gap:10px;
       align-items:flex-start;
+      gap:10px;
       margin-bottom:10px;
     }
 
@@ -373,19 +358,12 @@
 
     .badge{
       display:inline-flex;
-      align-items:center;
       border-radius:999px;
       padding:6px 9px;
       font-size:12px;
       font-weight:900;
       border:1px solid var(--line);
       white-space:nowrap;
-    }
-
-    .badge.evento{
-      background:rgba(255,255,255,.10);
-      color:#f8fafc;
-      border-color:rgba(255,255,255,.18);
     }
 
     .badge.normal{
@@ -406,6 +384,25 @@
       border-color:rgba(34,197,94,.28);
     }
 
+    .badge.evento{
+      background:rgba(255,255,255,.10);
+      color:#f8fafc;
+      border-color:rgba(255,255,255,.18);
+    }
+
+    .memberRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:12px;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      border-radius:16px;
+      margin-top:8px;
+      flex-wrap:wrap;
+    }
+
     .divider{
       height:1px;
       background:var(--line);
@@ -421,34 +418,6 @@
       font-size:14px;
       line-height:1.45;
       margin-bottom:12px;
-    }
-
-    .memberRow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      padding:12px;
-      border:1px solid var(--line);
-      background:rgba(15,23,42,.74);
-      border-radius:16px;
-      margin-top:8px;
-      flex-wrap:wrap;
-    }
-
-    .presenceBox{
-      margin-top:10px;
-      padding:12px;
-      border-radius:16px;
-      background:rgba(0,0,0,.18);
-      border:1px solid var(--line);
-    }
-
-    .presenceActions{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:8px;
-      margin-top:10px;
     }
 
     .empty{
@@ -498,7 +467,7 @@
       text-align:center;
       color:var(--muted);
       font-size:12px;
-      padding:20px 0 0;
+      padding:18px 0 0;
     }
 
     @media(max-width:800px){
@@ -507,18 +476,18 @@
         padding-bottom:78px;
       }
 
-      .grid,.grid-3{
+      .grid{
         grid-template-columns:1fr;
       }
 
       .tabs{
         grid-template-columns:repeat(5,1fr);
-        gap:6px;
+        gap:5px;
       }
 
       .tab{
-        font-size:11px;
-        padding:10px 4px;
+        font-size:10.5px;
+        padding:10px 3px;
       }
 
       h1{
@@ -533,28 +502,25 @@
       .actions{
         grid-template-columns:1fr;
       }
-
-      .presenceActions{
-        grid-template-columns:1fr;
-      }
     }
   </style>
 </head>
+
 <body>
   <div class="app">
     <section class="hero">
-      <div class="brandWrap">
+      <div class="brand">
         <div class="logoBox" id="topLogo"></div>
         <div>
           <h1 id="topTitle">FENDA</h1>
-          <p class="subtitle" id="topSubtitle">App da banda • agendas, recados, membros e comunicação.</p>
+          <p class="subtitle" id="topSubtitle">App da banda • agenda, recados e membros.</p>
         </div>
       </div>
 
-      <div class="heroInfo">
-        <div class="pill">● Visual personalizado da banda</div>
-        <div class="pill">● Área do administrador</div>
-        <div class="pill">● Recados e agenda</div>
+      <div class="pills">
+        <div class="pill" id="firebaseStatus">● Conectando Firebase...</div>
+        <div class="pill">● Tempo real</div>
+        <div class="pill">● App da banda</div>
       </div>
     </section>
 
@@ -566,25 +532,22 @@
       <button class="tab" onclick="openScreen('config')">Config</button>
     </div>
 
-    <!-- INICIO -->
     <section id="inicio" class="screen active">
       <div class="grid">
         <div class="card">
-          <h2>Bem-vindo ao app da banda</h2>
-          <p class="muted">
-            Aqui os integrantes da <strong id="homeBandName">FENDA</strong> podem ver agendas, receber recados e acompanhar os avisos do responsável.
-          </p>
+          <h2>Entrar como membro</h2>
+          <p class="muted">Preencha seus dados para confirmar presença e marcar recados como visualizados.</p>
 
           <label>Seu nome</label>
-          <input id="myName" placeholder="Digite seu nome" oninput="saveMyLocalData()" />
+          <input id="myName" placeholder="Digite seu nome" oninput="saveMyLocalData()"/>
 
           <label>Seu celular</label>
-          <input id="myPhone" placeholder="Ex: 44999998888" oninput="saveMyLocalData()" />
+          <input id="myPhone" placeholder="Ex: 44999998888" oninput="saveMyLocalData()"/>
 
-          <label>Sua função na banda</label>
-          <input id="myRole" placeholder="Ex: Vocal, bateria, teclado..." oninput="saveMyLocalData()" />
+          <label>Sua função</label>
+          <input id="myRole" placeholder="Ex: Vocal, teclado, bateria..." oninput="saveMyLocalData()"/>
 
-          <label>Seu grupo</label>
+          <label>Grupo</label>
           <select id="myGroup" onchange="saveMyLocalData()">
             <option value="todos">Todos</option>
             <option value="vocal">Vocal</option>
@@ -593,13 +556,13 @@
           </select>
 
           <div class="actions">
-            <button class="btn green" onclick="registerCurrentMember()">Cadastrar este membro</button>
-            <button class="btn blue" onclick="requestNotifications()">Ativar notificação</button>
+            <button class="btn green" onclick="registerCurrentMember()">Cadastrar meu celular</button>
+            <button class="btn blue" onclick="activatePush()">Ativar notificação</button>
           </div>
         </div>
 
         <div class="card">
-          <h2>Resumo rápido</h2>
+          <h2>Resumo</h2>
           <div id="homeSummary"></div>
 
           <div class="actions">
@@ -615,33 +578,29 @@
       </div>
     </section>
 
-    <!-- AGENDA -->
     <section id="agenda" class="screen">
       <div class="card">
         <h2>Agenda da banda</h2>
-        <p class="muted">Ensaios, cultos, apresentações, viagens e compromissos da banda.</p>
+        <p class="muted">Agendas cadastradas pelo administrador.</p>
         <div id="agendaList" class="list"></div>
       </div>
     </section>
 
-    <!-- RECADOS -->
     <section id="recados" class="screen">
       <div class="card">
-        <h2>Recados do administrador</h2>
-        <p class="muted">Todos os avisos da banda aparecem aqui.</p>
+        <h2>Recados</h2>
+        <p class="muted">Recados enviados pelo administrador.</p>
         <div id="recadosList" class="list"></div>
       </div>
     </section>
 
-    <!-- ADMIN -->
     <section id="admin" class="screen">
       <div id="adminLoginCard" class="card">
         <h2>Login do administrador</h2>
-        <p class="muted">Senha padrão desta versão:</p>
-        <div class="notice"><strong>1234</strong></div>
+        <div class="notice">Senha padrão inicial: <strong>1234</strong></div>
 
-        <label>Senha do admin</label>
-        <input id="adminPasswordInput" type="password" placeholder="Digite a senha" />
+        <label>Senha</label>
+        <input id="adminPasswordInput" type="password" placeholder="Digite a senha"/>
 
         <button class="btn primary full" style="margin-top:12px;" onclick="loginAdmin()">Entrar</button>
       </div>
@@ -651,8 +610,8 @@
           <div class="card">
             <h2>Nova agenda</h2>
 
-            <label>Título da agenda</label>
-            <input id="agendaTitleInput" placeholder="Ex: Ensaio geral, culto de jovens..." />
+            <label>Título</label>
+            <input id="agendaTitleInput" placeholder="Ex: Ensaio geral"/>
 
             <label>Tipo</label>
             <select id="agendaTypeInput">
@@ -664,16 +623,16 @@
             </select>
 
             <label>Data</label>
-            <input id="agendaDateInput" type="date" />
+            <input id="agendaDateInput" type="date"/>
 
             <label>Horário</label>
-            <input id="agendaTimeInput" type="time" />
+            <input id="agendaTimeInput" type="time"/>
 
             <label>Local</label>
-            <input id="agendaPlaceInput" placeholder="Ex: Igreja RCID" />
+            <input id="agendaPlaceInput" placeholder="Ex: Igreja, evento, cidade..."/>
 
-            <label>Observação</label>
-            <textarea id="agendaObsInput" placeholder="Ex: Levar instrumento, chegar 30 min antes, roupa preta..."></textarea>
+            <label>Observações</label>
+            <textarea id="agendaObsInput" placeholder="Ex: Chegar 30 min antes, roupa preta, levar instrumento..."></textarea>
 
             <button class="btn primary full" style="margin-top:12px;" onclick="saveAgenda()">Salvar agenda</button>
           </div>
@@ -681,11 +640,11 @@
           <div class="card">
             <h2>Novo recado</h2>
 
-            <label>Título do recado</label>
-            <input id="recadoTitleInput" placeholder="Ex: Ensaio confirmado" />
+            <label>Título</label>
+            <input id="recadoTitleInput" placeholder="Ex: Ensaio confirmado"/>
 
-            <label>Mensagem do recado</label>
-            <textarea id="recadoMessageInput" placeholder="Digite o recado para os membros da banda..."></textarea>
+            <label>Mensagem</label>
+            <textarea id="recadoMessageInput" placeholder="Digite o recado para a banda..."></textarea>
 
             <label>Prioridade</label>
             <select id="recadoPriorityInput">
@@ -702,10 +661,6 @@
             </select>
 
             <button class="btn primary full" style="margin-top:12px;" onclick="sendRecado()">Enviar recado</button>
-
-            <div class="notice" style="margin-top:12px;">
-              Nesta versão, o recado aparece no app e o administrador pode enviar pelo WhatsApp para cada membro cadastrado. Para notificação em todos os celulares em tempo real, o próximo passo é integrar com Firebase.
-            </div>
           </div>
         </div>
 
@@ -714,13 +669,13 @@
             <h2>Cadastrar membro</h2>
 
             <label>Nome</label>
-            <input id="memberNameInput" placeholder="Nome do membro" />
+            <input id="memberNameInput" placeholder="Nome"/>
 
             <label>Celular</label>
-            <input id="memberPhoneInput" placeholder="Ex: 44999998888" />
+            <input id="memberPhoneInput" placeholder="Ex: 44999998888"/>
 
             <label>Função</label>
-            <input id="memberRoleInput" placeholder="Ex: Vocal, bateria, teclado..." />
+            <input id="memberRoleInput" placeholder="Ex: Vocal, bateria..."/>
 
             <label>Grupo</label>
             <select id="memberGroupInput">
@@ -734,7 +689,7 @@
           </div>
 
           <div class="card">
-            <h2>Membros cadastrados</h2>
+            <h2>Membros online</h2>
             <div id="membersAdminList"></div>
           </div>
         </div>
@@ -751,136 +706,138 @@
       </div>
     </section>
 
-    <!-- CONFIG -->
     <section id="config" class="screen">
       <div class="grid">
         <div class="card">
-          <h2>Personalização da banda</h2>
+          <h2>Personalização</h2>
 
           <label>Nome da banda</label>
-          <input id="configBandName" placeholder="Ex: FENDA" />
+          <input id="configBandName" placeholder="FENDA"/>
 
-          <label>Frase / subtítulo</label>
-          <input id="configBandSubtitle" placeholder="Ex: App oficial da banda" />
+          <label>Subtítulo</label>
+          <input id="configSubtitle" placeholder="App oficial da banda"/>
 
           <label>Logo da banda</label>
-          <input id="configLogoFile" type="file" accept="image/*" onchange="loadLogoFile(event)" />
-
-          <img id="logoPreview" class="previewLogo" />
+          <input id="configLogoFile" type="file" accept="image/*" onchange="loadLogoFile(event)"/>
+          <img id="logoPreview" class="previewLogo"/>
 
           <label>Senha do admin</label>
-          <input id="configAdminPassword" placeholder="Senha do administrador" />
+          <input id="configAdminPassword" placeholder="Senha do admin"/>
 
           <button class="btn primary full" style="margin-top:12px;" onclick="saveConfig()">Salvar personalização</button>
         </div>
 
         <div class="card">
-          <h2>Configurações extras</h2>
-
-          <label>Link do grupo do WhatsApp (opcional)</label>
-          <input id="configGroupLink" placeholder="Cole aqui o link do grupo do WhatsApp" />
-
-          <div class="actions">
-            <button class="btn green" onclick="openGroupLink()">Abrir grupo</button>
-            <button class="btn blue" onclick="requestNotifications()">Ativar notificação</button>
+          <h2>Informações</h2>
+          <div class="notice">
+            Os dados principais ficam no Firebase Firestore. Se um membro abrir o app no celular dele, ele verá os recados e agendas em tempo real.
           </div>
+
+          <button class="btn blue full" onclick="activatePush()">Ativar notificação neste aparelho</button>
 
           <div class="divider"></div>
 
-          <h3>Backup</h3>
-          <div class="actions">
-            <button class="btn blue" onclick="exportBackup()">Exportar backup</button>
-            <button class="btn orange" onclick="importBackup()">Importar backup</button>
-          </div>
-
-          <label>Área do backup</label>
-          <textarea id="backupArea" placeholder="O backup aparecerá aqui ou cole aqui para importar."></textarea>
-
-          <div class="divider"></div>
-
-          <button class="btn red full" onclick="clearAllData()">Apagar tudo</button>
+          <button class="btn red full" onclick="logoutAdmin()">Sair do admin</button>
         </div>
       </div>
     </section>
 
-    <div class="footer">FENDA • App da Banda • versão personalizada inicial</div>
+    <div class="footer">FENDA • App da Banda • Firebase Online</div>
   </div>
 
   <div id="toast" class="toast"></div>
 
-  <script>
-    const STORAGE_KEY = "fenda_banda_app_v1";
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
 
-    function clone(obj){
-      return JSON.parse(JSON.stringify(obj));
-    }
+    import {
+      getFirestore,
+      collection,
+      doc,
+      addDoc,
+      setDoc,
+      updateDoc,
+      deleteDoc,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
+    } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
 
-    const defaultState = {
-      config: {
-        bandName: "FENDA",
-        bandSubtitle: "App da banda • agendas, recados, membros e comunicação.",
-        adminPassword: "1234",
-        logoData: "",
-        groupLink: ""
-      },
-      adminLogged: false,
-      members: [],
-      agendas: [],
-      recados: []
+    import {
+      getMessaging,
+      getToken,
+      onMessage,
+      isSupported
+    } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCzi1uEzYiFl6wvFkeB54FD68ZMIwvmMkU",
+      authDomain: "fenda-app.firebaseapp.com",
+      projectId: "fenda-app",
+      storageBucket: "fenda-app.firebasestorage.app",
+      messagingSenderId: "769298437437",
+      appId: "1:769298437437:web:e929fc8315654a5cefe154"
     };
 
-    let state = loadState();
+    const VAPID_KEY = "";
 
-    function loadState(){
-      try{
-        const saved = localStorage.getItem(STORAGE_KEY);
-        if(!saved) return clone(defaultState);
-        const parsed = JSON.parse(saved);
-        return {
-          ...clone(defaultState),
-          ...parsed,
-          config: {
-            ...clone(defaultState).config,
-            ...(parsed.config || {})
-          },
-          members: Array.isArray(parsed.members) ? parsed.members : [],
-          agendas: Array.isArray(parsed.agendas) ? parsed.agendas : [],
-          recados: Array.isArray(parsed.recados) ? parsed.recados : []
-        };
-      }catch(e){
-        return clone(defaultState);
-      }
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let messaging = null;
+
+    let state = {
+      config:{
+        bandName:"FENDA",
+        subtitle:"App da banda • agenda, recados e membros.",
+        adminPassword:"1234",
+        logoData:""
+      },
+      members:[],
+      agendas:[],
+      recados:[],
+      adminLogged: localStorage.getItem("fenda_admin_logged") === "yes"
+    };
+
+    const els = {};
+
+    function $(id){
+      return document.getElementById(id);
     }
 
-    function saveState(){
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    }
-
-    function uid(){
-      return Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+    function cacheEls(){
+      [
+        "topLogo","topTitle","topSubtitle","firebaseStatus",
+        "myName","myPhone","myRole","myGroup",
+        "homeSummary","homeRecados","agendaList","recadosList",
+        "adminLoginCard","adminPanel","membersAdminList",
+        "adminAgendaList","adminRecadosList",
+        "configBandName","configSubtitle","configAdminPassword","logoPreview"
+      ].forEach(id => els[id] = $(id));
     }
 
     function toast(msg){
-      const el = document.getElementById("toast");
+      const el = $("toast");
       el.textContent = msg;
       el.classList.add("show");
-      setTimeout(()=>el.classList.remove("show"), 3200);
+      setTimeout(() => el.classList.remove("show"), 3200);
     }
 
     function escapeHTML(str){
       return String(str || "")
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
     }
 
     function cleanPhone(phone){
-      return String(phone || "").replace(/\D/g, "");
+      return String(phone || "").replace(/\D/g,"");
     }
 
-    function formatWhatsappPhone(phone){
+    function whatsappPhone(phone){
       let p = cleanPhone(phone);
       if(!p) return "";
       if(!p.startsWith("55")) p = "55" + p;
@@ -888,16 +845,22 @@
     }
 
     function whatsappLink(phone, text){
-      const p = formatWhatsappPhone(phone);
+      const p = whatsappPhone(phone);
       if(!p) return "#";
       return `https://wa.me/${p}?text=${encodeURIComponent(text)}`;
+    }
+
+    function dateBR(date){
+      if(!date) return "";
+      const [y,m,d] = date.split("-");
+      return `${d}/${m}/${y}`;
     }
 
     function openScreen(id){
       document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
       document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
 
-      document.getElementById(id).classList.add("active");
+      $(id).classList.add("active");
 
       const order = ["inicio","agenda","recados","admin","config"];
       const idx = order.indexOf(id);
@@ -906,96 +869,111 @@
       renderAll();
     }
 
-    function renderLogo(targetId){
-      const target = document.getElementById(targetId);
-      if(!target) return;
-
-      const fallbackPath = "logo-fenda.png";
-      const logoData = state.config.logoData || "";
-
-      if(logoData){
-        target.innerHTML = `<img src="${logoData}" alt="Logo da banda">`;
-        return;
-      }
-
-      target.innerHTML = `
-        <img src="${fallbackPath}" alt="Logo da banda" onerror="this.parentNode.innerHTML='<div class=&quot;logoFallback&quot;>♫</div>';">
-      `;
-    }
-
-    function renderBrand(){
-      document.title = `${state.config.bandName} - App da Banda`;
-      document.getElementById("topTitle").textContent = state.config.bandName || "FENDA";
-      document.getElementById("topSubtitle").textContent = state.config.bandSubtitle || "App da banda";
-      document.getElementById("homeBandName").textContent = state.config.bandName || "FENDA";
-      renderLogo("topLogo");
-    }
-
     function saveMyLocalData(){
-      localStorage.setItem("fenda_my_name", document.getElementById("myName").value.trim());
-      localStorage.setItem("fenda_my_phone", document.getElementById("myPhone").value.trim());
-      localStorage.setItem("fenda_my_role", document.getElementById("myRole").value.trim());
-      localStorage.setItem("fenda_my_group", document.getElementById("myGroup").value);
+      localStorage.setItem("fenda_my_name", els.myName.value.trim());
+      localStorage.setItem("fenda_my_phone", els.myPhone.value.trim());
+      localStorage.setItem("fenda_my_role", els.myRole.value.trim());
+      localStorage.setItem("fenda_my_group", els.myGroup.value);
     }
 
     function loadMyLocalData(){
-      document.getElementById("myName").value = localStorage.getItem("fenda_my_name") || "";
-      document.getElementById("myPhone").value = localStorage.getItem("fenda_my_phone") || "";
-      document.getElementById("myRole").value = localStorage.getItem("fenda_my_role") || "";
-      document.getElementById("myGroup").value = localStorage.getItem("fenda_my_group") || "todos";
+      els.myName.value = localStorage.getItem("fenda_my_name") || "";
+      els.myPhone.value = localStorage.getItem("fenda_my_phone") || "";
+      els.myRole.value = localStorage.getItem("fenda_my_role") || "";
+      els.myGroup.value = localStorage.getItem("fenda_my_group") || "todos";
     }
 
-    function registerCurrentMember(){
-      const name = document.getElementById("myName").value.trim();
-      const phone = document.getElementById("myPhone").value.trim();
-      const role = document.getElementById("myRole").value.trim();
-      const group = document.getElementById("myGroup").value;
+    async function registerCurrentMember(){
+      const name = els.myName.value.trim();
+      const phone = els.myPhone.value.trim();
+      const role = els.myRole.value.trim();
+      const group = els.myGroup.value;
 
       if(!name || !phone){
         toast("Digite nome e celular.");
         return;
       }
 
-      const existing = state.members.find(m => cleanPhone(m.phone) === cleanPhone(phone));
-      if(existing){
-        existing.name = name;
-        existing.phone = phone;
-        existing.role = role;
-        existing.group = group;
-      }else{
-        state.members.push({
-          id: uid(),
+      saveMyLocalData();
+
+      const id = cleanPhone(phone);
+
+      await setDoc(doc(db, "members", id), {
+        name,
+        phone,
+        role,
+        group,
+        updatedAt: serverTimestamp()
+      }, { merge:true });
+
+      toast("Membro cadastrado online.");
+    }
+
+    async function activatePush(){
+      try{
+        if(!("Notification" in window)){
+          toast("Este navegador não suporta notificação.");
+          return;
+        }
+
+        const permission = await Notification.requestPermission();
+
+        if(permission !== "granted"){
+          toast("Permissão de notificação não liberada.");
+          return;
+        }
+
+        if(!VAPID_KEY){
+          toast("Notificação local ativada. Falta colocar a VAPID KEY para push avançado.");
+          notifyLocal("FENDA", "Notificação local ativada neste aparelho.");
+          return;
+        }
+
+        const supported = await isSupported();
+
+        if(!supported){
+          toast("Firebase Messaging não é suportado neste navegador.");
+          return;
+        }
+
+        if(!("serviceWorker" in navigator)){
+          toast("Este navegador não suporta service worker.");
+          return;
+        }
+
+        const registration = await navigator.serviceWorker.register("./firebase-messaging-sw.js");
+
+        messaging = getMessaging(app);
+
+        const token = await getToken(messaging, {
+          vapidKey: VAPID_KEY,
+          serviceWorkerRegistration: registration
+        });
+
+        const name = els.myName.value.trim() || "Aparelho sem nome";
+        const phone = els.myPhone.value.trim();
+        const tokenId = token.replaceAll("[","").replaceAll("]","").replaceAll("/","_").slice(0,120);
+
+        await setDoc(doc(db, "pushTokens", tokenId), {
+          token,
           name,
           phone,
-          role,
-          group,
-          createdAt: new Date().toISOString()
+          userAgent: navigator.userAgent,
+          updatedAt: serverTimestamp()
+        }, { merge:true });
+
+        onMessage(messaging, payload => {
+          toast(payload?.notification?.title || "Nova notificação da FENDA");
         });
-      }
 
-      saveMyLocalData();
-      saveState();
-      renderAll();
-      toast("Membro cadastrado.");
+        toast("Notificação push ativada neste aparelho.");
+      }catch(error){
+        console.error(error);
+        toast("Erro ao ativar notificação. Verifique a VAPID KEY.");
+      }
     }
 
-    function requestNotifications(){
-      if(!("Notification" in window)){
-        toast("Este navegador não suporta notificação.");
-        return;
-      }
-
-      Notification.requestPermission().then(status => {
-        if(status === "granted"){
-          notify(state.config.bandName || "FENDA", "Notificações ativadas neste aparelho.");
-          toast("Notificações ativadas.");
-        }else{
-          toast("Permissão de notificação não liberada.");
-        }
-      });
-    }
-
-    function notify(title, body){
+    function notifyLocal(title, body){
       if("Notification" in window && Notification.permission === "granted"){
         try{
           new Notification(title, { body, tag:"fenda-app" });
@@ -1003,123 +981,241 @@
       }
     }
 
-    function loginAdmin(){
-      const password = document.getElementById("adminPasswordInput").value.trim();
+    async function loginAdmin(){
+      const password = $("adminPasswordInput").value.trim();
+
       if(password === state.config.adminPassword){
         state.adminLogged = true;
-        saveState();
+        localStorage.setItem("fenda_admin_logged", "yes");
         renderAll();
-        toast("Administrador liberado.");
+        toast("Admin liberado.");
       }else{
         toast("Senha incorreta.");
       }
     }
 
-    function renderAdminAccess(){
-      const loginCard = document.getElementById("adminLoginCard");
-      const panel = document.getElementById("adminPanel");
-
-      if(state.adminLogged){
-        loginCard.style.display = "none";
-        panel.style.display = "block";
-      }else{
-        loginCard.style.display = "block";
-        panel.style.display = "none";
-      }
+    function logoutAdmin(){
+      state.adminLogged = false;
+      localStorage.removeItem("fenda_admin_logged");
+      renderAll();
+      toast("Admin desconectado.");
     }
 
-    function saveMember(){
-      const name = document.getElementById("memberNameInput").value.trim();
-      const phone = document.getElementById("memberPhoneInput").value.trim();
-      const role = document.getElementById("memberRoleInput").value.trim();
-      const group = document.getElementById("memberGroupInput").value;
+    async function saveConfig(){
+      const bandName = els.configBandName.value.trim() || "FENDA";
+      const subtitle = els.configSubtitle.value.trim() || "App da banda";
+      const adminPassword = els.configAdminPassword.value.trim() || "1234";
+
+      await setDoc(doc(db, "settings", "main"), {
+        bandName,
+        subtitle,
+        adminPassword,
+        logoData: state.config.logoData || "",
+        updatedAt: serverTimestamp()
+      }, { merge:true });
+
+      toast("Personalização salva online.");
+    }
+
+    function loadLogoFile(event){
+      const file = event.target.files[0];
+      if(!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = async function(e){
+        state.config.logoData = e.target.result;
+
+        await setDoc(doc(db, "settings", "main"), {
+          ...state.config,
+          logoData: state.config.logoData,
+          updatedAt: serverTimestamp()
+        }, { merge:true });
+
+        toast("Logo salva online.");
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    async function saveMember(){
+      const name = $("memberNameInput").value.trim();
+      const phone = $("memberPhoneInput").value.trim();
+      const role = $("memberRoleInput").value.trim();
+      const group = $("memberGroupInput").value;
 
       if(!name || !phone){
         toast("Digite nome e celular.");
         return;
       }
 
-      const existing = state.members.find(m => cleanPhone(m.phone) === cleanPhone(phone));
-      if(existing){
-        existing.name = name;
-        existing.phone = phone;
-        existing.role = role;
-        existing.group = group;
-      }else{
-        state.members.push({
-          id: uid(),
-          name,
-          phone,
-          role,
-          group,
-          createdAt: new Date().toISOString()
-        });
-      }
+      const id = cleanPhone(phone);
 
-      saveState();
-      renderAll();
+      await setDoc(doc(db, "members", id), {
+        name,
+        phone,
+        role,
+        group,
+        updatedAt: serverTimestamp()
+      }, { merge:true });
 
-      document.getElementById("memberNameInput").value = "";
-      document.getElementById("memberPhoneInput").value = "";
-      document.getElementById("memberRoleInput").value = "";
-      document.getElementById("memberGroupInput").value = "todos";
+      $("memberNameInput").value = "";
+      $("memberPhoneInput").value = "";
+      $("memberRoleInput").value = "";
+      $("memberGroupInput").value = "todos";
 
-      toast("Membro salvo.");
+      toast("Membro salvo online.");
     }
 
-    function removeMember(id){
+    async function removeMember(id){
       if(!confirm("Deseja remover este membro?")) return;
-      state.members = state.members.filter(m => m.id !== id);
-      saveState();
-      renderAll();
+      await deleteDoc(doc(db, "members", id));
       toast("Membro removido.");
     }
 
-    function saveAgenda(){
-      const title = document.getElementById("agendaTitleInput").value.trim();
-      const type = document.getElementById("agendaTypeInput").value;
-      const date = document.getElementById("agendaDateInput").value;
-      const time = document.getElementById("agendaTimeInput").value;
-      const place = document.getElementById("agendaPlaceInput").value.trim();
-      const obs = document.getElementById("agendaObsInput").value.trim();
+    async function saveAgenda(){
+      const title = $("agendaTitleInput").value.trim();
+      const type = $("agendaTypeInput").value;
+      const date = $("agendaDateInput").value;
+      const time = $("agendaTimeInput").value;
+      const place = $("agendaPlaceInput").value.trim();
+      const obs = $("agendaObsInput").value.trim();
 
       if(!title || !date || !time){
         toast("Preencha título, data e horário.");
         return;
       }
 
-      state.agendas.push({
-        id: uid(),
+      await addDoc(collection(db, "agendas"), {
         title,
         type,
         date,
         time,
         place,
         obs,
-        presence: {},
-        createdAt: new Date().toISOString()
+        presence:{},
+        createdAt: serverTimestamp()
       });
 
-      saveState();
-      renderAll();
+      $("agendaTitleInput").value = "";
+      $("agendaTypeInput").value = "Ensaio";
+      $("agendaDateInput").value = "";
+      $("agendaTimeInput").value = "";
+      $("agendaPlaceInput").value = "";
+      $("agendaObsInput").value = "";
 
-      document.getElementById("agendaTitleInput").value = "";
-      document.getElementById("agendaTypeInput").value = "Ensaio";
-      document.getElementById("agendaDateInput").value = "";
-      document.getElementById("agendaTimeInput").value = "";
-      document.getElementById("agendaPlaceInput").value = "";
-      document.getElementById("agendaObsInput").value = "";
-
-      notify("Nova agenda da banda", `${title} - ${date} às ${time}`);
-      toast("Agenda salva.");
+      notifyLocal("Nova agenda FENDA", `${title} - ${dateBR(date)} às ${time}`);
+      toast("Agenda salva online.");
     }
 
-    function deleteAgenda(id){
+    async function deleteAgenda(id){
       if(!confirm("Deseja apagar esta agenda?")) return;
-      state.agendas = state.agendas.filter(a => a.id !== id);
-      saveState();
-      renderAll();
+      await deleteDoc(doc(db, "agendas", id));
       toast("Agenda apagada.");
+    }
+
+    async function markPresence(agendaId, status){
+      const name = els.myName.value.trim();
+      const role = els.myRole.value.trim();
+
+      if(!name){
+        toast("Digite seu nome na tela inicial.");
+        return;
+      }
+
+      const agenda = state.agendas.find(a => a.id === agendaId);
+      const presence = agenda?.presence || {};
+
+      presence[name] = {
+        status,
+        role,
+        when: new Date().toISOString()
+      };
+
+      await updateDoc(doc(db, "agendas", agendaId), { presence });
+      toast("Resposta registrada.");
+    }
+
+    function targetName(target){
+      const map = {
+        todos:"Todos os membros",
+        vocal:"Somente vocal",
+        instrumental:"Somente instrumental",
+        tecnica:"Somente equipe técnica"
+      };
+      return map[target] || "Todos";
+    }
+
+    function targetMembers(target){
+      if(target === "todos") return state.members;
+      return state.members.filter(m => m.group === target || m.group === "todos");
+    }
+
+    function recadoWhatsappText(r){
+      return `*${state.config.bandName}*\n\n*${r.title}*\n\n${r.message}\n\nPrioridade: ${r.priority === "urgente" ? "URGENTE" : "Normal"}`;
+    }
+
+    async function sendRecado(){
+      const title = $("recadoTitleInput").value.trim();
+      const message = $("recadoMessageInput").value.trim();
+      const priority = $("recadoPriorityInput").value;
+      const target = $("recadoTargetInput").value;
+
+      if(!title || !message){
+        toast("Digite título e mensagem.");
+        return;
+      }
+
+      await addDoc(collection(db, "recados"), {
+        title,
+        message,
+        priority,
+        target,
+        seenBy:{},
+        createdAt: serverTimestamp()
+      });
+
+      $("recadoTitleInput").value = "";
+      $("recadoMessageInput").value = "";
+      $("recadoPriorityInput").value = "normal";
+      $("recadoTargetInput").value = "todos";
+
+      notifyLocal(priority === "urgente" ? "Recado urgente FENDA" : "Novo recado FENDA", title);
+      toast("Recado enviado online.");
+    }
+
+    async function markRecadoSeen(id){
+      const name = els.myName.value.trim();
+
+      if(!name){
+        toast("Digite seu nome na tela inicial.");
+        return;
+      }
+
+      const recado = state.recados.find(r => r.id === id);
+      const seenBy = recado?.seenBy || {};
+
+      seenBy[name] = {
+        name,
+        when: new Date().toISOString()
+      };
+
+      await updateDoc(doc(db, "recados", id), { seenBy });
+      toast("Recado marcado como visualizado.");
+    }
+
+    async function deleteRecado(id){
+      if(!confirm("Deseja apagar este recado?")) return;
+      await deleteDoc(doc(db, "recados", id));
+      toast("Recado apagado.");
+    }
+
+    function copyText(text){
+      navigator.clipboard.writeText(text).then(() => {
+        toast("Mensagem copiada.");
+      }).catch(() => {
+        toast("Não foi possível copiar.");
+      });
     }
 
     function sortAgendas(list){
@@ -1130,230 +1226,176 @@
       });
     }
 
-    function formatDate(date){
-      if(!date) return "";
-      const [y,m,d] = date.split("-");
-      return `${d}/${m}/${y}`;
-    }
-
-    function markPresence(agendaId, status){
-      const name = document.getElementById("myName").value.trim();
-      const role = document.getElementById("myRole").value.trim();
-
-      if(!name){
-        toast("Digite seu nome na tela inicial.");
-        return;
+    function renderLogo(){
+      if(state.config.logoData){
+        els.topLogo.innerHTML = `<img src="${state.config.logoData}" alt="Logo FENDA">`;
+      }else{
+        els.topLogo.innerHTML = `<img src="logo-fenda.png" alt="Logo FENDA" onerror="this.parentNode.innerHTML='<div class=&quot;logoFallback&quot;>♫</div>';">`;
       }
-
-      const agenda = state.agendas.find(a => a.id === agendaId);
-      if(!agenda) return;
-
-      agenda.presence[name] = {
-        status,
-        role,
-        when: new Date().toISOString()
-      };
-
-      saveState();
-      renderAll();
-      toast("Presença registrada.");
     }
 
-    function renderAgendaCards(mode){
-      const agendas = sortAgendas(state.agendas);
-      if(!agendas.length) return `<div class="empty">Nenhuma agenda cadastrada.</div>`;
+    function renderBrand(){
+      document.title = `${state.config.bandName} - App da Banda`;
+      els.topTitle.textContent = state.config.bandName || "FENDA";
+      els.topSubtitle.textContent = state.config.subtitle || "App da banda";
+      renderLogo();
+    }
 
-      return agendas.map(a => {
-        const presence = a.presence || {};
-        const confirmed = Object.values(presence).filter(p => p.status === "confirmado").length;
-        const absent = Object.values(presence).filter(p => p.status === "nao").length;
-        const seen = Object.values(presence).filter(p => p.status === "visualizado").length;
+    function renderAdmin(){
+      if(state.adminLogged){
+        els.adminLoginCard.style.display = "none";
+        els.adminPanel.style.display = "block";
+      }else{
+        els.adminLoginCard.style.display = "block";
+        els.adminPanel.style.display = "none";
+      }
+    }
 
-        let adminPresence = "";
-        if(mode === "admin"){
-          const names = Object.keys(presence);
-          adminPresence = `
-            <div class="divider"></div>
-            <strong>Respostas:</strong>
-            ${
-              names.length
-              ? names.map(name => `
-                <div class="memberRow">
-                  <div>
-                    <strong>${escapeHTML(name)}</strong>
-                    <div class="small">${escapeHTML(presence[name].role || "Membro")} • ${new Date(presence[name].when).toLocaleString("pt-BR")}</div>
-                  </div>
-                  <span class="badge ok">${presence[name].status}</span>
-                </div>
-              `).join("")
-              : `<div class="small" style="margin-top:8px;">Ninguém respondeu ainda.</div>`
-            }
-          `;
+    function renderConfig(){
+      els.configBandName.value = state.config.bandName || "FENDA";
+      els.configSubtitle.value = state.config.subtitle || "";
+      els.configAdminPassword.value = state.config.adminPassword || "1234";
+
+      if(state.config.logoData){
+        els.logoPreview.src = state.config.logoData;
+        els.logoPreview.style.display = "block";
+      }else{
+        els.logoPreview.style.display = "none";
+      }
+    }
+
+    function renderHome(){
+      const nextAgenda = sortAgendas(state.agendas)[0];
+
+      els.homeSummary.innerHTML = `
+        <div class="memberRow">
+          <div>
+            <strong>Membros cadastrados</strong>
+            <div class="small">${state.members.length} membro(s)</div>
+          </div>
+          <span class="badge ok">${state.members.length}</span>
+        </div>
+
+        <div class="memberRow">
+          <div>
+            <strong>Recados enviados</strong>
+            <div class="small">${state.recados.length} recado(s)</div>
+          </div>
+          <span class="badge normal">${state.recados.length}</span>
+        </div>
+
+        ${
+          nextAgenda
+          ? `
+            <div class="memberRow">
+              <div>
+                <strong>Próxima agenda</strong>
+                <div class="small">${escapeHTML(nextAgenda.title)} • ${dateBR(nextAgenda.date)} às ${escapeHTML(nextAgenda.time)}</div>
+              </div>
+              <span class="badge evento">${escapeHTML(nextAgenda.type)}</span>
+            </div>
+          `
+          : `<div class="empty" style="margin-top:8px;">Nenhuma agenda cadastrada.</div>`
         }
+      `;
 
-        let memberActions = "";
-        if(mode !== "admin"){
-          memberActions = `
-            <div class="presenceBox">
+      els.homeRecados.innerHTML = state.recados.length
+        ? state.recados.slice(0,3).map(r => recadoCard(r, "member")).join("")
+        : `<div class="empty">Nenhum recado enviado ainda.</div>`;
+    }
+
+    function agendaCard(a, mode){
+      const presence = a.presence || {};
+      const names = Object.keys(presence);
+      const confirmed = names.filter(n => presence[n].status === "confirmado").length;
+      const absent = names.filter(n => presence[n].status === "nao").length;
+      const seen = names.filter(n => presence[n].status === "visualizado").length;
+
+      return `
+        <div class="item">
+          <div class="itemHead">
+            <div>
+              <p class="itemTitle">${escapeHTML(a.title)}</p>
+              <div class="small">${a.createdAt?.toDate ? a.createdAt.toDate().toLocaleString("pt-BR") : ""}</div>
+            </div>
+            <span class="badge evento">${escapeHTML(a.type)}</span>
+          </div>
+
+          <div class="line"><span>📅</span><div>${dateBR(a.date)} às ${escapeHTML(a.time)}</div></div>
+          ${a.place ? `<div class="line"><span>📍</span><div>${escapeHTML(a.place)}</div></div>` : ""}
+          ${a.obs ? `<div class="line"><span>📝</span><div>${escapeHTML(a.obs)}</div></div>` : ""}
+
+          ${
+            mode === "admin"
+            ? `
+              <div class="divider"></div>
+              <strong>Respostas</strong>
+              <div class="small">Confirmados: ${confirmed} • Não irão: ${absent} • Visualizaram: ${seen}</div>
+              ${
+                names.length
+                ? names.map(n => `
+                  <div class="memberRow">
+                    <div>
+                      <strong>${escapeHTML(n)}</strong>
+                      <div class="small">${escapeHTML(presence[n].role || "Membro")} • ${presence[n].when ? new Date(presence[n].when).toLocaleString("pt-BR") : ""}</div>
+                    </div>
+                    <span class="badge ok">${escapeHTML(presence[n].status)}</span>
+                  </div>
+                `).join("")
+                : `<div class="small" style="margin-top:8px;">Ninguém respondeu ainda.</div>`
+              }
+              <div class="actions">
+                <button class="btn red" onclick="deleteAgenda('${a.id}')">Apagar agenda</button>
+              </div>
+            `
+            : `
+              <div class="divider"></div>
               <strong>Presença</strong>
               <div class="small">Confirmados: ${confirmed} • Não irão: ${absent} • Visualizaram: ${seen}</div>
-              <div class="presenceActions">
+              <div class="actions">
                 <button class="btn green" onclick="markPresence('${a.id}','confirmado')">Confirmar</button>
-                <button class="btn red" onclick="markPresence('${a.id}','nao')">Não poderei ir</button>
-                <button class="btn blue" onclick="markPresence('${a.id}','visualizado')">Visualizei</button>
+                <button class="btn red" onclick="markPresence('${a.id}','nao')">Não irei</button>
               </div>
+              <button class="btn blue full" style="margin-top:10px;" onclick="markPresence('${a.id}','visualizado')">Marcar como visualizado</button>
+            `
+          }
+        </div>
+      `;
+    }
+
+    function recadoCard(r, mode){
+      const seenBy = r.seenBy || {};
+      const seenNames = Object.keys(seenBy);
+      const waText = recadoWhatsappText(r);
+      const members = targetMembers(r.target);
+      const badgeClass = r.priority === "urgente" ? "urgente" : "normal";
+
+      return `
+        <div class="item">
+          <div class="itemHead">
+            <div>
+              <p class="itemTitle">${r.priority === "urgente" ? "🚨 " : ""}${escapeHTML(r.title)}</p>
+              <div class="small">${r.createdAt?.toDate ? r.createdAt.toDate().toLocaleString("pt-BR") : ""}</div>
             </div>
-          `;
-        }
-
-        let adminButtons = "";
-        if(mode === "admin"){
-          adminButtons = `
-            <div class="actions">
-              <button class="btn red" onclick="deleteAgenda('${a.id}')">Apagar agenda</button>
-            </div>
-          `;
-        }
-
-        return `
-          <div class="item">
-            <div class="itemHead">
-              <div>
-                <p class="itemTitle">${escapeHTML(a.title)}</p>
-                <div class="small">Criado em ${new Date(a.createdAt).toLocaleString("pt-BR")}</div>
-              </div>
-              <span class="badge evento">${escapeHTML(a.type)}</span>
-            </div>
-
-            <div class="line"><span>📅</span><div>${formatDate(a.date)} às ${escapeHTML(a.time)}</div></div>
-            ${a.place ? `<div class="line"><span>📍</span><div>${escapeHTML(a.place)}</div></div>` : ""}
-            ${a.obs ? `<div class="line"><span>📝</span><div>${escapeHTML(a.obs)}</div></div>` : ""}
-
-            ${memberActions}
-            ${adminButtons}
-            ${adminPresence}
+            <span class="badge ${badgeClass}">${r.priority === "urgente" ? "Urgente" : "Normal"}</span>
           </div>
-        `;
-      }).join("");
-    }
 
-    function targetMembers(target){
-      if(target === "todos") return state.members;
-      return state.members.filter(m => m.group === target || m.group === "todos");
-    }
+          <div class="line"><span>💬</span><div>${escapeHTML(r.message)}</div></div>
+          <div class="line"><span>👥</span><div>${escapeHTML(targetName(r.target))}</div></div>
+          <div class="small">Visualizações: ${seenNames.length}</div>
 
-    function targetName(target){
-      const map = {
-        todos: "Todos os membros",
-        vocal: "Somente vocal",
-        instrumental: "Somente instrumental",
-        tecnica: "Somente equipe técnica"
-      };
-      return map[target] || "Todos os membros";
-    }
+          ${
+            mode === "admin"
+            ? `
+              <div class="divider"></div>
+              <strong>Enviar no celular dos membros</strong>
+              <div class="small">Clique em WhatsApp para enviar para cada cadastrado.</div>
 
-    function recadoWhatsappText(recado){
-      return `*${state.config.bandName}*\n\n*${recado.title}*\n\n${recado.message}\n\nPrioridade: ${recado.priority === "urgente" ? "URGENTE" : "Normal"}`;
-    }
+              <div class="actions">
+                <button class="btn green" onclick='copyText(${JSON.stringify(waText)})'>Copiar mensagem</button>
+                <button class="btn red" onclick="deleteRecado('${r.id}')">Apagar recado</button>
+              </div>
 
-    function sendRecado(){
-      const title = document.getElementById("recadoTitleInput").value.trim();
-      const message = document.getElementById("recadoMessageInput").value.trim();
-      const priority = document.getElementById("recadoPriorityInput").value;
-      const target = document.getElementById("recadoTargetInput").value;
-
-      if(!title || !message){
-        toast("Digite título e mensagem.");
-        return;
-      }
-
-      state.recados.unshift({
-        id: uid(),
-        title,
-        message,
-        priority,
-        target,
-        seenBy: {},
-        createdAt: new Date().toISOString()
-      });
-
-      saveState();
-      renderAll();
-
-      document.getElementById("recadoTitleInput").value = "";
-      document.getElementById("recadoMessageInput").value = "";
-      document.getElementById("recadoPriorityInput").value = "normal";
-      document.getElementById("recadoTargetInput").value = "todos";
-
-      notify(priority === "urgente" ? "Recado urgente da banda" : "Novo recado da banda", title);
-      toast("Recado enviado no app.");
-    }
-
-    function markRecadoSeen(id){
-      const name = document.getElementById("myName").value.trim();
-      if(!name){
-        toast("Digite seu nome na tela inicial.");
-        return;
-      }
-
-      const recado = state.recados.find(r => r.id === id);
-      if(!recado) return;
-
-      recado.seenBy[name] = {
-        name,
-        when: new Date().toISOString()
-      };
-
-      saveState();
-      renderAll();
-      toast("Recado marcado como visualizado.");
-    }
-
-    function deleteRecado(id){
-      if(!confirm("Deseja apagar este recado?")) return;
-      state.recados = state.recados.filter(r => r.id !== id);
-      saveState();
-      renderAll();
-      toast("Recado apagado.");
-    }
-
-    function copyText(text){
-      navigator.clipboard.writeText(text).then(()=>{
-        toast("Mensagem copiada.");
-      }).catch(()=>{
-        toast("Não foi possível copiar.");
-      });
-    }
-
-    function renderRecadoCards(mode){
-      if(!state.recados.length) return `<div class="empty">Nenhum recado enviado ainda.</div>`;
-
-      return state.recados.map(r => {
-        const badgeClass = r.priority === "urgente" ? "urgente" : "normal";
-        const seenNames = Object.keys(r.seenBy || {});
-        const textWa = recadoWhatsappText(r);
-        const members = targetMembers(r.target);
-
-        let memberAction = "";
-        if(mode === "member" || mode === "home"){
-          memberAction = `
-            <button class="btn blue" style="margin-top:10px;" onclick="markRecadoSeen('${r.id}')">Marcar como visualizado</button>
-          `;
-        }
-
-        let adminArea = "";
-        if(mode === "admin"){
-          adminArea = `
-            <div class="divider"></div>
-            <strong>Enviar no celular dos membros</strong>
-            <div class="small" style="margin-top:4px;">Clique no WhatsApp de cada membro cadastrado ou copie a mensagem.</div>
-
-            <div class="actions" style="margin-top:10px;">
-              <button class="btn green" onclick='copyText(${JSON.stringify(textWa)})'>Copiar mensagem</button>
-              <button class="btn red" onclick="deleteRecado('${r.id}')">Apagar recado</button>
-            </div>
-
-            <div style="margin-top:10px;">
               ${
                 members.length
                 ? members.map(m => `
@@ -1362,232 +1404,126 @@
                       <strong>${escapeHTML(m.name)}</strong>
                       <div class="small">${escapeHTML(m.phone)} • ${escapeHTML(m.role || "")}</div>
                     </div>
-                    <a class="btn green" target="_blank" href="${whatsappLink(m.phone, textWa)}">Enviar WhatsApp</a>
+                    <a class="btn green" target="_blank" href="${whatsappLink(m.phone, waText)}">WhatsApp</a>
                   </div>
                 `).join("")
-                : `<div class="empty" style="margin-top:10px;">Nenhum membro cadastrado para este destino.</div>`
+                : `<div class="empty" style="margin-top:10px;">Nenhum membro para este destino.</div>`
               }
-            </div>
 
-            <div class="divider"></div>
-            <strong>Visualizações</strong>
-            ${
-              seenNames.length
-              ? seenNames.map(name => `<div class="small">✅ ${escapeHTML(name)}</div>`).join("")
-              : `<div class="small" style="margin-top:6px;">Ninguém visualizou ainda.</div>`
-            }
-          `;
-        }
-
-        return `
-          <div class="item">
-            <div class="itemHead">
-              <div>
-                <p class="itemTitle">${r.priority === "urgente" ? "🚨 " : ""}${escapeHTML(r.title)}</p>
-                <div class="small">${new Date(r.createdAt).toLocaleString("pt-BR")}</div>
-              </div>
-              <span class="badge ${badgeClass}">${r.priority === "urgente" ? "Urgente" : "Normal"}</span>
-            </div>
-
-            <div class="line"><span>💬</span><div>${escapeHTML(r.message)}</div></div>
-            <div class="line"><span>👥</span><div>Destino: ${escapeHTML(targetName(r.target))}</div></div>
-            <div class="small">Visualizações: ${seenNames.length}</div>
-
-            ${memberAction}
-            ${adminArea}
-          </div>
-        `;
-      }).join("");
-    }
-
-    function renderHomeSummary(){
-      const agendas = sortAgendas(state.agendas);
-      const nextAgenda = agendas.length ? agendas[0] : null;
-      const recadosCount = state.recados.length;
-      const membersCount = state.members.length;
-
-      let html = `
-        <div class="memberRow">
-          <div>
-            <strong>Membros cadastrados</strong>
-            <div class="small">${membersCount} membro(s)</div>
-          </div>
-          <span class="badge ok">${membersCount}</span>
-        </div>
-
-        <div class="memberRow">
-          <div>
-            <strong>Recados cadastrados</strong>
-            <div class="small">${recadosCount} recado(s)</div>
-          </div>
-          <span class="badge normal">${recadosCount}</span>
+              <div class="divider"></div>
+              <strong>Visualizações</strong>
+              ${
+                seenNames.length
+                ? seenNames.map(n => `<div class="small">✅ ${escapeHTML(n)}</div>`).join("")
+                : `<div class="small" style="margin-top:6px;">Ninguém visualizou ainda.</div>`
+              }
+            `
+            : `<button class="btn blue full" style="margin-top:10px;" onclick="markRecadoSeen('${r.id}')">Marcar como visualizado</button>`
+          }
         </div>
       `;
-
-      if(nextAgenda){
-        html += `
-          <div class="memberRow">
-            <div>
-              <strong>Próxima agenda</strong>
-              <div class="small">${escapeHTML(nextAgenda.title)} • ${formatDate(nextAgenda.date)} às ${escapeHTML(nextAgenda.time)}</div>
-            </div>
-            <span class="badge evento">${escapeHTML(nextAgenda.type)}</span>
-          </div>
-        `;
-      }else{
-        html += `<div class="empty" style="margin-top:8px;">Nenhuma agenda cadastrada.</div>`;
-      }
-
-      document.getElementById("homeSummary").innerHTML = html;
     }
 
     function renderMembersAdmin(){
-      const el = document.getElementById("membersAdminList");
-      if(!state.members.length){
-        el.innerHTML = `<div class="empty">Nenhum membro cadastrado.</div>`;
-        return;
-      }
-
-      el.innerHTML = state.members.map(m => `
-        <div class="memberRow">
-          <div>
-            <strong>${escapeHTML(m.name)}</strong>
-            <div class="small">${escapeHTML(m.role || "Sem função")} • ${escapeHTML(m.phone)} • Grupo: ${escapeHTML(m.group || "todos")}</div>
+      els.membersAdminList.innerHTML = state.members.length
+        ? state.members.map(m => `
+          <div class="memberRow">
+            <div>
+              <strong>${escapeHTML(m.name)}</strong>
+              <div class="small">${escapeHTML(m.phone)} • ${escapeHTML(m.role || "Sem função")} • ${escapeHTML(targetName(m.group || "todos"))}</div>
+            </div>
+            <div style="display:flex; gap:8px; flex-wrap:wrap;">
+              <a class="btn green" target="_blank" href="${whatsappLink(m.phone, `Olá ${m.name}, você foi cadastrado no app da banda ${state.config.bandName}.`)}">WhatsApp</a>
+              <button class="btn red" onclick="removeMember('${m.id}')">Remover</button>
+            </div>
           </div>
-          <div style="display:flex; gap:8px; flex-wrap:wrap;">
-            <a class="btn green" target="_blank" href="${whatsappLink(m.phone, `Olá ${m.name}, você foi cadastrado no app da banda ${state.config.bandName}.`)}">WhatsApp</a>
-            <button class="btn red" onclick="removeMember('${m.id}')">Remover</button>
-          </div>
-        </div>
-      `).join("");
-    }
-
-    function loadLogoFile(event){
-      const file = event.target.files[0];
-      if(!file) return;
-
-      const reader = new FileReader();
-      reader.onload = function(e){
-        state.config.logoData = e.target.result;
-        saveState();
-        renderAll();
-        toast("Logo carregada. Agora clique em salvar personalização.");
-      };
-      reader.readAsDataURL(file);
-    }
-
-    function renderConfig(){
-      document.getElementById("configBandName").value = state.config.bandName || "FENDA";
-      document.getElementById("configBandSubtitle").value = state.config.bandSubtitle || "";
-      document.getElementById("configAdminPassword").value = state.config.adminPassword || "1234";
-      document.getElementById("configGroupLink").value = state.config.groupLink || "";
-
-      const preview = document.getElementById("logoPreview");
-      if(state.config.logoData){
-        preview.src = state.config.logoData;
-        preview.style.display = "block";
-      }else{
-        preview.style.display = "none";
-      }
-    }
-
-    function saveConfig(){
-      state.config.bandName = document.getElementById("configBandName").value.trim() || "FENDA";
-      state.config.bandSubtitle = document.getElementById("configBandSubtitle").value.trim() || "App da banda";
-      state.config.adminPassword = document.getElementById("configAdminPassword").value.trim() || "1234";
-      state.config.groupLink = document.getElementById("configGroupLink").value.trim();
-
-      saveState();
-      renderAll();
-      toast("Personalização salva.");
-    }
-
-    function openGroupLink(){
-      const link = document.getElementById("configGroupLink").value.trim() || state.config.groupLink;
-      if(!link){
-        toast("Cole o link do grupo primeiro.");
-        return;
-      }
-      window.open(link, "_blank");
-    }
-
-    function exportBackup(){
-      document.getElementById("backupArea").value = JSON.stringify(state, null, 2);
-      toast("Backup gerado.");
-    }
-
-    function importBackup(){
-      const txt = document.getElementById("backupArea").value.trim();
-      if(!txt){
-        toast("Cole o backup primeiro.");
-        return;
-      }
-
-      try{
-        const data = JSON.parse(txt);
-        state = {
-          ...clone(defaultState),
-          ...data,
-          config:{
-            ...clone(defaultState).config,
-            ...(data.config || {})
-          },
-          members:Array.isArray(data.members) ? data.members : [],
-          agendas:Array.isArray(data.agendas) ? data.agendas : [],
-          recados:Array.isArray(data.recados) ? data.recados : []
-        };
-
-        saveState();
-        renderAll();
-        toast("Backup importado.");
-      }catch(e){
-        toast("Backup inválido.");
-      }
-    }
-
-    function clearAllData(){
-      if(!confirm("Tem certeza que deseja apagar todos os dados?")) return;
-      localStorage.removeItem(STORAGE_KEY);
-      state = clone(defaultState);
-      saveState();
-      renderAll();
-      toast("Tudo foi apagado.");
+        `).join("")
+        : `<div class="empty">Nenhum membro cadastrado.</div>`;
     }
 
     function renderAll(){
       renderBrand();
-      renderAdminAccess();
+      renderAdmin();
       renderConfig();
-      renderHomeSummary();
+      renderHome();
       renderMembersAdmin();
 
-      document.getElementById("agendaList").innerHTML = renderAgendaCards("member");
-      document.getElementById("adminAgendaList").innerHTML = renderAgendaCards("admin");
-      document.getElementById("recadosList").innerHTML = renderRecadoCards("member");
-      document.getElementById("adminRecadosList").innerHTML = renderRecadoCards("admin");
-      document.getElementById("homeRecados").innerHTML = state.recados.length
-        ? state.recados.slice(0,3).map(r => {
-            const badgeClass = r.priority === "urgente" ? "urgente" : "normal";
-            return `
-              <div class="item">
-                <div class="itemHead">
-                  <div>
-                    <p class="itemTitle">${r.priority === "urgente" ? "🚨 " : ""}${escapeHTML(r.title)}</p>
-                    <div class="small">${new Date(r.createdAt).toLocaleString("pt-BR")}</div>
-                  </div>
-                  <span class="badge ${badgeClass}">${r.priority === "urgente" ? "Urgente" : "Normal"}</span>
-                </div>
-                <div class="line"><span>💬</span><div>${escapeHTML(r.message)}</div></div>
-                <button class="btn blue" style="margin-top:10px;" onclick="markRecadoSeen('${r.id}')">Marcar como visualizado</button>
-              </div>
-            `;
-          }).join("")
+      els.agendaList.innerHTML = state.agendas.length
+        ? sortAgendas(state.agendas).map(a => agendaCard(a, "member")).join("")
+        : `<div class="empty">Nenhuma agenda cadastrada.</div>`;
+
+      els.adminAgendaList.innerHTML = state.agendas.length
+        ? sortAgendas(state.agendas).map(a => agendaCard(a, "admin")).join("")
+        : `<div class="empty">Nenhuma agenda cadastrada.</div>`;
+
+      els.recadosList.innerHTML = state.recados.length
+        ? state.recados.map(r => recadoCard(r, "member")).join("")
+        : `<div class="empty">Nenhum recado enviado ainda.</div>`;
+
+      els.adminRecadosList.innerHTML = state.recados.length
+        ? state.recados.map(r => recadoCard(r, "admin")).join("")
         : `<div class="empty">Nenhum recado enviado ainda.</div>`;
     }
 
+    function listenFirestore(){
+      onSnapshot(doc(db, "settings", "main"), snap => {
+        if(snap.exists()){
+          state.config = {
+            ...state.config,
+            ...snap.data()
+          };
+        }
+        renderAll();
+      });
+
+      onSnapshot(collection(db, "members"), snap => {
+        state.members = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        renderAll();
+      });
+
+      onSnapshot(query(collection(db, "agendas"), orderBy("createdAt", "desc")), snap => {
+        state.agendas = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        renderAll();
+      });
+
+      onSnapshot(query(collection(db, "recados"), orderBy("createdAt", "desc")), snap => {
+        state.recados = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+        renderAll();
+      });
+
+      els.firebaseStatus.textContent = "● Firebase conectado";
+    }
+
+    window.openScreen = openScreen;
+    window.saveMyLocalData = saveMyLocalData;
+    window.registerCurrentMember = registerCurrentMember;
+    window.activatePush = activatePush;
+    window.loginAdmin = loginAdmin;
+    window.logoutAdmin = logoutAdmin;
+    window.saveConfig = saveConfig;
+    window.loadLogoFile = loadLogoFile;
+    window.saveMember = saveMember;
+    window.removeMember = removeMember;
+    window.saveAgenda = saveAgenda;
+    window.deleteAgenda = deleteAgenda;
+    window.markPresence = markPresence;
+    window.sendRecado = sendRecado;
+    window.deleteRecado = deleteRecado;
+    window.markRecadoSeen = markRecadoSeen;
+    window.copyText = copyText;
+
     document.addEventListener("DOMContentLoaded", () => {
+      cacheEls();
       loadMyLocalData();
       renderAll();
+
+      try{
+        listenFirestore();
+      }catch(error){
+        console.error(error);
+        els.firebaseStatus.textContent = "● Erro no Firebase";
+        toast("Erro ao conectar Firebase. Confira as regras do Firestore.");
+      }
     });
   </script>
 </body>
