@@ -7,22 +7,25 @@
 
   <style>
     :root{
-      --bg:#04060b;
+      --bg:#05070d;
       --card:#111827;
       --card2:#182033;
       --text:#f8fafc;
       --muted:#94a3b8;
-      --line:rgba(255,255,255,.11);
+      --line:rgba(255,255,255,.12);
       --blue:#38bdf8;
       --green:#22c55e;
       --red:#ef4444;
       --orange:#fb923c;
-      --purple:#a855f7;
+      --purple:#8b5cf6;
       --radius:22px;
       --shadow:0 18px 45px rgba(0,0,0,.35);
     }
 
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
 
     body{
       margin:0;
@@ -30,16 +33,18 @@
       font-family:Arial, Helvetica, sans-serif;
       color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(255,255,255,.09), transparent 25%),
-        radial-gradient(circle at bottom right, rgba(56,189,248,.13), transparent 30%),
-        linear-gradient(180deg,#020307 0%,#070b14 45%,#04060b 100%);
+        radial-gradient(circle at top left, rgba(255,255,255,.08), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,.13), transparent 32%),
+        linear-gradient(180deg,#020307 0%,#070b14 45%,#05070d 100%);
     }
 
-    button,input,textarea,select{font-family:inherit;}
+    button,input,textarea,select{
+      font-family:inherit;
+    }
 
     .app{
       width:100%;
-      max-width:1100px;
+      max-width:1050px;
       margin:0 auto;
       padding:14px;
       padding-bottom:90px;
@@ -49,7 +54,7 @@
       background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(56,189,248,.08)),rgba(17,24,39,.94);
       border:1px solid var(--line);
       border-radius:30px;
-      padding:20px;
+      padding:18px;
       box-shadow:var(--shadow);
       margin-bottom:12px;
       position:relative;
@@ -60,8 +65,8 @@
       content:"♪";
       position:absolute;
       right:20px;
-      top:-12px;
-      font-size:120px;
+      top:-14px;
+      font-size:110px;
       opacity:.06;
       transform:rotate(-12deg);
       font-weight:900;
@@ -76,9 +81,9 @@
     }
 
     .logoBox{
-      width:76px;
-      height:76px;
-      border-radius:24px;
+      width:72px;
+      height:72px;
+      border-radius:22px;
       overflow:hidden;
       background:#fff;
       display:flex;
@@ -105,7 +110,7 @@
     h1{
       margin:0;
       font-size:28px;
-      letter-spacing:.6px;
+      letter-spacing:.7px;
       line-height:1.1;
     }
 
@@ -120,7 +125,7 @@
       display:flex;
       gap:8px;
       flex-wrap:wrap;
-      margin-top:14px;
+      margin-top:13px;
       position:relative;
       z-index:2;
     }
@@ -139,9 +144,9 @@
     }
 
     .pill.creator{
-      background:rgba(168,85,247,.15);
+      background:rgba(139,92,246,.15);
       color:#e9d5ff;
-      border-color:rgba(168,85,247,.35);
+      border-color:rgba(139,92,246,.35);
     }
 
     .pill.admin{
@@ -158,7 +163,7 @@
       grid-template-columns:repeat(5,1fr);
       gap:7px;
       padding:9px 0;
-      background:rgba(4,6,11,.88);
+      background:rgba(5,7,13,.88);
       backdrop-filter:blur(12px);
       margin-bottom:12px;
     }
@@ -168,7 +173,7 @@
       background:rgba(17,24,39,.88);
       color:var(--muted);
       border-radius:15px;
-      padding:11px 5px;
+      padding:12px 5px;
       font-size:12px;
       font-weight:900;
       cursor:pointer;
@@ -180,13 +185,50 @@
       border:0;
     }
 
-    .screen{display:none;}
-    .screen.active{display:block;}
+    .screen{
+      display:none;
+    }
+
+    .screen.active{
+      display:block;
+    }
 
     .grid{
       display:grid;
       grid-template-columns:repeat(2,1fr);
       gap:12px;
+    }
+
+    .homeMenu{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .homeBtn{
+      border:1px solid var(--line);
+      background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
+      color:var(--text);
+      border-radius:24px;
+      min-height:110px;
+      padding:18px;
+      cursor:pointer;
+      box-shadow:0 12px 30px rgba(0,0,0,.16);
+      text-align:left;
+    }
+
+    .homeBtn strong{
+      display:block;
+      font-size:19px;
+      margin-bottom:7px;
+    }
+
+    .homeBtn span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
     }
 
     .card{
@@ -260,7 +302,9 @@
       text-decoration:none;
     }
 
-    .btn.full{width:100%;}
+    .btn.full{
+      width:100%;
+    }
 
     .btn.primary{
       background:linear-gradient(135deg,#fff,#d1d5db);
@@ -293,9 +337,9 @@
     }
 
     .btn.purple{
-      background:rgba(168,85,247,.16);
+      background:rgba(139,92,246,.16);
       color:#e9d5ff;
-      border-color:rgba(168,85,247,.3);
+      border-color:rgba(139,92,246,.3);
     }
 
     .actions{
@@ -403,6 +447,30 @@
       flex-wrap:wrap;
     }
 
+    .compactStats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .statBox{
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      border-radius:18px;
+      padding:13px;
+    }
+
+    .statBox strong{
+      display:block;
+      font-size:20px;
+    }
+
+    .statBox span{
+      color:var(--muted);
+      font-size:12px;
+    }
+
     .divider{
       height:1px;
       background:var(--line);
@@ -432,6 +500,32 @@
       border:1px dashed var(--line);
       border-radius:18px;
       padding:22px 12px;
+    }
+
+    details.cleanDetails{
+      border:1px solid var(--line);
+      background:rgba(17,24,39,.75);
+      border-radius:18px;
+      padding:0;
+      margin-bottom:12px;
+      overflow:hidden;
+    }
+
+    details.cleanDetails summary{
+      cursor:pointer;
+      padding:14px 15px;
+      font-weight:900;
+      color:#e5e7eb;
+      list-style:none;
+    }
+
+    details.cleanDetails summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .detailsBody{
+      padding:0 15px 15px;
+      border-top:1px solid var(--line);
     }
 
     .previewLogo{
@@ -477,13 +571,41 @@
     }
 
     @media(max-width:800px){
-      .app{padding:12px;padding-bottom:78px;}
-      .grid{grid-template-columns:1fr;}
-      .tabs{grid-template-columns:repeat(5,1fr);gap:5px;}
-      .tab{font-size:10.5px;padding:10px 3px;}
-      h1{font-size:24px;}
-      .logoBox{width:68px;height:68px;}
-      .actions{grid-template-columns:1fr;}
+      .app{
+        padding:12px;
+        padding-bottom:78px;
+      }
+
+      .grid,.homeMenu,.compactStats{
+        grid-template-columns:1fr;
+      }
+
+      .tabs{
+        grid-template-columns:repeat(5,1fr);
+        gap:5px;
+      }
+
+      .tab{
+        font-size:10px;
+        padding:10px 3px;
+      }
+
+      h1{
+        font-size:24px;
+      }
+
+      .logoBox{
+        width:66px;
+        height:66px;
+      }
+
+      .actions{
+        grid-template-columns:1fr;
+      }
+
+      .homeBtn{
+        min-height:88px;
+      }
     }
   </style>
 </head>
@@ -515,11 +637,55 @@
     </div>
 
     <section id="inicio" class="screen active">
-      <div class="grid">
-        <div class="card">
-          <h2>Entrar como membro</h2>
-          <p class="muted">Preencha seus dados para confirmar presença e marcar recados como visualizados.</p>
+      <div class="card">
+        <h2>App da Banda FENDA</h2>
+        <p class="muted">
+          Escolha abaixo o que deseja acessar. A tela inicial ficou limpa para não confundir os membros.
+        </p>
 
+        <div class="compactStats">
+          <div class="statBox">
+            <strong id="statMembers">0</strong>
+            <span>Membros</span>
+          </div>
+          <div class="statBox">
+            <strong id="statAgendas">0</strong>
+            <span>Agendas</span>
+          </div>
+          <div class="statBox">
+            <strong id="statRecados">0</strong>
+            <span>Recados</span>
+          </div>
+        </div>
+
+        <div class="homeMenu">
+          <button class="homeBtn" onclick="openScreen('agenda')">
+            <strong>📅 Agenda</strong>
+            <span>Ver ensaios, cultos, viagens e eventos marcados.</span>
+          </button>
+
+          <button class="homeBtn" onclick="openScreen('recados')">
+            <strong>💬 Recados</strong>
+            <span>Ver avisos enviados pelo administrador da banda.</span>
+          </button>
+
+          <button class="homeBtn" onclick="openScreen('admin')">
+            <strong>🔐 Admin</strong>
+            <span>Área do responsável pela banda e do criador.</span>
+          </button>
+
+          <button class="homeBtn" onclick="openScreen('config')">
+            <strong>⚙️ Configurações</strong>
+            <span>Logo, nome da banda e dados administrativos.</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="agenda" class="screen">
+      <details class="cleanDetails">
+        <summary>👤 Meu cadastro para confirmar presença</summary>
+        <div class="detailsBody">
           <label>Seu nome</label>
           <input id="myName" placeholder="Digite seu nome" oninput="saveMyLocalData()"/>
 
@@ -542,50 +708,49 @@
             <button class="btn blue" onclick="activatePush()">Ativar notificação</button>
           </div>
         </div>
+      </details>
 
-        <div class="card">
-          <h2>Resumo</h2>
-          <div id="homeSummary"></div>
-
-          <div class="actions">
-            <button class="btn primary" onclick="openScreen('agenda')">Ver agenda</button>
-            <button class="btn purple" onclick="openScreen('recados')">Ver recados</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" style="margin-top:12px;">
-        <h2>Últimos recados</h2>
-        <div id="homeRecados" class="list"></div>
-      </div>
-    </section>
-
-    <section id="agenda" class="screen">
       <div class="card">
         <h2>Agenda da banda</h2>
-        <p class="muted">Agendas cadastradas pelo administrador.</p>
+        <p class="muted">Aqui aparecem somente as agendas cadastradas.</p>
         <div id="agendaList" class="list"></div>
       </div>
     </section>
 
     <section id="recados" class="screen">
+      <details class="cleanDetails">
+        <summary>👤 Meu cadastro para marcar recados como visualizados</summary>
+        <div class="detailsBody">
+          <label>Seu nome</label>
+          <input id="myNameRecados" placeholder="Digite seu nome" oninput="syncMemberMirror('recados')"/>
+
+          <label>Seu celular</label>
+          <input id="myPhoneRecados" placeholder="Ex: 44999998888" oninput="syncMemberMirror('recados')"/>
+
+          <label>Sua função</label>
+          <input id="myRoleRecados" placeholder="Ex: Vocal, teclado, bateria..." oninput="syncMemberMirror('recados')"/>
+
+          <button class="btn green full" style="margin-top:12px;" onclick="registerCurrentMember()">Cadastrar meu celular</button>
+        </div>
+      </details>
+
       <div class="card">
         <h2>Recados</h2>
-        <p class="muted">Recados enviados pelo administrador.</p>
+        <p class="muted">Aqui aparecem somente os recados enviados pelo administrador.</p>
         <div id="recadosList" class="list"></div>
       </div>
     </section>
 
     <section id="admin" class="screen">
       <div id="adminLoginCard" class="card">
-        <h2>Login do administrador</h2>
+        <h2>Login administrativo</h2>
 
         <div class="notice">
-          O administrador da banda entra com o login e senha cadastrados pelo criador do app.
+          Administrador da banda entra com login e senha. Criador entra pela área de manutenção.
         </div>
 
         <label>Login do administrador</label>
-        <input id="adminLoginInput" placeholder="Ex: admin, pastor, responsavel..." />
+        <input id="adminLoginInput" placeholder="Ex: admin, responsavel..." />
 
         <label>Senha do administrador</label>
         <input id="adminPasswordInput" type="password" placeholder="Digite a senha" />
@@ -594,9 +759,9 @@
 
         <div class="divider"></div>
 
-        <h3>Acesso do criador / manutenção</h3>
+        <h3>Criador / manutenção</h3>
         <div class="notice warning">
-          Esse acesso é para você, criador do app, fazer manutenção e cadastrar ou alterar o administrador.
+          Acesso para manutenção do app e cadastro do administrador.
         </div>
 
         <label>Senha do criador</label>
@@ -696,15 +861,19 @@
           </div>
         </div>
 
-        <div class="card" style="margin-top:12px;">
-          <h2>Agendas cadastradas</h2>
-          <div id="adminAgendaList" class="list"></div>
-        </div>
+        <details class="cleanDetails" style="margin-top:12px;">
+          <summary>📅 Ver agendas cadastradas</summary>
+          <div class="detailsBody">
+            <div id="adminAgendaList" class="list"></div>
+          </div>
+        </details>
 
-        <div class="card" style="margin-top:12px;">
-          <h2>Recados enviados</h2>
-          <div id="adminRecadosList" class="list"></div>
-        </div>
+        <details class="cleanDetails">
+          <summary>💬 Ver recados enviados</summary>
+          <div class="detailsBody">
+            <div id="adminRecadosList" class="list"></div>
+          </div>
+        </details>
       </div>
     </section>
 
@@ -828,13 +997,17 @@
 
     const els = {};
 
-    function $(id){return document.getElementById(id);}
+    function $(id){
+      return document.getElementById(id);
+    }
 
     function cacheEls(){
       [
         "topLogo","topTitle","topSubtitle","firebaseStatus","accessStatus",
         "myName","myPhone","myRole","myGroup",
-        "homeSummary","homeRecados","agendaList","recadosList",
+        "myNameRecados","myPhoneRecados","myRoleRecados",
+        "statMembers","statAgendas","statRecados",
+        "agendaList","recadosList",
         "adminLoginCard","adminPanel","adminModeNotice","membersAdminList",
         "adminAgendaList","adminRecadosList",
         "configBlocked","configPanel","creatorAdminBox",
@@ -899,6 +1072,7 @@
       const idx = order.indexOf(id);
       if(idx >= 0) document.querySelectorAll(".tab")[idx].classList.add("active");
 
+      syncMemberFieldsFromLocal();
       renderAll();
     }
 
@@ -907,27 +1081,50 @@
       localStorage.setItem("fenda_my_phone", els.myPhone.value.trim());
       localStorage.setItem("fenda_my_role", els.myRole.value.trim());
       localStorage.setItem("fenda_my_group", els.myGroup.value);
+
+      if(els.myNameRecados) els.myNameRecados.value = els.myName.value;
+      if(els.myPhoneRecados) els.myPhoneRecados.value = els.myPhone.value;
+      if(els.myRoleRecados) els.myRoleRecados.value = els.myRole.value;
     }
 
-    function loadMyLocalData(){
-      els.myName.value = localStorage.getItem("fenda_my_name") || "";
-      els.myPhone.value = localStorage.getItem("fenda_my_phone") || "";
-      els.myRole.value = localStorage.getItem("fenda_my_role") || "";
-      els.myGroup.value = localStorage.getItem("fenda_my_group") || "todos";
+    function syncMemberMirror(){
+      els.myName.value = els.myNameRecados.value.trim();
+      els.myPhone.value = els.myPhoneRecados.value.trim();
+      els.myRole.value = els.myRoleRecados.value.trim();
+      saveMyLocalData();
+    }
+
+    function syncMemberFieldsFromLocal(){
+      const name = localStorage.getItem("fenda_my_name") || "";
+      const phone = localStorage.getItem("fenda_my_phone") || "";
+      const role = localStorage.getItem("fenda_my_role") || "";
+      const group = localStorage.getItem("fenda_my_group") || "todos";
+
+      els.myName.value = name;
+      els.myPhone.value = phone;
+      els.myRole.value = role;
+      els.myGroup.value = group;
+
+      els.myNameRecados.value = name;
+      els.myPhoneRecados.value = phone;
+      els.myRoleRecados.value = role;
     }
 
     async function registerCurrentMember(){
-      const name = els.myName.value.trim();
-      const phone = els.myPhone.value.trim();
-      const role = els.myRole.value.trim();
-      const group = els.myGroup.value;
+      const name = els.myName.value.trim() || els.myNameRecados.value.trim();
+      const phone = els.myPhone.value.trim() || els.myPhoneRecados.value.trim();
+      const role = els.myRole.value.trim() || els.myRoleRecados.value.trim();
+      const group = els.myGroup.value || "todos";
 
       if(!name || !phone){
         toast("Digite nome e celular.");
         return;
       }
 
-      saveMyLocalData();
+      localStorage.setItem("fenda_my_name", name);
+      localStorage.setItem("fenda_my_phone", phone);
+      localStorage.setItem("fenda_my_role", role);
+      localStorage.setItem("fenda_my_group", group);
 
       const id = cleanPhone(phone);
 
@@ -939,6 +1136,7 @@
         updatedAt: serverTimestamp()
       }, { merge:true });
 
+      syncMemberFieldsFromLocal();
       toast("Membro cadastrado online.");
     }
 
@@ -983,8 +1181,8 @@
           serviceWorkerRegistration: registration
         });
 
-        const name = els.myName.value.trim() || "Aparelho sem nome";
-        const phone = els.myPhone.value.trim();
+        const name = els.myName.value.trim() || els.myNameRecados.value.trim() || "Aparelho sem nome";
+        const phone = els.myPhone.value.trim() || els.myPhoneRecados.value.trim();
         const tokenId = token.replaceAll("[","").replaceAll("]","").replaceAll("/","_").slice(0,120);
 
         await setDoc(doc(db, "pushTokens", tokenId), {
@@ -1210,11 +1408,11 @@
     }
 
     async function markPresence(agendaId, status){
-      const name = els.myName.value.trim();
-      const role = els.myRole.value.trim();
+      const name = els.myName.value.trim() || els.myNameRecados.value.trim();
+      const role = els.myRole.value.trim() || els.myRoleRecados.value.trim();
 
       if(!name){
-        toast("Digite seu nome na tela inicial.");
+        toast("Abra 'Meu cadastro' e digite seu nome primeiro.");
         return;
       }
 
@@ -1285,10 +1483,10 @@
     }
 
     async function markRecadoSeen(id){
-      const name = els.myName.value.trim();
+      const name = els.myName.value.trim() || els.myNameRecados.value.trim();
 
       if(!name){
-        toast("Digite seu nome na tela inicial.");
+        toast("Abra 'Meu cadastro' e digite seu nome primeiro.");
         return;
       }
 
@@ -1393,46 +1591,6 @@
       }else{
         els.logoPreview.style.display = "none";
       }
-    }
-
-    function renderHome(){
-      const nextAgenda = sortAgendas(state.agendas)[0];
-
-      els.homeSummary.innerHTML = `
-        <div class="memberRow">
-          <div>
-            <strong>Membros cadastrados</strong>
-            <div class="small">${state.members.length} membro(s)</div>
-          </div>
-          <span class="badge ok">${state.members.length}</span>
-        </div>
-
-        <div class="memberRow">
-          <div>
-            <strong>Recados enviados</strong>
-            <div class="small">${state.recados.length} recado(s)</div>
-          </div>
-          <span class="badge normal">${state.recados.length}</span>
-        </div>
-
-        ${
-          nextAgenda
-          ? `
-            <div class="memberRow">
-              <div>
-                <strong>Próxima agenda</strong>
-                <div class="small">${escapeHTML(nextAgenda.title)} • ${dateBR(nextAgenda.date)} às ${escapeHTML(nextAgenda.time)}</div>
-              </div>
-              <span class="badge evento">${escapeHTML(nextAgenda.type)}</span>
-            </div>
-          `
-          : `<div class="empty" style="margin-top:8px;">Nenhuma agenda cadastrada.</div>`
-        }
-      `;
-
-      els.homeRecados.innerHTML = state.recados.length
-        ? state.recados.slice(0,3).map(r => recadoCard(r, "member")).join("")
-        : `<div class="empty">Nenhum recado enviado ainda.</div>`;
     }
 
     function agendaCard(a, mode){
@@ -1572,12 +1730,18 @@
         : `<div class="empty">Nenhum membro cadastrado.</div>`;
     }
 
+    function renderStats(){
+      els.statMembers.textContent = state.members.length;
+      els.statAgendas.textContent = state.agendas.length;
+      els.statRecados.textContent = state.recados.length;
+    }
+
     function renderAll(){
       renderBrand();
       renderAdmin();
       renderConfig();
-      renderHome();
       renderMembersAdmin();
+      renderStats();
 
       els.agendaList.innerHTML = state.agendas.length
         ? sortAgendas(state.agendas).map(a => agendaCard(a, "member")).join("")
@@ -1627,6 +1791,7 @@
 
     window.openScreen = openScreen;
     window.saveMyLocalData = saveMyLocalData;
+    window.syncMemberMirror = syncMemberMirror;
     window.registerCurrentMember = registerCurrentMember;
     window.activatePush = activatePush;
     window.loginAdmin = loginAdmin;
@@ -1647,7 +1812,7 @@
 
     document.addEventListener("DOMContentLoaded", () => {
       cacheEls();
-      loadMyLocalData();
+      syncMemberFieldsFromLocal();
       renderAll();
 
       try{
