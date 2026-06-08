@@ -223,27 +223,6 @@
       font-size:15px;
     }
 
-    input[type="checkbox"]{
-      width:auto;
-      accent-color:#22c55e;
-      transform:scale(1.1);
-    }
-
-    .checkRow{
-      display:flex;
-      align-items:center;
-      gap:10px;
-      margin:12px 0;
-      padding:11px 12px;
-      border:1px solid var(--line);
-      background:rgba(15,23,42,.75);
-      border-radius:15px;
-      color:#cbd5e1;
-      font-size:13px;
-      font-weight:900;
-      line-height:1.35;
-    }
-
     textarea{
       min-height:96px;
       resize:vertical;
@@ -690,11 +669,6 @@
         <label>Seu telefone</label>
         <input id="entryPhone" placeholder="Ex: 44999998888"/>
 
-        <label class="checkRow">
-          <input id="rememberPersonCheck" type="checkbox" checked>
-          <span>Salvar meu nome e telefone neste aparelho</span>
-        </label>
-
         <button class="btn primary full" style="margin-top:12px;" onclick="enterApp()">Entrar no app</button>
 
         <div class="divider"></div>
@@ -916,11 +890,6 @@
         <label>Senha do administrador</label>
         <input id="adminPasswordInput" type="password" placeholder="Digite a senha"/>
 
-        <label class="checkRow">
-          <input id="rememberAdminCheck" type="checkbox">
-          <span>Salvar login e senha do administrador neste aparelho</span>
-        </label>
-
         <button class="btn primary full" style="margin-top:12px;" onclick="loginAdmin()">Entrar como administrador</button>
 
         <div class="divider"></div>
@@ -930,20 +899,7 @@
         <label>Senha do criador</label>
         <input id="creatorPasswordInput" type="password" placeholder="Senha do criador"/>
 
-        <label class="checkRow">
-          <input id="rememberCreatorCheck" type="checkbox">
-          <span>Salvar senha do criador neste aparelho</span>
-        </label>
-
         <button class="btn purple full" style="margin-top:12px;" onclick="loginCreator()">Entrar como criador</button>
-
-        <div class="divider"></div>
-
-        <button class="btn red full" onclick="clearSavedLoginData()">Limpar dados salvos neste aparelho</button>
-
-        <p class="muted" style="margin-top:12px;">
-          Use “salvar login” somente em celular ou computador de confiança.
-        </p>
       </div>
 
       <div id="adminPanel" style="display:none;">
@@ -1439,118 +1395,6 @@
       return state.members.find(m=>cleanPhone(m.phone)===clean);
     }
 
-    function saveRememberedPerson(name,phone){
-      const remember=$("rememberPersonCheck")?.checked;
-
-      if(remember){
-        localStorage.setItem("fenda_remember_person","yes");
-        localStorage.setItem("fenda_saved_name",name);
-        localStorage.setItem("fenda_saved_phone",phone);
-      }else{
-        localStorage.removeItem("fenda_remember_person");
-        localStorage.removeItem("fenda_saved_name");
-        localStorage.removeItem("fenda_saved_phone");
-      }
-    }
-
-    function saveRememberedAdmin(login,password){
-      const remember=$("rememberAdminCheck")?.checked;
-
-      if(remember){
-        localStorage.setItem("fenda_remember_admin","yes");
-        localStorage.setItem("fenda_saved_admin_login",login);
-        localStorage.setItem("fenda_saved_admin_password",password);
-      }else{
-        localStorage.removeItem("fenda_remember_admin");
-        localStorage.removeItem("fenda_saved_admin_login");
-        localStorage.removeItem("fenda_saved_admin_password");
-      }
-    }
-
-    function saveRememberedCreator(password){
-      const remember=$("rememberCreatorCheck")?.checked;
-
-      if(remember){
-        localStorage.setItem("fenda_remember_creator","yes");
-        localStorage.setItem("fenda_saved_creator_password",password);
-      }else{
-        localStorage.removeItem("fenda_remember_creator");
-        localStorage.removeItem("fenda_saved_creator_password");
-      }
-    }
-
-    function loadSavedLoginData(){
-      const rememberPerson=localStorage.getItem("fenda_remember_person")==="yes";
-      const rememberAdmin=localStorage.getItem("fenda_remember_admin")==="yes";
-      const rememberCreator=localStorage.getItem("fenda_remember_creator")==="yes";
-
-      const personCheck=$("rememberPersonCheck");
-      const adminCheck=$("rememberAdminCheck");
-      const creatorCheck=$("rememberCreatorCheck");
-
-      if(personCheck) personCheck.checked=rememberPerson || !localStorage.getItem("fenda_remember_person");
-      if(adminCheck) adminCheck.checked=rememberAdmin;
-      if(creatorCheck) creatorCheck.checked=rememberCreator;
-
-      const entryName=$("entryName");
-      const entryPhone=$("entryPhone");
-
-      if(entryName && !localStorage.getItem("fenda_name")){
-        entryName.value=localStorage.getItem("fenda_saved_name") || "";
-      }
-
-      if(entryPhone && !localStorage.getItem("fenda_phone")){
-        entryPhone.value=localStorage.getItem("fenda_saved_phone") || "";
-      }
-
-      const adminLogin=$("adminLoginInput");
-      const adminPassword=$("adminPasswordInput");
-      const creatorPassword=$("creatorPasswordInput");
-
-      if(adminLogin && rememberAdmin){
-        adminLogin.value=localStorage.getItem("fenda_saved_admin_login") || "";
-      }
-
-      if(adminPassword && rememberAdmin){
-        adminPassword.value=localStorage.getItem("fenda_saved_admin_password") || "";
-      }
-
-      if(creatorPassword && rememberCreator){
-        creatorPassword.value=localStorage.getItem("fenda_saved_creator_password") || "";
-      }
-    }
-
-    function clearSavedLoginData(){
-      [
-        "fenda_remember_person",
-        "fenda_saved_name",
-        "fenda_saved_phone",
-        "fenda_remember_admin",
-        "fenda_saved_admin_login",
-        "fenda_saved_admin_password",
-        "fenda_remember_creator",
-        "fenda_saved_creator_password"
-      ].forEach(k=>localStorage.removeItem(k));
-
-      const personCheck=$("rememberPersonCheck");
-      const adminCheck=$("rememberAdminCheck");
-      const creatorCheck=$("rememberCreatorCheck");
-
-      if(personCheck) personCheck.checked=false;
-      if(adminCheck) adminCheck.checked=false;
-      if(creatorCheck) creatorCheck.checked=false;
-
-      const adminLogin=$("adminLoginInput");
-      const adminPassword=$("adminPasswordInput");
-      const creatorPassword=$("creatorPasswordInput");
-
-      if(adminLogin) adminLogin.value="";
-      if(adminPassword) adminPassword.value="";
-      if(creatorPassword) creatorPassword.value="";
-
-      toast("Dados salvos apagados deste aparelho.");
-    }
-
     window.addEventListener("beforeinstallprompt",e=>{
       e.preventDefault();
       deferredInstallPrompt=e;
@@ -1609,7 +1453,6 @@
       if(tab) tab.classList.add("active");
 
       loadEntryLocal();
-      loadSavedLoginData();
       renderAll();
 
       if(id==="chat") setTimeout(scrollChatBottom,200);
@@ -1619,8 +1462,8 @@
       const nameInput=$("entryName");
       const phoneInput=$("entryPhone");
 
-      if(nameInput) nameInput.value=localStorage.getItem("fenda_name") || localStorage.getItem("fenda_saved_name") || "";
-      if(phoneInput) phoneInput.value=localStorage.getItem("fenda_phone") || localStorage.getItem("fenda_saved_phone") || "";
+      if(nameInput) nameInput.value=localStorage.getItem("fenda_name") || "";
+      if(phoneInput) phoneInput.value=localStorage.getItem("fenda_phone") || "";
     }
 
     async function enterApp(){
@@ -1631,8 +1474,6 @@
         toast("Digite seu nome e telefone.");
         return;
       }
-
-      saveRememberedPerson(name,phone);
 
       state.accessRole="";
       localStorage.removeItem("fenda_access_role");
@@ -1779,8 +1620,6 @@
       const password=($("adminPasswordInput")?.value || "").trim();
 
       if(login===state.config.adminLogin && password===state.config.adminPassword){
-        saveRememberedAdmin(login,password);
-
         state.accessRole="admin";
         state.personType="";
 
@@ -1803,8 +1642,6 @@
       const password=($("creatorPasswordInput")?.value || "").trim();
 
       if(password===CREATOR_PASSWORD){
-        saveRememberedCreator(password);
-
         state.accessRole="creator";
         state.personType="";
 
@@ -1838,7 +1675,6 @@
 
       safeSetHTML("entryResult","");
       loadEntryLocal();
-      loadSavedLoginData();
       renderAll();
       openScreen("inicio");
       toast("Acesso encerrado.");
@@ -3113,288 +2949,6 @@
       safeText("statRecados",state.recados.length);
     }
 
-    function socialIcon(type){
-      return {
-        instagram:"📸",
-        facebook:"📘",
-        youtube:"▶️",
-        whatsapp:"🟢",
-        tiktok:"🎵",
-        spotify:"🎧",
-        site:"🌐",
-        other:"🔗"
-      }[type] || "🔗";
-    }
-
-    function socialClass(type){
-      return {
-        instagram:"instagram",
-        facebook:"facebook",
-        youtube:"youtube",
-        whatsapp:"whatsapp",
-        tiktok:"tiktok",
-        spotify:"spotify",
-        site:"site",
-        other:"other"
-      }[type] || "other";
-    }
-
-    function renderSocialLinksPublic(){
-      const activeLinks=state.socialLinks.filter(s=>s.active!==false);
-
-      if(!activeLinks.length){
-        return `<div class="empty">Nenhuma rede social cadastrada ainda.</div>`;
-      }
-
-      return `
-        <div class="socialGrid">
-          ${
-            activeLinks.map(s=>`
-              <a class="socialBtn ${socialClass(s.type)}" target="_blank" href="${escapeHTML(s.url)}">
-                <span>${socialIcon(s.type)}</span>
-                <span>${escapeHTML(s.name)}</span>
-              </a>
-            `).join("")
-          }
-        </div>
-      `;
-    }
-
-    function renderSocialLinksAdmin(){
-      safeSetHTML("adminSocialLinksList",state.socialLinks.length
-        ? state.socialLinks.map(s=>`
-          <div class="memberRow">
-            <div>
-              <strong>${socialIcon(s.type)} ${escapeHTML(s.name)}</strong>
-              <div class="small">${escapeHTML(s.url)}</div>
-            </div>
-            <div style="display:flex;gap:8px;flex-wrap:wrap;">
-              <a class="btn blue" target="_blank" href="${escapeHTML(s.url)}">Abrir</a>
-              <button class="btn red" onclick="deleteSocialLink('${s.id}')">Apagar</button>
-            </div>
-          </div>
-        `).join("")
-        : `<div class="empty">Nenhuma rede social cadastrada.</div>`
-      );
-    }
-
-    function renderLogo(){
-      if(state.config.logoData){
-        safeSetHTML("topLogo",`<img src="${state.config.logoData}" alt="Logo FENDA">`);
-      }else{
-        safeSetHTML("topLogo",`<div class="logoFallback">♫</div>`);
-      }
-    }
-
-    function renderBrand(){
-      document.title=`${state.config.bandName} - App da Banda`;
-      safeText("topTitle",state.config.bandName || "FENDA");
-      safeText("topSubtitle",state.config.subtitle || "App oficial da banda");
-      renderLogo();
-
-      const el=$("accessStatus");
-      if(!el) return;
-
-      if(state.accessRole==="creator"){
-        el.textContent="● Criador conectado";
-        el.className="pill creator";
-      }else if(state.accessRole==="admin"){
-        el.textContent="● Administrador conectado";
-        el.className="pill admin";
-      }else if(state.personType==="member"){
-        el.textContent="● Membro da banda";
-        el.className="pill member";
-      }else if(state.personType==="visitor"){
-        el.textContent="● Visitante / fã";
-        el.className="pill visitor";
-      }else{
-        el.textContent="● Aguardando entrada";
-        el.className="pill";
-      }
-    }
-
-    function renderTabs(){
-      const entered=hasEntered();
-      const member=isMember();
-      const admin=hasAdminAccess();
-      const visitor=isVisitor();
-
-      let visible={
-        inicio:true,
-        eventos:false,
-        notificacoes:false,
-        contato:false,
-        agenda:false,
-        recados:false,
-        chat:false,
-        admin:false,
-        config:false
-      };
-
-      if(!entered && !admin){
-        visible.inicio=true;
-        visible.admin=true;
-      }
-
-      if(visitor){
-        visible.inicio=true;
-      }
-
-      if(member && !admin){
-        visible.inicio=true;
-        visible.eventos=true;
-        visible.notificacoes=true;
-        visible.agenda=true;
-        visible.recados=true;
-        visible.chat=true;
-      }
-
-      if(admin){
-        visible={
-          inicio:true,
-          eventos:true,
-          notificacoes:true,
-          contato:true,
-          agenda:true,
-          recados:true,
-          chat:true,
-          admin:true,
-          config:true
-        };
-      }
-
-      Object.keys(visible).forEach(id=>{
-        const tab=$("tab-"+id);
-        if(tab) tab.style.display=visible[id] ? "inline-flex" : "none";
-      });
-    }
-
-    function renderEntry(){
-      const entered=hasEntered();
-
-      if(hasAdminAccess()){
-        safeDisplay("entryCard","none");
-        safeDisplay("homeAfterEntry","block");
-
-        safeText("welcomeTitle",state.accessRole==="creator" ? "Criador conectado" : "Administrador conectado");
-
-        safeSetHTML("entryResult",`
-          <div class="notice success">
-            Acesso administrativo liberado. Use a aba Admin ou Config para gerenciar o aplicativo.
-          </div>
-        `);
-
-        safeDisplay("visitorHomeMenu","none");
-        safeDisplay("memberHomeMenu","grid");
-        return;
-      }
-
-      safeDisplay("entryCard",entered ? "none" : "block");
-      safeDisplay("homeAfterEntry",entered ? "block" : "none");
-
-      if(entered){
-        const name=currentUserName() || "visitante";
-        safeText("welcomeTitle",`Bem-vindo, ${name}`);
-
-        if(state.personType==="member"){
-          safeSetHTML("entryResult",`
-            <div class="notice success">
-              Você está conectado como <strong>membro da banda</strong>. A área interna foi liberada.
-            </div>
-          `);
-
-          safeDisplay("visitorHomeMenu","none");
-          safeDisplay("memberHomeMenu","grid");
-        }else{
-          safeSetHTML("entryResult",`
-            <div class="notice">
-              Você está conectado como <strong>visitante/fã</strong>. Você verá apenas conteúdos públicos.
-            </div>
-          `);
-
-          safeDisplay("visitorHomeMenu","grid");
-          safeDisplay("memberHomeMenu","none");
-        }
-      }
-    }
-
-    function renderAdmin(){
-      if(hasAdminAccess()){
-        safeDisplay("adminLoginCard","none");
-        safeDisplay("adminPanel","block");
-
-        safeSetHTML("adminModeNotice",state.accessRole==="creator"
-          ? "<strong>Modo criador ativo.</strong> Você pode administrar o app e alterar o login do administrador."
-          : "<strong>Modo administrador ativo.</strong> Você pode cadastrar eventos, redes sociais, recados, agendas, notificações e membros."
-        );
-      }else{
-        safeDisplay("adminLoginCard","block");
-        safeDisplay("adminPanel","none");
-      }
-    }
-
-    function renderConfig(){
-      if(hasAdminAccess()){
-        safeDisplay("configBlocked","none");
-        safeDisplay("configPanel","block");
-      }else{
-        safeDisplay("configBlocked","block");
-        safeDisplay("configPanel","none");
-      }
-
-      safeDisplay("creatorAdminBox",hasCreatorAccess() ? "block" : "none");
-
-      const fields={
-        configBandName:state.config.bandName || "FENDA",
-        configSubtitle:state.config.subtitle || "",
-        configBookingPhone:state.config.bookingPhone || "",
-        configBookingText:state.config.bookingText || "",
-        configAdminLogin:state.config.adminLogin || "admin",
-        configAdminPassword:state.config.adminPassword || "1234"
-      };
-
-      Object.entries(fields).forEach(([id,val])=>{
-        const el=$(id);
-        if(el) el.value=val;
-      });
-
-      const logoPreview=$("logoPreview");
-
-      if(logoPreview){
-        if(state.config.logoData){
-          logoPreview.src=state.config.logoData;
-          logoPreview.style.display="block";
-        }else{
-          logoPreview.style.display="none";
-        }
-      }
-    }
-
-    function renderPanelsByAccess(){
-      const entered=hasEntered() || hasAdminAccess();
-      const internal=isMember();
-
-      safeDisplay("publicAccessBlockedEventos",entered ? "none" : "block");
-      safeDisplay("eventosPanel",entered ? "block" : "none");
-
-      safeDisplay("publicAccessBlockedNotificacoes",entered ? "none" : "block");
-      safeDisplay("notificacoesPanel",entered ? "block" : "none");
-
-      safeDisplay("publicAccessBlockedContato",entered ? "none" : "block");
-      safeDisplay("contatoPanel",entered ? "block" : "none");
-
-      safeDisplay("agendaLocked",internal ? "none" : "block");
-      safeDisplay("agendaPanel",internal ? "block" : "none");
-
-      safeDisplay("recadosLocked",internal ? "none" : "block");
-      safeDisplay("recadosPanel",internal ? "block" : "none");
-
-      safeDisplay("chatLocked",internal ? "none" : "block");
-      safeDisplay("chatPanel",internal ? "block" : "none");
-
-      safeDisplay("clearChatBtn",hasAdminAccess() ? "inline-flex" : "none");
-    }
-
     function renderAll(){
       renderBrand();
       renderTabs();
@@ -3565,7 +3119,6 @@
     window.loginAdmin=loginAdmin;
     window.loginCreator=loginCreator;
     window.logoutAccess=logoutAccess;
-    window.clearSavedLoginData=clearSavedLoginData;
     window.saveConfig=saveConfig;
     window.saveAdminAccount=saveAdminAccount;
     window.loadLogoFile=loadLogoFile;
@@ -3599,7 +3152,6 @@
 
     document.addEventListener("DOMContentLoaded",()=>{
       loadEntryLocal();
-      loadSavedLoginData();
       renderAll();
       listenFirestore();
     });
