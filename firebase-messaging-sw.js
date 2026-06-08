@@ -1,24 +1,77 @@
-importScripts("https://www.gstatic.com/firebasejs/10.13.2/firebase-app-compat.js");
-importScripts("https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging-compat.js");
+const CACHE_NAME = "fenda-app-v1";
 
-firebase.initializeApp({
-  apiKey: "AIzaSyCzi1uEzYiFl6wvFkeB54FD68ZMIwvmMkU",
-  authDomain: "fenda-app.firebaseapp.com",
-  projectId: "fenda-app",
-  storageBucket: "fenda-app.firebasestorage.app",
-  messagingSenderId: "769298437437",
-  appId: "1:769298437437:web:e929fc8315654a5cefe154"
+self.addEventListener("install", event => {
+  self.skipWaiting();
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll([
+        "./",
+        "./index.html",
+        "./manifest.webmanifest"
+      ]);
+    }).catch(() => null)
+  );
 });
 
-const messaging = firebase.messaging();
+self.addEventListener("activate", event => {
+  event.waitUntil(
+    caches.keys().then(keys => {
+      return Promise.all(
+        keys.map(key => {
+          if (key !== CACHE_NAME) return caches.delete(key);
+        })
+      );
+    }).then(() => self.clients.claim())
+  );
+});
 
-messaging.onBackgroundMessage(function(payload) {
-  const title = payload.notification?.title || "FENDA";
+self.addEventListener("fetch", event => {
+  if (event.request.method !== "GET") return;
+
+  event.respondWith(
+    fetch(event.request).catch(() => {
+      return caches.match(event.request).then(response => {
+        return response || caches.match("./index.html");
+      });
+    })
+  );
+});
+
+self.addEventListener("push", event => {
+  let data = {};
+
+  try {
+    data = event.data ? event.data.json() : {};
+  } catch (e) {
+    data = {
+      title: "Banda FENDA",
+      body: event.data ? event.data.text() : "Nova notificação"
+    };
+  }
+
+  const title = data.title || "Banda FENDA";
   const options = {
-    body: payload.notification?.body || "Novo aviso da banda.",
-    icon: "/logo-fenda.png",
-    badge: "/logo-fenda.png"
+    body: data.body || "Nova atualização no aplicativo.",
+    icon: "./icon-192.png",
+    badge: "./icon-192.png",
+    data: {
+      url: "./index.html"
+    }
   };
 
-  self.registration.showNotification(title, options);
+  event.waitUntil(self.registration.showNotification(title, options));
+});
+
+self.addEventListener("notificationclick", event => {
+  event.notification.close();
+
+  event.waitUntil(
+    clients.matchAll({ type: "window", includeUncontrolled: true }).then(clientList => {
+      for (const client of clientList) {
+        if ("focus" in client) return client.focus();
+      }
+
+      if (clients.openWindow) return clients.openWindow("./index.html");
+    })
+  );
 });
