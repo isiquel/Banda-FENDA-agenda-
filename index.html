@@ -7,123 +7,728 @@
 
   <style>
     :root{
-      --bg:#05070d;--card:#111827;--card2:#182033;--text:#f8fafc;--muted:#94a3b8;
-      --line:rgba(255,255,255,.12);--blue:#38bdf8;--green:#22c55e;--red:#ef4444;
-      --orange:#fb923c;--purple:#8b5cf6;--yellow:#facc15;--radius:22px;
+      --bg:#05070d;
+      --card:#111827;
+      --card2:#182033;
+      --text:#f8fafc;
+      --muted:#94a3b8;
+      --line:rgba(255,255,255,.12);
+      --blue:#38bdf8;
+      --green:#22c55e;
+      --red:#ef4444;
+      --orange:#fb923c;
+      --purple:#8b5cf6;
+      --yellow:#facc15;
+      --radius:22px;
       --shadow:0 18px 45px rgba(0,0,0,.35);
     }
 
-    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    *{
+      box-sizing:border-box;
+      -webkit-tap-highlight-color:transparent;
+    }
+
     body{
-      margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+      margin:0;
+      min-height:100vh;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
       background:
         radial-gradient(circle at top left,rgba(255,255,255,.08),transparent 28%),
         radial-gradient(circle at bottom right,rgba(56,189,248,.13),transparent 32%),
         linear-gradient(180deg,#020307 0%,#070b14 45%,#05070d 100%);
     }
-    button,input,textarea,select{font-family:inherit}
-    .app{width:100%;max-width:1100px;margin:0 auto;padding:14px 14px 90px}
+
+    button,input,textarea,select{
+      font-family:inherit;
+    }
+
+    .app{
+      width:100%;
+      max-width:1100px;
+      margin:0 auto;
+      padding:14px 14px 90px;
+    }
+
     .hero{
       background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(56,189,248,.08)),rgba(17,24,39,.94);
-      border:1px solid var(--line);border-radius:30px;padding:18px;box-shadow:var(--shadow);
-      margin-bottom:12px;position:relative;overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:12px;
+      position:relative;
+      overflow:hidden;
     }
-    .hero:after{content:"♪";position:absolute;right:20px;top:-14px;font-size:110px;opacity:.06;transform:rotate(-12deg);font-weight:900}
-    .brand{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+
+    .hero:after{
+      content:"♪";
+      position:absolute;
+      right:20px;
+      top:-14px;
+      font-size:110px;
+      opacity:.06;
+      transform:rotate(-12deg);
+      font-weight:900;
+    }
+
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      position:relative;
+      z-index:2;
+    }
+
     .logoBox{
-      width:72px;height:72px;border-radius:22px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;
-      flex:none;border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 30px rgba(255,255,255,.08);
+      width:72px;
+      height:72px;
+      border-radius:22px;
+      overflow:hidden;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:none;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 14px 30px rgba(255,255,255,.08);
     }
-    .logoBox img{width:100%;height:100%;object-fit:cover;display:block}
-    .logoFallback{font-size:34px;color:#111827;font-weight:900}
-    h1{margin:0;font-size:28px;letter-spacing:.7px;line-height:1.1}
-    .subtitle{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
-    .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;position:relative;z-index:2}
-    .pill{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#e5e7eb;font-size:12px;font-weight:900}
-    .pill.creator{background:rgba(139,92,246,.15);color:#e9d5ff;border-color:rgba(139,92,246,.35)}
-    .pill.admin{background:rgba(34,197,94,.15);color:#bbf7d0;border-color:rgba(34,197,94,.35)}
-    .pill.member{background:rgba(56,189,248,.15);color:#bae6fd;border-color:rgba(56,189,248,.35)}
-    .pill.visitor{background:rgba(250,204,21,.12);color:#fef3c7;border-color:rgba(250,204,21,.30)}
 
-    .tabs{position:sticky;top:0;z-index:30;display:flex;gap:7px;padding:9px 0;background:rgba(5,7,13,.88);backdrop-filter:blur(12px);margin-bottom:12px;overflow-x:auto}
-    .tab{border:1px solid var(--line);background:rgba(17,24,39,.88);color:var(--muted);border-radius:15px;padding:12px 13px;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;min-width:86px}
-    .tab.active{background:linear-gradient(135deg,#fff,#d1d5db);color:#111827;border:0}
+    .logoBox img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
 
-    .screen{display:none}.screen.active{display:block}
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .homeMenu{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    .logoFallback{
+      font-size:34px;
+      color:#111827;
+      font-weight:900;
+    }
+
+    h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:.7px;
+      line-height:1.1;
+    }
+
+    .subtitle{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .pills{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:13px;
+      position:relative;
+      z-index:2;
+    }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:#e5e7eb;
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .pill.creator{
+      background:rgba(139,92,246,.15);
+      color:#e9d5ff;
+      border-color:rgba(139,92,246,.35);
+    }
+
+    .pill.admin{
+      background:rgba(34,197,94,.15);
+      color:#bbf7d0;
+      border-color:rgba(34,197,94,.35);
+    }
+
+    .pill.member{
+      background:rgba(56,189,248,.15);
+      color:#bae6fd;
+      border-color:rgba(56,189,248,.35);
+    }
+
+    .pill.visitor{
+      background:rgba(250,204,21,.12);
+      color:#fef3c7;
+      border-color:rgba(250,204,21,.30);
+    }
+
+    .tabs{
+      position:sticky;
+      top:0;
+      z-index:30;
+      display:flex;
+      gap:7px;
+      padding:9px 0;
+      background:rgba(5,7,13,.88);
+      backdrop-filter:blur(12px);
+      margin-bottom:12px;
+      overflow-x:auto;
+    }
+
+    .tab{
+      border:1px solid var(--line);
+      background:rgba(17,24,39,.88);
+      color:var(--muted);
+      border-radius:15px;
+      padding:12px 13px;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
+      min-width:86px;
+    }
+
+    .tab.active{
+      background:linear-gradient(135deg,#fff,#d1d5db);
+      color:#111827;
+      border:0;
+    }
+
+    .screen{
+      display:none;
+    }
+
+    .screen.active{
+      display:block;
+    }
+
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .homeMenu{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:12px;
+    }
+
     .homeBtn{
-      border:1px solid var(--line);background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
-      color:var(--text);border-radius:24px;min-height:108px;padding:18px;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.16);text-align:left;
+      border:1px solid var(--line);
+      background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
+      color:var(--text);
+      border-radius:24px;
+      min-height:108px;
+      padding:18px;
+      cursor:pointer;
+      box-shadow:0 12px 30px rgba(0,0,0,.16);
+      text-align:left;
     }
-    .homeBtn strong{display:block;font-size:19px;margin-bottom:7px}
-    .homeBtn span{display:block;color:var(--muted);font-size:13px;line-height:1.4}
 
-    .card{background:rgba(17,24,39,.94);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:0 12px 35px rgba(0,0,0,.22)}
-    .card h2{margin:0 0 12px;font-size:19px}.card h3{margin:0 0 10px;font-size:16px}
-    .muted{color:var(--muted);font-size:13px;line-height:1.45}
-    label{display:block;margin:10px 0 6px;color:#cbd5e1;font-size:13px;font-weight:900}
+    .homeBtn strong{
+      display:block;
+      font-size:19px;
+      margin-bottom:7px;
+    }
+
+    .homeBtn span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
+
+    .card{
+      background:rgba(17,24,39,.94);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow:0 12px 35px rgba(0,0,0,.22);
+    }
+
+    .card h2{
+      margin:0 0 12px;
+      font-size:19px;
+    }
+
+    .card h3{
+      margin:0 0 10px;
+      font-size:16px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    label{
+      display:block;
+      margin:10px 0 6px;
+      color:#cbd5e1;
+      font-size:13px;
+      font-weight:900;
+    }
+
     input,textarea,select{
-      width:100%;border:1px solid var(--line);background:rgba(15,23,42,.98);color:var(--text);
-      border-radius:15px;padding:13px 14px;outline:none;font-size:15px;
+      width:100%;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.98);
+      color:var(--text);
+      border-radius:15px;
+      padding:13px 14px;
+      outline:none;
+      font-size:15px;
     }
-    textarea{min-height:96px;resize:vertical;line-height:1.45}
-    input:focus,textarea:focus,select:focus{border-color:rgba(255,255,255,.32);box-shadow:0 0 0 3px rgba(255,255,255,.08)}
+
+    textarea{
+      min-height:96px;
+      resize:vertical;
+      line-height:1.45;
+    }
+
+    input:focus,textarea:focus,select:focus{
+      border-color:rgba(255,255,255,.32);
+      box-shadow:0 0 0 3px rgba(255,255,255,.08);
+    }
+
     .btn{
-      border:1px solid var(--line);background:var(--card2);color:var(--text);border-radius:15px;min-height:44px;padding:12px 14px;
-      font-size:14px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
+      border:1px solid var(--line);
+      background:var(--card2);
+      color:var(--text);
+      border-radius:15px;
+      min-height:44px;
+      padding:12px 14px;
+      font-size:14px;
+      font-weight:900;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-decoration:none;
     }
-    .btn.full{width:100%}.btn.primary{background:linear-gradient(135deg,#fff,#d1d5db);color:#111827;border:0}
-    .btn.green{background:rgba(34,197,94,.16);color:#bbf7d0;border-color:rgba(34,197,94,.3)}
-    .btn.blue{background:rgba(56,189,248,.16);color:#bae6fd;border-color:rgba(56,189,248,.3)}
-    .btn.red{background:rgba(239,68,68,.16);color:#fecaca;border-color:rgba(239,68,68,.3)}
-    .btn.orange{background:rgba(251,146,60,.16);color:#fed7aa;border-color:rgba(251,146,60,.3)}
-    .btn.purple{background:rgba(139,92,246,.16);color:#e9d5ff;border-color:rgba(139,92,246,.3)}
-    .btn.yellow{background:rgba(250,204,21,.16);color:#fef3c7;border-color:rgba(250,204,21,.3)}
-    .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
-    .list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
-    .item{background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:0 12px 30px rgba(0,0,0,.16)}
-    .itemHead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
-    .itemTitle{margin:0;font-size:18px;font-weight:900}
-    .small{color:var(--muted);font-size:12px;line-height:1.4}
-    .line{display:flex;gap:8px;align-items:flex-start;margin:6px 0;color:#e2e8f0;font-size:14px;line-height:1.45}
-    .line span:first-child{width:22px;flex:none;text-align:center}
-    .badge{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;border:1px solid var(--line);white-space:nowrap}
-    .badge.normal{background:rgba(56,189,248,.14);color:#bae6fd;border-color:rgba(56,189,248,.28)}
-    .badge.urgente{background:rgba(239,68,68,.14);color:#fecaca;border-color:rgba(239,68,68,.28)}
-    .badge.ok{background:rgba(34,197,94,.14);color:#bbf7d0;border-color:rgba(34,197,94,.28)}
-    .badge.evento{background:rgba(255,255,255,.10);color:#f8fafc;border-color:rgba(255,255,255,.18)}
-    .memberRow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);background:rgba(15,23,42,.75);border-radius:16px;margin-top:8px;flex-wrap:wrap}
-    .compactStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
-    .statBox{border:1px solid var(--line);background:rgba(15,23,42,.75);border-radius:18px;padding:13px}
-    .statBox strong{display:block;font-size:20px}.statBox span{color:var(--muted);font-size:12px}
-    .divider{height:1px;background:var(--line);margin:12px 0}
-    .notice{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#e2e8f0;border-radius:18px;padding:13px;font-size:14px;line-height:1.45;margin-bottom:12px}
-    .notice.warning{background:rgba(251,146,60,.10);border-color:rgba(251,146,60,.25);color:#fed7aa}
-    .notice.success{background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.25);color:#bbf7d0}
-    .empty{text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px;padding:22px 12px}
-    details.cleanDetails{border:1px solid var(--line);background:rgba(17,24,39,.75);border-radius:18px;padding:0;margin-bottom:12px;overflow:hidden}
-    details.cleanDetails summary{cursor:pointer;padding:14px 15px;font-weight:900;color:#e5e7eb;list-style:none}
-    details.cleanDetails summary::-webkit-details-marker{display:none}
-    .detailsBody{padding:0 15px 15px;border-top:1px solid var(--line)}
-    .previewLogo{width:95px;height:95px;border-radius:22px;object-fit:cover;border:1px solid var(--line);background:#0f172a;display:none;margin-top:10px}
-    .posterPreview{width:100%;max-height:360px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#0f172a;display:none;margin-top:10px}
-    .posterImage{width:100%;max-height:560px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#0f172a;margin-bottom:12px}
-    .chatBox{height:480px;overflow-y:auto;border:1px solid var(--line);border-radius:20px;background:rgba(15,23,42,.55);padding:12px}
-    .chatMsg{border:1px solid var(--line);background:rgba(17,24,39,.95);border-radius:18px;padding:12px;margin-bottom:10px}
-    .chatMsg.mine{border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.09)}
-    .replyBox{border-left:3px solid var(--blue);padding:8px;border-radius:10px;background:rgba(56,189,248,.08);color:#bae6fd;font-size:12px;margin-bottom:8px}
-    .replyActive{display:none;margin-bottom:10px;border:1px solid rgba(56,189,248,.30);background:rgba(56,189,248,.10);color:#bae6fd;border-radius:16px;padding:10px;font-size:13px}
-    .chatInputBar{margin-top:12px;display:grid;grid-template-columns:1fr auto;gap:10px}
-    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:#0f172a;color:#fff;border:1px solid var(--line);border-radius:18px;padding:13px 16px;box-shadow:var(--shadow);z-index:999;opacity:0;transition:.25s;max-width:92%;font-size:14px;line-height:1.4}
-    .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-    .footer{text-align:center;color:var(--muted);font-size:12px;padding:18px 0 0}
+
+    .btn.full{
+      width:100%;
+    }
+
+    .btn.primary{
+      background:linear-gradient(135deg,#fff,#d1d5db);
+      color:#111827;
+      border:0;
+    }
+
+    .btn.green{
+      background:rgba(34,197,94,.16);
+      color:#bbf7d0;
+      border-color:rgba(34,197,94,.3);
+    }
+
+    .btn.blue{
+      background:rgba(56,189,248,.16);
+      color:#bae6fd;
+      border-color:rgba(56,189,248,.3);
+    }
+
+    .btn.red{
+      background:rgba(239,68,68,.16);
+      color:#fecaca;
+      border-color:rgba(239,68,68,.3);
+    }
+
+    .btn.orange{
+      background:rgba(251,146,60,.16);
+      color:#fed7aa;
+      border-color:rgba(251,146,60,.3);
+    }
+
+    .btn.purple{
+      background:rgba(139,92,246,.16);
+      color:#e9d5ff;
+      border-color:rgba(139,92,246,.3);
+    }
+
+    .btn.yellow{
+      background:rgba(250,204,21,.16);
+      color:#fef3c7;
+      border-color:rgba(250,204,21,.3);
+    }
+
+    .actions{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:12px;
+    }
+
+    .item{
+      background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:15px;
+      box-shadow:0 12px 30px rgba(0,0,0,.16);
+    }
+
+    .itemHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:10px;
+    }
+
+    .itemTitle{
+      margin:0;
+      font-size:18px;
+      font-weight:900;
+    }
+
+    .small{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    .line{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      margin:6px 0;
+      color:#e2e8f0;
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .line span:first-child{
+      width:22px;
+      flex:none;
+      text-align:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      border-radius:999px;
+      padding:6px 9px;
+      font-size:12px;
+      font-weight:900;
+      border:1px solid var(--line);
+      white-space:nowrap;
+    }
+
+    .badge.normal{
+      background:rgba(56,189,248,.14);
+      color:#bae6fd;
+      border-color:rgba(56,189,248,.28);
+    }
+
+    .badge.urgente{
+      background:rgba(239,68,68,.14);
+      color:#fecaca;
+      border-color:rgba(239,68,68,.28);
+    }
+
+    .badge.ok{
+      background:rgba(34,197,94,.14);
+      color:#bbf7d0;
+      border-color:rgba(34,197,94,.28);
+    }
+
+    .badge.evento{
+      background:rgba(255,255,255,.10);
+      color:#f8fafc;
+      border-color:rgba(255,255,255,.18);
+    }
+
+    .memberRow{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:12px;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      border-radius:16px;
+      margin-top:8px;
+      flex-wrap:wrap;
+    }
+
+    .compactStats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .statBox{
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      border-radius:18px;
+      padding:13px;
+    }
+
+    .statBox strong{
+      display:block;
+      font-size:20px;
+    }
+
+    .statBox span{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .divider{
+      height:1px;
+      background:var(--line);
+      margin:12px 0;
+    }
+
+    .notice{
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:#e2e8f0;
+      border-radius:18px;
+      padding:13px;
+      font-size:14px;
+      line-height:1.45;
+      margin-bottom:12px;
+    }
+
+    .notice.warning{
+      background:rgba(251,146,60,.10);
+      border-color:rgba(251,146,60,.25);
+      color:#fed7aa;
+    }
+
+    .notice.success{
+      background:rgba(34,197,94,.10);
+      border-color:rgba(34,197,94,.25);
+      color:#bbf7d0;
+    }
+
+    .empty{
+      text-align:center;
+      color:var(--muted);
+      border:1px dashed var(--line);
+      border-radius:18px;
+      padding:22px 12px;
+    }
+
+    details.cleanDetails{
+      border:1px solid var(--line);
+      background:rgba(17,24,39,.75);
+      border-radius:18px;
+      padding:0;
+      margin-bottom:12px;
+      overflow:hidden;
+    }
+
+    details.cleanDetails summary{
+      cursor:pointer;
+      padding:14px 15px;
+      font-weight:900;
+      color:#e5e7eb;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
+    }
+
+    details.cleanDetails summary::after{
+      content:"+";
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--line);
+      color:#fff;
+      font-size:18px;
+      line-height:1;
+    }
+
+    details.cleanDetails[open] summary::after{
+      content:"−";
+    }
+
+    details.cleanDetails summary::-webkit-details-marker{
+      display:none;
+    }
+
+    .detailsBody{
+      padding:0 15px 15px;
+      border-top:1px solid var(--line);
+    }
+
+    .previewLogo{
+      width:95px;
+      height:95px;
+      border-radius:22px;
+      object-fit:cover;
+      border:1px solid var(--line);
+      background:#0f172a;
+      display:none;
+      margin-top:10px;
+    }
+
+    .posterPreview{
+      width:100%;
+      max-height:360px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#0f172a;
+      display:none;
+      margin-top:10px;
+    }
+
+    .posterImage{
+      width:100%;
+      max-height:560px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#0f172a;
+      margin-bottom:12px;
+    }
+
+    .chatBox{
+      height:480px;
+      overflow-y:auto;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:rgba(15,23,42,.55);
+      padding:12px;
+    }
+
+    .chatMsg{
+      border:1px solid var(--line);
+      background:rgba(17,24,39,.95);
+      border-radius:18px;
+      padding:12px;
+      margin-bottom:10px;
+    }
+
+    .chatMsg.mine{
+      border-color:rgba(56,189,248,.35);
+      background:rgba(56,189,248,.09);
+    }
+
+    .replyBox{
+      border-left:3px solid var(--blue);
+      padding:8px;
+      border-radius:10px;
+      background:rgba(56,189,248,.08);
+      color:#bae6fd;
+      font-size:12px;
+      margin-bottom:8px;
+    }
+
+    .replyActive{
+      display:none;
+      margin-bottom:10px;
+      border:1px solid rgba(56,189,248,.30);
+      background:rgba(56,189,248,.10);
+      color:#bae6fd;
+      border-radius:16px;
+      padding:10px;
+      font-size:13px;
+    }
+
+    .chatInputBar{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%) translateY(120px);
+      background:#0f172a;
+      color:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:13px 16px;
+      box-shadow:var(--shadow);
+      z-index:999;
+      opacity:0;
+      transition:.25s;
+      max-width:92%;
+      font-size:14px;
+      line-height:1.4;
+    }
+
+    .toast.show{
+      transform:translateX(-50%) translateY(0);
+      opacity:1;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      padding:18px 0 0;
+    }
 
     @media(max-width:800px){
-      .app{padding:12px 12px 78px}.grid,.homeMenu,.compactStats{grid-template-columns:1fr}
-      .tab{font-size:10px;padding:10px 10px;min-width:78px}
-      h1{font-size:24px}.logoBox{width:66px;height:66px}.actions{grid-template-columns:1fr}
-      .homeBtn{min-height:88px}.chatInputBar{grid-template-columns:1fr}.chatBox{height:430px}
+      .app{
+        padding:12px 12px 78px;
+      }
+
+      .grid,.homeMenu,.compactStats{
+        grid-template-columns:1fr;
+      }
+
+      .tab{
+        font-size:10px;
+        padding:10px 10px;
+        min-width:78px;
+      }
+
+      h1{
+        font-size:24px;
+      }
+
+      .logoBox{
+        width:66px;
+        height:66px;
+      }
+
+      .actions{
+        grid-template-columns:1fr;
+      }
+
+      .homeBtn{
+        min-height:88px;
+      }
+
+      .chatInputBar{
+        grid-template-columns:1fr;
+      }
+
+      .chatBox{
+        height:430px;
+      }
     }
   </style>
 </head>
@@ -138,6 +743,7 @@
           <p class="subtitle" id="topSubtitle">App da banda • eventos, agenda, recados e membros.</p>
         </div>
       </div>
+
       <div class="pills">
         <div class="pill" id="firebaseStatus">● Conectando Firebase...</div>
         <div class="pill">● Tempo real</div>
@@ -146,20 +752,21 @@
     </section>
 
     <div class="tabs">
-      <button class="tab active" onclick="openScreen('inicio')">Início</button>
-      <button class="tab" onclick="openScreen('eventos')">Eventos</button>
-      <button class="tab" onclick="openScreen('agenda')">Agenda</button>
-      <button class="tab" onclick="openScreen('recados')">Recados</button>
-      <button class="tab" onclick="openScreen('chat')">Chat</button>
-      <button class="tab" onclick="openScreen('admin')">Admin</button>
-      <button class="tab" onclick="openScreen('config')">Config</button>
+      <button class="tab active" id="tab-inicio" onclick="openScreen('inicio')">Início</button>
+      <button class="tab" id="tab-eventos" onclick="openScreen('eventos')">Eventos</button>
+      <button class="tab" id="tab-contato" onclick="openScreen('contato')">Contato</button>
+      <button class="tab" id="tab-agenda" onclick="openScreen('agenda')">Agenda</button>
+      <button class="tab" id="tab-recados" onclick="openScreen('recados')">Recados</button>
+      <button class="tab" id="tab-chat" onclick="openScreen('chat')">Chat</button>
+      <button class="tab" id="tab-admin" onclick="openScreen('admin')">Admin</button>
+      <button class="tab" id="tab-config" onclick="openScreen('config')">Config</button>
     </div>
 
     <section id="inicio" class="screen active">
-      <div class="card">
-        <h2>Bem-vindo ao app da Banda FENDA</h2>
+      <div id="entryCard" class="card">
+        <h2>Entrar no app da Banda FENDA</h2>
         <p class="muted">
-          Faça seu cadastro com nome e telefone. O sistema identifica automaticamente se você é membro da banda ou visitante.
+          Primeiro informe seu nome e telefone. O sistema vai identificar automaticamente se você é membro da banda ou visitante.
         </p>
 
         <label>Seu nome</label>
@@ -168,66 +775,97 @@
         <label>Seu telefone</label>
         <input id="entryPhone" placeholder="Ex: 44999998888"/>
 
-        <div class="actions">
-          <button class="btn primary" onclick="enterApp()">Entrar no app</button>
-          <button class="btn blue" onclick="openScreen('eventos')">Ver eventos públicos</button>
-        </div>
+        <button class="btn primary full" style="margin-top:12px;" onclick="enterApp()">Entrar no app</button>
 
-        <div id="entryResult" style="margin-top:12px;"></div>
+        <div class="divider"></div>
 
-        <div class="compactStats">
-          <div class="statBox"><strong id="statMembers">0</strong><span>Membros</span></div>
-          <div class="statBox"><strong id="statEventos">0</strong><span>Eventos</span></div>
-          <div class="statBox"><strong id="statAgendas">0</strong><span>Agendas internas</span></div>
-          <div class="statBox"><strong id="statRecados">0</strong><span>Recados internos</span></div>
-        </div>
+        <button class="btn purple full" onclick="openScreen('admin')">Sou administrador / criador</button>
+      </div>
 
-        <div class="homeMenu">
-          <button class="homeBtn" onclick="openScreen('eventos')">
-            <strong>🎤 Eventos públicos</strong>
-            <span>Cartazes, programações e onde a banda estará.</span>
-          </button>
+      <div id="homeAfterEntry" style="display:none;">
+        <div class="card">
+          <h2 id="welcomeTitle">Bem-vindo</h2>
+          <div id="entryResult"></div>
 
-          <button class="homeBtn" onclick="openScreen('contato')">
-            <strong>📲 Quero marcar agenda</strong>
-            <span>Contato para convidar a banda para eventos.</span>
-          </button>
+          <div class="homeMenu" id="visitorHomeMenu">
+            <button class="homeBtn" onclick="openScreen('eventos')">
+              <strong>🎤 Eventos públicos</strong>
+              <span>Cartazes, programações e onde a banda estará.</span>
+            </button>
 
-          <button class="homeBtn" onclick="openScreen('agenda')">
-            <strong>📅 Área interna</strong>
-            <span>Ensaios e compromissos somente para membros.</span>
-          </button>
+            <button class="homeBtn" onclick="openScreen('contato')">
+              <strong>📲 Quero marcar agenda</strong>
+              <span>Contato para convidar a banda para eventos.</span>
+            </button>
+          </div>
 
-          <button class="homeBtn" onclick="openScreen('chat')">
-            <strong>💬 Chat interno</strong>
-            <span>Conversa exclusiva dos membros cadastrados.</span>
-          </button>
+          <div class="homeMenu" id="memberHomeMenu" style="display:none;">
+            <button class="homeBtn" onclick="openScreen('agenda')">
+              <strong>📅 Agenda interna</strong>
+              <span>Ensaios, horários, locais e confirmações.</span>
+            </button>
+
+            <button class="homeBtn" onclick="openScreen('recados')">
+              <strong>📢 Recados internos</strong>
+              <span>Avisos do administrador para os membros.</span>
+            </button>
+
+            <button class="homeBtn" onclick="openScreen('chat')">
+              <strong>💬 Chat da banda</strong>
+              <span>Conversa entre os membros cadastrados.</span>
+            </button>
+
+            <button class="homeBtn" onclick="openScreen('eventos')">
+              <strong>🎤 Eventos públicos</strong>
+              <span>Cartazes e divulgações públicas.</span>
+            </button>
+          </div>
+
+          <button class="btn red full" style="margin-top:12px;" onclick="logoutPerson()">Trocar usuário</button>
         </div>
       </div>
     </section>
 
     <section id="eventos" class="screen">
-      <div class="card">
+      <div id="publicAccessBlockedEventos" class="card">
         <h2>Eventos públicos</h2>
-        <p class="muted">Cartazes, programações, mensagens e avisos públicos da banda.</p>
-        <div id="eventosList" class="list"></div>
+        <div class="notice warning">
+          Para ver os eventos, primeiro entre no app com seu nome e telefone.
+        </div>
+        <button class="btn primary full" onclick="openScreen('inicio')">Entrar no app</button>
       </div>
 
-      <div class="card" style="margin-top:12px;">
-        <h2>Mensagens públicas</h2>
-        <p class="muted">Versículos, avisos e mensagens para quem acompanha a banda.</p>
-        <div id="publicPostsList" class="list"></div>
+      <div id="eventosPanel" style="display:none;">
+        <div class="card">
+          <h2>Eventos públicos</h2>
+          <p class="muted">Cartazes, programações, mensagens e avisos públicos da banda.</p>
+          <div id="eventosList" class="list"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <h2>Mensagens públicas</h2>
+          <p class="muted">Versículos, avisos e mensagens para quem acompanha a banda.</p>
+          <div id="publicPostsList" class="list"></div>
+        </div>
       </div>
     </section>
 
     <section id="contato" class="screen">
-      <div class="card">
-        <h2>Quero marcar agenda com a FENDA</h2>
-        <p class="muted">Use o contato abaixo para convidar a banda para culto, evento, congresso ou programação especial.</p>
+      <div id="publicAccessBlockedContato" class="card">
+        <h2>Contato</h2>
+        <div class="notice warning">
+          Para ver o contato da banda, primeiro entre no app com seu nome e telefone.
+        </div>
+        <button class="btn primary full" onclick="openScreen('inicio')">Entrar no app</button>
+      </div>
 
-        <div id="bookingInfo"></div>
-
-        <button class="btn green full" style="margin-top:12px;" onclick="openBookingWhatsApp()">Chamar no WhatsApp</button>
+      <div id="contatoPanel" style="display:none;">
+        <div class="card">
+          <h2>Quero marcar agenda com a FENDA</h2>
+          <p class="muted">Use o contato abaixo para convidar a banda para culto, evento, congresso ou programação especial.</p>
+          <div id="bookingInfo"></div>
+          <button class="btn green full" style="margin-top:12px;" onclick="openBookingWhatsApp()">Chamar no WhatsApp</button>
+        </div>
       </div>
     </section>
 
@@ -237,7 +875,7 @@
         <div class="notice warning">
           A agenda de ensaios, locais e compromissos internos é exclusiva para membros cadastrados da banda.
         </div>
-        <button class="btn primary full" onclick="openScreen('inicio')">Fazer cadastro / entrar</button>
+        <button class="btn primary full" onclick="openScreen('inicio')">Entrar no app</button>
       </div>
 
       <div id="agendaPanel" style="display:none;">
@@ -255,7 +893,7 @@
         <div class="notice warning">
           Recados internos são exclusivos para membros cadastrados.
         </div>
-        <button class="btn primary full" onclick="openScreen('inicio')">Fazer cadastro / entrar</button>
+        <button class="btn primary full" onclick="openScreen('inicio')">Entrar no app</button>
       </div>
 
       <div id="recadosPanel" style="display:none;">
@@ -273,7 +911,7 @@
         <div class="notice warning">
           O chat é exclusivo para membros cadastrados, administrador ou criador.
         </div>
-        <button class="btn primary full" onclick="openScreen('inicio')">Fazer cadastro / entrar</button>
+        <button class="btn primary full" onclick="openScreen('inicio')">Entrar no app</button>
       </div>
 
       <div id="chatPanel" style="display:none;">
@@ -321,10 +959,21 @@
       <div id="adminPanel" style="display:none;">
         <div class="notice" id="adminModeNotice"></div>
 
-        <div class="grid">
-          <div class="card">
-            <h2>Novo evento público / cartaz</h2>
+        <details class="cleanDetails">
+          <summary>📊 Resumo do sistema</summary>
+          <div class="detailsBody">
+            <div class="compactStats">
+              <div class="statBox"><strong id="statMembers">0</strong><span>Membros</span></div>
+              <div class="statBox"><strong id="statEventos">0</strong><span>Eventos</span></div>
+              <div class="statBox"><strong id="statAgendas">0</strong><span>Agendas internas</span></div>
+              <div class="statBox"><strong id="statRecados">0</strong><span>Recados internos</span></div>
+            </div>
+          </div>
+        </details>
 
+        <details class="cleanDetails">
+          <summary>🎤 Novo evento público / cartaz</summary>
+          <div class="detailsBody">
             <label>Título do evento</label>
             <input id="posterTitleInput" placeholder="Ex: Noite de Louvor com FENDA"/>
 
@@ -346,10 +995,11 @@
 
             <button class="btn primary full" style="margin-top:12px;" onclick="savePosterEvent()">Publicar evento</button>
           </div>
+        </details>
 
-          <div class="card">
-            <h2>Mensagem pública</h2>
-
+        <details class="cleanDetails">
+          <summary>📖 Mensagem pública / versículo / aviso</summary>
+          <div class="detailsBody">
             <label>Título</label>
             <input id="publicPostTitleInput" placeholder="Ex: Palavra da semana"/>
 
@@ -358,12 +1008,11 @@
 
             <button class="btn primary full" style="margin-top:12px;" onclick="savePublicPost()">Publicar mensagem</button>
           </div>
-        </div>
+        </details>
 
-        <div class="grid" style="margin-top:12px;">
-          <div class="card">
-            <h2>Agenda interna</h2>
-
+        <details class="cleanDetails">
+          <summary>📅 Agenda interna da banda</summary>
+          <div class="detailsBody">
             <label>Título</label>
             <input id="agendaTitleInput" placeholder="Ex: Ensaio geral"/>
 
@@ -390,10 +1039,11 @@
 
             <button class="btn primary full" style="margin-top:12px;" onclick="saveAgenda()">Salvar agenda interna</button>
           </div>
+        </details>
 
-          <div class="card">
-            <h2>Recado interno</h2>
-
+        <details class="cleanDetails">
+          <summary>📢 Recado interno para membros</summary>
+          <div class="detailsBody">
             <label>Título</label>
             <input id="recadoTitleInput" placeholder="Ex: Ensaio confirmado"/>
 
@@ -416,12 +1066,11 @@
 
             <button class="btn primary full" style="margin-top:12px;" onclick="sendRecado()">Enviar recado interno</button>
           </div>
-        </div>
+        </details>
 
-        <div class="grid" style="margin-top:12px;">
-          <div class="card">
-            <h2>Cadastrar membro da banda</h2>
-
+        <details class="cleanDetails">
+          <summary>👥 Cadastrar membro da banda</summary>
+          <div class="detailsBody">
             <label>Nome</label>
             <input id="memberNameInput" placeholder="Nome"/>
 
@@ -441,9 +1090,11 @@
 
             <button class="btn primary full" style="margin-top:12px;" onclick="saveMember()">Salvar membro</button>
           </div>
+        </details>
 
-          <div class="card">
-            <h2>Mensagem WhatsApp para todos</h2>
+        <details class="cleanDetails">
+          <summary>📲 Mensagem WhatsApp para todos</summary>
+          <div class="detailsBody">
             <p class="muted">Gera botões para enviar mensagem pelo WhatsApp aos membros cadastrados.</p>
 
             <label>Mensagem</label>
@@ -453,30 +1104,30 @@
 
             <div id="whatsBroadcastList" style="margin-top:12px;"></div>
           </div>
-        </div>
+        </details>
 
-        <details class="cleanDetails" style="margin-top:12px;">
-          <summary>👥 Membros cadastrados</summary>
+        <details class="cleanDetails">
+          <summary>👥 Ver membros cadastrados</summary>
           <div class="detailsBody"><div id="membersAdminList"></div></div>
         </details>
 
         <details class="cleanDetails">
-          <summary>🎤 Eventos publicados</summary>
+          <summary>🎤 Ver eventos publicados</summary>
           <div class="detailsBody"><div id="adminEventosList" class="list"></div></div>
         </details>
 
         <details class="cleanDetails">
-          <summary>📖 Mensagens públicas</summary>
+          <summary>📖 Ver mensagens públicas</summary>
           <div class="detailsBody"><div id="adminPublicPostsList" class="list"></div></div>
         </details>
 
         <details class="cleanDetails">
-          <summary>📅 Agendas internas</summary>
+          <summary>📅 Ver agendas internas</summary>
           <div class="detailsBody"><div id="adminAgendaList" class="list"></div></div>
         </details>
 
         <details class="cleanDetails">
-          <summary>💬 Recados internos</summary>
+          <summary>💬 Ver recados internos</summary>
           <div class="detailsBody"><div id="adminRecadosList" class="list"></div></div>
         </details>
       </div>
@@ -490,10 +1141,9 @@
       </div>
 
       <div id="configPanel" style="display:none;">
-        <div class="grid">
-          <div class="card">
-            <h2>Personalização</h2>
-
+        <details class="cleanDetails" open>
+          <summary>⚙️ Personalização do app</summary>
+          <div class="detailsBody">
             <label>Nome da banda</label>
             <input id="configBandName" placeholder="FENDA"/>
 
@@ -512,10 +1162,11 @@
 
             <button class="btn primary full" style="margin-top:12px;" onclick="saveConfig()">Salvar personalização</button>
           </div>
+        </details>
 
-          <div class="card" id="creatorAdminBox">
-            <h2>Cadastrar administrador</h2>
-
+        <details class="cleanDetails" id="creatorAdminBox">
+          <summary>🔐 Login do administrador</summary>
+          <div class="detailsBody">
             <label>Login do administrador</label>
             <input id="configAdminLogin" placeholder="Ex: admin"/>
 
@@ -524,15 +1175,17 @@
 
             <button class="btn purple full" style="margin-top:12px;" onclick="saveAdminAccount()">Salvar login do administrador</button>
           </div>
+        </details>
 
-          <div class="card">
-            <h2>Acesso</h2>
+        <details class="cleanDetails" open>
+          <summary>🚪 Acesso</summary>
+          <div class="detailsBody">
             <div class="notice">Visitantes veem só a área pública. Membros veem a área interna. Admin gerencia tudo.</div>
             <button class="btn blue full" onclick="activatePush()">Ativar notificação neste aparelho</button>
             <div class="divider"></div>
             <button class="btn red full" onclick="logoutAccess()">Sair / trocar usuário</button>
           </div>
-        </div>
+        </details>
       </div>
     </section>
 
@@ -588,7 +1241,7 @@
       recados:[],
       chatMessages:[],
       accessRole: localStorage.getItem("fenda_access_role") || "",
-      personType: localStorage.getItem("fenda_person_type") || "visitor"
+      personType: localStorage.getItem("fenda_person_type") || ""
     };
 
     const els = {};
@@ -598,9 +1251,11 @@
     function cacheEls(){
       [
         "topLogo","topTitle","topSubtitle","firebaseStatus","accessStatus",
-        "entryName","entryPhone","entryResult",
+        "entryCard","homeAfterEntry","entryName","entryPhone","entryResult","welcomeTitle",
+        "visitorHomeMenu","memberHomeMenu",
         "statMembers","statEventos","statAgendas","statRecados",
-        "eventosList","publicPostsList","bookingInfo",
+        "publicAccessBlockedEventos","eventosPanel","eventosList","publicPostsList",
+        "publicAccessBlockedContato","contatoPanel","bookingInfo",
         "agendaLocked","agendaPanel","agendaList",
         "recadosLocked","recadosPanel","recadosList",
         "chatLocked","chatPanel","chatBox","chatMessageInput","replyActive","clearChatBtn",
@@ -652,6 +1307,7 @@
 
     function hasAdminAccess(){return state.accessRole === "admin" || state.accessRole === "creator";}
     function hasCreatorAccess(){return state.accessRole === "creator";}
+    function hasEntered(){return !!localStorage.getItem("fenda_name") || hasAdminAccess();}
     function isMember(){return state.personType === "member" || hasAdminAccess();}
     function isVisitor(){return state.personType === "visitor" && !hasAdminAccess();}
     function hasChatAccess(){return isMember();}
@@ -675,9 +1331,8 @@
 
       $(id).classList.add("active");
 
-      const order = ["inicio","eventos","agenda","recados","chat","admin","config"];
-      const idx = order.indexOf(id);
-      if(idx >= 0) document.querySelectorAll(".tab")[idx].classList.add("active");
+      const tab = $("tab-" + id);
+      if(tab) tab.classList.add("active");
 
       loadEntryLocal();
       renderAll();
@@ -736,7 +1391,7 @@
         els.entryResult.innerHTML = `
           <div class="notice">
             <strong>Bem-vindo, ${escapeHTML(name)}.</strong><br>
-            Você entrou como visitante. Você pode ver eventos públicos, mensagens e contato para agenda.
+            Você entrou como visitante. Você pode ver eventos públicos, mensagens públicas e contato para agenda.
           </div>
         `;
 
@@ -744,6 +1399,20 @@
       }
 
       renderAll();
+    }
+
+    function logoutPerson(){
+      state.personType = "";
+      localStorage.removeItem("fenda_person_type");
+      localStorage.removeItem("fenda_role");
+      localStorage.removeItem("fenda_group");
+      localStorage.removeItem("fenda_name");
+      localStorage.removeItem("fenda_phone");
+      els.entryResult.innerHTML = "";
+      loadEntryLocal();
+      renderAll();
+      openScreen("inicio");
+      toast("Usuário removido. Entre novamente.");
     }
 
     async function activatePush(){
@@ -820,15 +1489,17 @@
 
     function logoutAccess(){
       state.accessRole = "";
-      state.personType = "visitor";
+      state.personType = "";
       localStorage.removeItem("fenda_access_role");
       localStorage.removeItem("fenda_person_type");
       localStorage.removeItem("fenda_role");
       localStorage.removeItem("fenda_group");
       localStorage.removeItem("fenda_name");
       localStorage.removeItem("fenda_phone");
+      els.entryResult.innerHTML = "";
       loadEntryLocal();
       renderAll();
+      openScreen("inicio");
       toast("Acesso encerrado.");
     }
 
@@ -1258,9 +1929,64 @@
       }else if(state.personType === "member"){
         els.accessStatus.textContent = "● Membro da banda";
         els.accessStatus.className = "pill member";
-      }else{
+      }else if(state.personType === "visitor"){
         els.accessStatus.textContent = "● Visitante / fã";
         els.accessStatus.className = "pill visitor";
+      }else{
+        els.accessStatus.textContent = "● Aguardando entrada";
+        els.accessStatus.className = "pill";
+      }
+    }
+
+    function renderTabs(){
+      const entered = hasEntered();
+      const member = isMember();
+      const admin = hasAdminAccess();
+
+      const visible = {
+        inicio:true,
+        eventos:entered || admin,
+        contato:entered || admin,
+        agenda:member,
+        recados:member,
+        chat:member,
+        admin:true,
+        config:admin
+      };
+
+      Object.keys(visible).forEach(id => {
+        const tab = $("tab-" + id);
+        if(tab) tab.style.display = visible[id] ? "inline-flex" : "none";
+      });
+    }
+
+    function renderEntry(){
+      const entered = hasEntered();
+
+      els.entryCard.style.display = entered && !hasAdminAccess() ? "none" : "block";
+      els.homeAfterEntry.style.display = entered && !hasAdminAccess() ? "block" : "none";
+
+      if(entered && !hasAdminAccess()){
+        const name = currentUserName() || "visitante";
+        els.welcomeTitle.textContent = `Bem-vindo, ${name}`;
+
+        if(state.personType === "member"){
+          els.entryResult.innerHTML = `
+            <div class="notice success">
+              Você está conectado como <strong>membro da banda</strong>. A área interna foi liberada.
+            </div>
+          `;
+          els.visitorHomeMenu.style.display = "none";
+          els.memberHomeMenu.style.display = "grid";
+        }else{
+          els.entryResult.innerHTML = `
+            <div class="notice">
+              Você está conectado como <strong>visitante/fã</strong>. Você verá apenas conteúdos públicos.
+            </div>
+          `;
+          els.visitorHomeMenu.style.display = "grid";
+          els.memberHomeMenu.style.display = "none";
+        }
       }
     }
 
@@ -1304,7 +2030,14 @@
     }
 
     function renderPanelsByAccess(){
+      const entered = hasEntered();
       const internal = isMember();
+
+      els.publicAccessBlockedEventos.style.display = entered ? "none" : "block";
+      els.eventosPanel.style.display = entered ? "block" : "none";
+
+      els.publicAccessBlockedContato.style.display = entered ? "none" : "block";
+      els.contatoPanel.style.display = entered ? "block" : "none";
 
       els.agendaLocked.style.display = internal ? "none" : "block";
       els.agendaPanel.style.display = internal ? "block" : "none";
@@ -1529,14 +2262,16 @@
     }
 
     function renderStats(){
-      els.statMembers.textContent = state.members.length;
-      els.statEventos.textContent = state.eventos.length;
-      els.statAgendas.textContent = state.agendas.length;
-      els.statRecados.textContent = state.recados.length;
+      if(els.statMembers) els.statMembers.textContent = state.members.length;
+      if(els.statEventos) els.statEventos.textContent = state.eventos.length;
+      if(els.statAgendas) els.statAgendas.textContent = state.agendas.length;
+      if(els.statRecados) els.statRecados.textContent = state.recados.length;
     }
 
     function renderAll(){
       renderBrand();
+      renderTabs();
+      renderEntry();
       renderAdmin();
       renderConfig();
       renderPanelsByAccess();
@@ -1624,6 +2359,7 @@
 
     window.openScreen = openScreen;
     window.enterApp = enterApp;
+    window.logoutPerson = logoutPerson;
     window.activatePush = activatePush;
     window.loginAdmin = loginAdmin;
     window.loginCreator = loginCreator;
