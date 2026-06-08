@@ -7,16 +7,28 @@
 
   <style>
     :root{
-      --bg:#05070d;--card:#111827;--card2:#182033;--text:#f8fafc;--muted:#94a3b8;
-      --line:rgba(255,255,255,.12);--blue:#38bdf8;--green:#22c55e;--red:#ef4444;
-      --orange:#fb923c;--purple:#8b5cf6;--yellow:#facc15;--radius:22px;
+      --bg:#05070d;
+      --card:#111827;
+      --card2:#182033;
+      --text:#f8fafc;
+      --muted:#94a3b8;
+      --line:rgba(255,255,255,.12);
+      --blue:#38bdf8;
+      --green:#22c55e;
+      --red:#ef4444;
+      --purple:#8b5cf6;
+      --yellow:#facc15;
+      --radius:22px;
       --shadow:0 18px 45px rgba(0,0,0,.35);
     }
 
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 
     body{
-      margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+      margin:0;
+      min-height:100vh;
+      font-family:Arial,Helvetica,sans-serif;
+      color:var(--text);
       background:
         radial-gradient(circle at top left,rgba(255,255,255,.08),transparent 28%),
         radial-gradient(circle at bottom right,rgba(56,189,248,.13),transparent 32%),
@@ -25,100 +37,272 @@
 
     button,input,textarea,select{font-family:inherit}
 
-    .app{width:100%;max-width:1100px;margin:0 auto;padding:14px 14px 90px}
+    .app{
+      width:100%;
+      max-width:1100px;
+      margin:0 auto;
+      padding:14px 14px 90px;
+    }
 
     .hero{
       background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(56,189,248,.08)),rgba(17,24,39,.94);
-      border:1px solid var(--line);border-radius:30px;padding:18px;box-shadow:var(--shadow);
-      margin-bottom:12px;position:relative;overflow:hidden;
+      border:1px solid var(--line);
+      border-radius:30px;
+      padding:18px;
+      box-shadow:var(--shadow);
+      margin-bottom:12px;
+      position:relative;
+      overflow:hidden;
     }
 
     .hero:after{
-      content:"♪";position:absolute;right:20px;top:-14px;font-size:110px;
-      opacity:.06;transform:rotate(-12deg);font-weight:900;
+      content:"♪";
+      position:absolute;
+      right:20px;
+      top:-14px;
+      font-size:110px;
+      opacity:.06;
+      transform:rotate(-12deg);
+      font-weight:900;
     }
 
-    .brand{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      position:relative;
+      z-index:2;
+    }
 
     .logoBox{
-      width:72px;height:72px;border-radius:22px;overflow:hidden;background:#fff;
-      display:flex;align-items:center;justify-content:center;flex:none;
-      border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 30px rgba(255,255,255,.08);
+      width:72px;
+      height:72px;
+      border-radius:22px;
+      overflow:hidden;
+      background:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex:none;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 14px 30px rgba(255,255,255,.08);
     }
 
-    .logoBox img{width:100%;height:100%;object-fit:cover;display:block}
-    .logoFallback{font-size:34px;color:#111827;font-weight:900}
-    h1{margin:0;font-size:28px;letter-spacing:.7px;line-height:1.1}
-    .subtitle{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
+    .logoBox img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
 
-    .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;position:relative;z-index:2}
+    .logoFallback{
+      font-size:34px;
+      color:#111827;
+      font-weight:900;
+    }
+
+    h1{
+      margin:0;
+      font-size:28px;
+      letter-spacing:.7px;
+      line-height:1.1;
+    }
+
+    .subtitle{
+      margin:6px 0 0;
+      color:var(--muted);
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .pills{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:13px;
+      position:relative;
+      z-index:2;
+    }
 
     .pill{
-      display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;
-      background:rgba(255,255,255,.06);border:1px solid var(--line);
-      color:#e5e7eb;font-size:12px;font-weight:900;
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      padding:8px 11px;
+      border-radius:999px;
+      background:rgba(255,255,255,.06);
+      border:1px solid var(--line);
+      color:#e5e7eb;
+      font-size:12px;
+      font-weight:900;
     }
 
-    .pill.creator{background:rgba(139,92,246,.15);color:#e9d5ff;border-color:rgba(139,92,246,.35)}
-    .pill.admin{background:rgba(34,197,94,.15);color:#bbf7d0;border-color:rgba(34,197,94,.35)}
-    .pill.member{background:rgba(56,189,248,.15);color:#bae6fd;border-color:rgba(56,189,248,.35)}
-    .pill.visitor{background:rgba(250,204,21,.12);color:#fef3c7;border-color:rgba(250,204,21,.30)}
+    .pill.creator{
+      background:rgba(139,92,246,.15);
+      color:#e9d5ff;
+      border-color:rgba(139,92,246,.35);
+    }
+
+    .pill.admin{
+      background:rgba(34,197,94,.15);
+      color:#bbf7d0;
+      border-color:rgba(34,197,94,.35);
+    }
+
+    .pill.member{
+      background:rgba(56,189,248,.15);
+      color:#bae6fd;
+      border-color:rgba(56,189,248,.35);
+    }
+
+    .pill.visitor{
+      background:rgba(250,204,21,.12);
+      color:#fef3c7;
+      border-color:rgba(250,204,21,.30);
+    }
 
     .tabs{
-      position:sticky;top:0;z-index:30;display:flex;gap:7px;padding:9px 0;
-      background:rgba(5,7,13,.88);backdrop-filter:blur(12px);margin-bottom:12px;overflow-x:auto;
+      position:sticky;
+      top:0;
+      z-index:30;
+      display:flex;
+      gap:7px;
+      padding:9px 0;
+      background:rgba(5,7,13,.88);
+      backdrop-filter:blur(12px);
+      margin-bottom:12px;
+      overflow-x:auto;
     }
 
     .tab{
-      border:1px solid var(--line);background:rgba(17,24,39,.88);color:var(--muted);
-      border-radius:15px;padding:12px 13px;font-size:12px;font-weight:900;
-      cursor:pointer;white-space:nowrap;min-width:86px;
+      border:1px solid var(--line);
+      background:rgba(17,24,39,.88);
+      color:var(--muted);
+      border-radius:15px;
+      padding:12px 13px;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+      white-space:nowrap;
+      min-width:86px;
     }
 
-    .tab.active{background:linear-gradient(135deg,#fff,#d1d5db);color:#111827;border:0}
+    .tab.active{
+      background:linear-gradient(135deg,#fff,#d1d5db);
+      color:#111827;
+      border:0;
+    }
 
     .screen{display:none}
     .screen.active{display:block}
 
-    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-    .homeMenu{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    .grid{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+    }
+
+    .homeMenu{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:12px;
+      margin-top:12px;
+    }
 
     .homeBtn{
-      border:1px solid var(--line);background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
-      color:var(--text);border-radius:24px;min-height:108px;padding:18px;cursor:pointer;
-      box-shadow:0 12px 30px rgba(0,0,0,.16);text-align:left;
+      border:1px solid var(--line);
+      background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
+      color:var(--text);
+      border-radius:24px;
+      min-height:108px;
+      padding:18px;
+      cursor:pointer;
+      box-shadow:0 12px 30px rgba(0,0,0,.16);
+      text-align:left;
     }
 
-    .homeBtn strong{display:block;font-size:19px;margin-bottom:7px}
-    .homeBtn span{display:block;color:var(--muted);font-size:13px;line-height:1.4}
+    .homeBtn strong{
+      display:block;
+      font-size:19px;
+      margin-bottom:7px;
+    }
+
+    .homeBtn span{
+      display:block;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.4;
+    }
 
     .card{
-      background:rgba(17,24,39,.94);border:1px solid var(--line);
-      border-radius:var(--radius);padding:16px;box-shadow:0 12px 35px rgba(0,0,0,.22);
+      background:rgba(17,24,39,.94);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:16px;
+      box-shadow:0 12px 35px rgba(0,0,0,.22);
     }
 
-    .card h2{margin:0 0 12px;font-size:19px}
-    .card h3{margin:0 0 10px;font-size:16px}
-    .muted{color:var(--muted);font-size:13px;line-height:1.45}
+    .card h2{
+      margin:0 0 12px;
+      font-size:19px;
+    }
 
-    label{display:block;margin:10px 0 6px;color:#cbd5e1;font-size:13px;font-weight:900}
+    .card h3{
+      margin:0 0 10px;
+      font-size:16px;
+    }
+
+    .muted{
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.45;
+    }
+
+    label{
+      display:block;
+      margin:10px 0 6px;
+      color:#cbd5e1;
+      font-size:13px;
+      font-weight:900;
+    }
 
     input,textarea,select{
-      width:100%;border:1px solid var(--line);background:rgba(15,23,42,.98);
-      color:var(--text);border-radius:15px;padding:13px 14px;outline:none;font-size:15px;
+      width:100%;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.98);
+      color:var(--text);
+      border-radius:15px;
+      padding:13px 14px;
+      outline:none;
+      font-size:15px;
     }
 
-    textarea{min-height:96px;resize:vertical;line-height:1.45}
+    textarea{
+      min-height:96px;
+      resize:vertical;
+      line-height:1.45;
+    }
 
     input:focus,textarea:focus,select:focus{
-      border-color:rgba(255,255,255,.32);box-shadow:0 0 0 3px rgba(255,255,255,.08);
+      border-color:rgba(255,255,255,.32);
+      box-shadow:0 0 0 3px rgba(255,255,255,.08);
     }
 
     .btn{
-      border:1px solid var(--line);background:var(--card2);color:var(--text);
-      border-radius:15px;min-height:44px;padding:12px 14px;font-size:14px;
-      font-weight:900;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
-      gap:8px;text-decoration:none;
+      border:1px solid var(--line);
+      background:var(--card2);
+      color:var(--text);
+      border-radius:15px;
+      min-height:44px;
+      padding:12px 14px;
+      font-size:14px;
+      font-weight:900;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      text-decoration:none;
     }
 
     .btn.full{width:100%}
@@ -126,26 +310,77 @@
     .btn.green{background:rgba(34,197,94,.16);color:#bbf7d0;border-color:rgba(34,197,94,.3)}
     .btn.blue{background:rgba(56,189,248,.16);color:#bae6fd;border-color:rgba(56,189,248,.3)}
     .btn.red{background:rgba(239,68,68,.16);color:#fecaca;border-color:rgba(239,68,68,.3)}
-    .btn.orange{background:rgba(251,146,60,.16);color:#fed7aa;border-color:rgba(251,146,60,.3)}
     .btn.purple{background:rgba(139,92,246,.16);color:#e9d5ff;border-color:rgba(139,92,246,.3)}
     .btn.yellow{background:rgba(250,204,21,.16);color:#fef3c7;border-color:rgba(250,204,21,.3)}
 
-    .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
-    .list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    .actions{
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
+
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap:12px;
+      margin-top:12px;
+    }
 
     .item{
       background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
-      border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:0 12px 30px rgba(0,0,0,.16);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:15px;
+      box-shadow:0 12px 30px rgba(0,0,0,.16);
     }
 
-    .itemHead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
-    .itemTitle{margin:0;font-size:18px;font-weight:900}
-    .small{color:var(--muted);font-size:12px;line-height:1.4}
+    .itemHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:10px;
+      margin-bottom:10px;
+    }
 
-    .line{display:flex;gap:8px;align-items:flex-start;margin:6px 0;color:#e2e8f0;font-size:14px;line-height:1.45}
-    .line span:first-child{width:22px;flex:none;text-align:center}
+    .itemTitle{
+      margin:0;
+      font-size:18px;
+      font-weight:900;
+    }
 
-    .badge{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;border:1px solid var(--line);white-space:nowrap}
+    .small{
+      color:var(--muted);
+      font-size:12px;
+      line-height:1.4;
+    }
+
+    .line{
+      display:flex;
+      gap:8px;
+      align-items:flex-start;
+      margin:6px 0;
+      color:#e2e8f0;
+      font-size:14px;
+      line-height:1.45;
+    }
+
+    .line span:first-child{
+      width:22px;
+      flex:none;
+      text-align:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      border-radius:999px;
+      padding:6px 9px;
+      font-size:12px;
+      font-weight:900;
+      border:1px solid var(--line);
+      white-space:nowrap;
+    }
+
     .badge.normal{background:rgba(56,189,248,.14);color:#bae6fd;border-color:rgba(56,189,248,.28)}
     .badge.urgente{background:rgba(239,68,68,.14);color:#fecaca;border-color:rgba(239,68,68,.28)}
     .badge.ok{background:rgba(34,197,94,.14);color:#bbf7d0;border-color:rgba(34,197,94,.28)}
@@ -154,67 +389,222 @@
     .badge.member{background:rgba(56,189,248,.14);color:#bae6fd;border-color:rgba(56,189,248,.28)}
 
     .memberRow{
-      display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;
-      border:1px solid var(--line);background:rgba(15,23,42,.75);
-      border-radius:16px;margin-top:8px;flex-wrap:wrap;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap:10px;
+      padding:12px;
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      border-radius:16px;
+      margin-top:8px;
+      flex-wrap:wrap;
     }
 
-    .compactStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
-    .statBox{border:1px solid var(--line);background:rgba(15,23,42,.75);border-radius:18px;padding:13px}
-    .statBox strong{display:block;font-size:20px}
-    .statBox span{color:var(--muted);font-size:12px}
+    .compactStats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:10px;
+      margin-top:12px;
+    }
 
-    .divider{height:1px;background:var(--line);margin:12px 0}
+    .statBox{
+      border:1px solid var(--line);
+      background:rgba(15,23,42,.75);
+      border-radius:18px;
+      padding:13px;
+    }
+
+    .statBox strong{
+      display:block;
+      font-size:20px;
+    }
+
+    .statBox span{
+      color:var(--muted);
+      font-size:12px;
+    }
+
+    .divider{
+      height:1px;
+      background:var(--line);
+      margin:12px 0;
+    }
 
     .notice{
-      background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
-      color:#e2e8f0;border-radius:18px;padding:13px;font-size:14px;line-height:1.45;margin-bottom:12px;
+      background:rgba(255,255,255,.06);
+      border:1px solid rgba(255,255,255,.12);
+      color:#e2e8f0;
+      border-radius:18px;
+      padding:13px;
+      font-size:14px;
+      line-height:1.45;
+      margin-bottom:12px;
     }
 
     .notice.warning{background:rgba(251,146,60,.10);border-color:rgba(251,146,60,.25);color:#fed7aa}
     .notice.success{background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.25);color:#bbf7d0}
-    .empty{text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px;padding:22px 12px}
+
+    .empty{
+      text-align:center;
+      color:var(--muted);
+      border:1px dashed var(--line);
+      border-radius:18px;
+      padding:22px 12px;
+    }
 
     details.cleanDetails{
-      border:1px solid var(--line);background:rgba(17,24,39,.75);
-      border-radius:18px;padding:0;margin-bottom:12px;overflow:hidden;
+      border:1px solid var(--line);
+      background:rgba(17,24,39,.75);
+      border-radius:18px;
+      padding:0;
+      margin-bottom:12px;
+      overflow:hidden;
     }
 
     details.cleanDetails summary{
-      cursor:pointer;padding:14px 15px;font-weight:900;color:#e5e7eb;list-style:none;
-      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      cursor:pointer;
+      padding:14px 15px;
+      font-weight:900;
+      color:#e5e7eb;
+      list-style:none;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:10px;
     }
 
     details.cleanDetails summary::after{
-      content:"+";display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
-      border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);
-      color:#fff;font-size:18px;line-height:1;
+      content:"+";
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      background:rgba(255,255,255,.08);
+      border:1px solid var(--line);
+      color:#fff;
+      font-size:18px;
+      line-height:1;
     }
 
     details.cleanDetails[open] summary::after{content:"−"}
     details.cleanDetails summary::-webkit-details-marker{display:none}
     .detailsBody{padding:0 15px 15px;border-top:1px solid var(--line)}
 
-    .previewLogo{width:95px;height:95px;border-radius:22px;object-fit:cover;border:1px solid var(--line);background:#0f172a;display:none;margin-top:10px}
-    .posterPreview{width:100%;max-height:360px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#0f172a;display:none;margin-top:10px}
-    .posterImage{width:100%;max-height:560px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#0f172a;margin-bottom:12px}
-
-    .chatBox{height:480px;overflow-y:auto;border:1px solid var(--line);border-radius:20px;background:rgba(15,23,42,.55);padding:12px}
-    .chatMsg{border:1px solid var(--line);background:rgba(17,24,39,.95);border-radius:18px;padding:12px;margin-bottom:10px}
-    .chatMsg.mine{border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.09)}
-    .replyBox{border-left:3px solid var(--blue);padding:8px;border-radius:10px;background:rgba(56,189,248,.08);color:#bae6fd;font-size:12px;margin-bottom:8px}
-    .replyActive{display:none;margin-bottom:10px;border:1px solid rgba(56,189,248,.30);background:rgba(56,189,248,.10);color:#bae6fd;border-radius:16px;padding:10px;font-size:13px}
-    .chatInputBar{margin-top:12px;display:grid;grid-template-columns:1fr auto;gap:10px}
-
-    .toast{
-      position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);
-      background:#0f172a;color:#fff;border:1px solid var(--line);border-radius:18px;
-      padding:13px 16px;box-shadow:var(--shadow);z-index:999;opacity:0;transition:.25s;
-      max-width:92%;font-size:14px;line-height:1.4;
+    .previewLogo{
+      width:95px;
+      height:95px;
+      border-radius:22px;
+      object-fit:cover;
+      border:1px solid var(--line);
+      background:#0f172a;
+      display:none;
+      margin-top:10px;
     }
 
-    .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
-    .footer{text-align:center;color:var(--muted);font-size:12px;padding:18px 0 0}
+    .posterPreview{
+      width:100%;
+      max-height:360px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#0f172a;
+      display:none;
+      margin-top:10px;
+    }
+
+    .posterImage{
+      width:100%;
+      max-height:560px;
+      object-fit:cover;
+      border-radius:18px;
+      border:1px solid var(--line);
+      background:#0f172a;
+      margin-bottom:12px;
+    }
+
+    .chatBox{
+      height:480px;
+      overflow-y:auto;
+      border:1px solid var(--line);
+      border-radius:20px;
+      background:rgba(15,23,42,.55);
+      padding:12px;
+    }
+
+    .chatMsg{
+      border:1px solid var(--line);
+      background:rgba(17,24,39,.95);
+      border-radius:18px;
+      padding:12px;
+      margin-bottom:10px;
+    }
+
+    .chatMsg.mine{
+      border-color:rgba(56,189,248,.35);
+      background:rgba(56,189,248,.09);
+    }
+
+    .replyBox{
+      border-left:3px solid var(--blue);
+      padding:8px;
+      border-radius:10px;
+      background:rgba(56,189,248,.08);
+      color:#bae6fd;
+      font-size:12px;
+      margin-bottom:8px;
+    }
+
+    .replyActive{
+      display:none;
+      margin-bottom:10px;
+      border:1px solid rgba(56,189,248,.30);
+      background:rgba(56,189,248,.10);
+      color:#bae6fd;
+      border-radius:16px;
+      padding:10px;
+      font-size:13px;
+    }
+
+    .chatInputBar{
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+    }
+
+    .toast{
+      position:fixed;
+      left:50%;
+      bottom:18px;
+      transform:translateX(-50%) translateY(120px);
+      background:#0f172a;
+      color:#fff;
+      border:1px solid var(--line);
+      border-radius:18px;
+      padding:13px 16px;
+      box-shadow:var(--shadow);
+      z-index:999;
+      opacity:0;
+      transition:.25s;
+      max-width:92%;
+      font-size:14px;
+      line-height:1.4;
+    }
+
+    .toast.show{
+      transform:translateX(-50%) translateY(0);
+      opacity:1;
+    }
+
+    .footer{
+      text-align:center;
+      color:var(--muted);
+      font-size:12px;
+      padding:18px 0 0;
+    }
 
     @media(max-width:800px){
       .app{padding:12px 12px 78px}
@@ -286,10 +676,12 @@
               <strong>🎤 Eventos públicos</strong>
               <span>Cartazes, programações e onde a banda estará.</span>
             </button>
+
             <button class="homeBtn" onclick="openScreen('notificacoes')">
               <strong>🔔 Notificações</strong>
               <span>Veja novidades, avisos e publicações recentes.</span>
             </button>
+
             <button class="homeBtn" onclick="openScreen('contato')">
               <strong>📲 Quero marcar agenda</strong>
               <span>Contato para convidar a banda para eventos.</span>
@@ -301,18 +693,22 @@
               <strong>📅 Agenda interna</strong>
               <span>Ensaios, horários, locais e confirmações.</span>
             </button>
+
             <button class="homeBtn" onclick="openScreen('recados')">
               <strong>📢 Recados internos</strong>
               <span>Avisos do administrador para os membros.</span>
             </button>
+
             <button class="homeBtn" onclick="openScreen('chat')">
               <strong>💬 Chat da banda</strong>
               <span>Conversa entre os membros cadastrados.</span>
             </button>
+
             <button class="homeBtn" onclick="openScreen('notificacoes')">
               <strong>🔔 Notificações</strong>
               <span>Novidades públicas da banda.</span>
             </button>
+
             <button class="homeBtn" onclick="openScreen('eventos')">
               <strong>🎤 Eventos públicos</strong>
               <span>Cartazes e divulgações públicas.</span>
@@ -470,7 +866,7 @@
               <div class="statBox"><strong id="statMembers">0</strong><span>Membros</span></div>
               <div class="statBox"><strong id="statVisitors">0</strong><span>Visitantes</span></div>
               <div class="statBox"><strong id="statEventos">0</strong><span>Eventos</span></div>
-              <div class="statBox"><strong id="statRecados">0</strong><span>Recados internos</span></div>
+              <div class="statBox"><strong id="statRecados">0</strong><span>Recados</span></div>
             </div>
           </div>
         </details>
@@ -792,36 +1188,28 @@
       personType: localStorage.getItem("fenda_person_type") || ""
     };
 
-    const els = {};
-
     function $(id){
       return document.getElementById(id);
     }
 
-    function cacheEls(){
-      [
-        "topLogo","topTitle","topSubtitle","accessStatus",
-        "entryCard","homeAfterEntry","entryName","entryPhone","entryResult","welcomeTitle",
-        "visitorHomeMenu","memberHomeMenu",
-        "statMembers","statVisitors","statEventos","statAgendas","statRecados",
-        "publicAccessBlockedEventos","eventosPanel","eventosList","publicPostsList",
-        "publicAccessBlockedNotificacoes","notificacoesPanel","publicNotificationsList","adminPublicNotificationsList",
-        "publicAccessBlockedContato","contatoPanel","bookingInfo",
-        "agendaLocked","agendaPanel","agendaList",
-        "recadosLocked","recadosPanel","recadosList",
-        "chatLocked","chatPanel","chatBox","chatMessageInput","replyActive","clearChatBtn",
-        "adminLoginCard","adminPanel","adminModeNotice","membersAdminList","visitorsAdminList",
-        "adminEventosList","adminPublicPostsList","adminAgendaList","adminRecadosList",
-        "manualNotificationTitleInput","manualNotificationMessageInput",
-        "whatsBroadcastInput","whatsBroadcastList",
-        "configBlocked","configPanel","creatorAdminBox",
-        "configBandName","configSubtitle","configBookingPhone","configBookingText",
-        "configAdminLogin","configAdminPassword","logoPreview","posterPreview"
-      ].forEach(id => els[id] = $(id));
+    function safeSetHTML(id,html){
+      const el = $(id);
+      if(el) el.innerHTML = html;
+    }
+
+    function safeText(id,text){
+      const el = $(id);
+      if(el) el.textContent = text;
+    }
+
+    function safeDisplay(id,value){
+      const el = $(id);
+      if(el) el.style.display = value;
     }
 
     function toast(msg){
       const el = $("toast");
+      if(!el) return;
       el.textContent = msg;
       el.classList.add("show");
       setTimeout(() => el.classList.remove("show"), 3200);
@@ -855,8 +1243,9 @@
 
     function dateBR(date){
       if(!date) return "";
-      const [y,m,d] = date.split("-");
-      return `${d}/${m}/${y}`;
+      const parts = String(date).split("-");
+      if(parts.length !== 3) return date;
+      return `${parts[2]}/${parts[1]}/${parts[0]}`;
     }
 
     function hasAdminAccess(){
@@ -898,7 +1287,8 @@
       document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
       document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
 
-      $(id).classList.add("active");
+      const screen = $(id);
+      if(screen) screen.classList.add("active");
 
       const tab = $("tab-" + id);
       if(tab) tab.classList.add("active");
@@ -912,13 +1302,16 @@
     }
 
     function loadEntryLocal(){
-      els.entryName.value = localStorage.getItem("fenda_name") || "";
-      els.entryPhone.value = localStorage.getItem("fenda_phone") || "";
+      const nameInput = $("entryName");
+      const phoneInput = $("entryPhone");
+
+      if(nameInput) nameInput.value = localStorage.getItem("fenda_name") || "";
+      if(phoneInput) phoneInput.value = localStorage.getItem("fenda_phone") || "";
     }
 
     async function enterApp(){
-      const name = els.entryName.value.trim();
-      const phone = els.entryPhone.value.trim();
+      const name = ($("entryName")?.value || "").trim();
+      const phone = ($("entryPhone")?.value || "").trim();
 
       if(!name || !phone){
         toast("Digite seu nome e telefone.");
@@ -939,12 +1332,12 @@
         localStorage.setItem("fenda_role", member.role || "");
         localStorage.setItem("fenda_group", member.group || "todos");
 
-        els.entryResult.innerHTML = `
+        safeSetHTML("entryResult", `
           <div class="notice success">
             <strong>Bem-vindo, ${escapeHTML(name)}.</strong><br>
             Seu telefone está cadastrado como membro da banda. Área interna liberada.
           </div>
-        `;
+        `);
 
         toast("Membro identificado. Área interna liberada.");
       }else{
@@ -953,19 +1346,23 @@
         localStorage.removeItem("fenda_role");
         localStorage.removeItem("fenda_group");
 
-        await setDoc(doc(db, "visitors", cleanPhone(phone)), {
-          name,
-          phone,
-          type:"visitor",
-          updatedAt: serverTimestamp()
-        }, { merge:true });
+        try{
+          await setDoc(doc(db, "visitors", cleanPhone(phone)), {
+            name,
+            phone,
+            type:"visitor",
+            updatedAt: serverTimestamp()
+          }, { merge:true });
+        }catch(e){
+          console.error(e);
+        }
 
-        els.entryResult.innerHTML = `
+        safeSetHTML("entryResult", `
           <div class="notice">
             <strong>Bem-vindo, ${escapeHTML(name)}.</strong><br>
             Você entrou como visitante. Você pode ver apenas eventos públicos, mensagens públicas, notificações e contato para agenda.
           </div>
-        `;
+        `);
 
         toast("Visitante liberado.");
       }
@@ -982,7 +1379,7 @@
       localStorage.removeItem("fenda_group");
       localStorage.removeItem("fenda_name");
       localStorage.removeItem("fenda_phone");
-      els.entryResult.innerHTML = "";
+      safeSetHTML("entryResult","");
       loadEntryLocal();
       renderAll();
       openScreen("inicio");
@@ -1004,7 +1401,7 @@
         }
 
         if(!VAPID_KEY){
-          toast("Notificação local ativada. Falta VAPID KEY para push avançado.");
+          toast("Notificação local ativada. Para push real no celular, falta configurar a VAPID KEY.");
           notifyLocal("FENDA","Notificação local ativada neste aparelho.");
           return;
         }
@@ -1053,8 +1450,8 @@
     }
 
     async function loginAdmin(){
-      const login = $("adminLoginInput").value.trim();
-      const password = $("adminPasswordInput").value.trim();
+      const login = ($("adminLoginInput")?.value || "").trim();
+      const password = ($("adminPasswordInput")?.value || "").trim();
 
       if(login === state.config.adminLogin && password === state.config.adminPassword){
         state.accessRole = "admin";
@@ -1072,7 +1469,7 @@
     }
 
     function loginCreator(){
-      const password = $("creatorPasswordInput").value.trim();
+      const password = ($("creatorPasswordInput")?.value || "").trim();
 
       if(password === CREATOR_PASSWORD){
         state.accessRole = "creator";
@@ -1098,7 +1495,7 @@
       localStorage.removeItem("fenda_group");
       localStorage.removeItem("fenda_name");
       localStorage.removeItem("fenda_phone");
-      els.entryResult.innerHTML = "";
+      safeSetHTML("entryResult","");
       loadEntryLocal();
       renderAll();
       openScreen("inicio");
@@ -1111,12 +1508,17 @@
         return;
       }
 
+      const bandName = ($("configBandName")?.value || "").trim() || "FENDA";
+      const subtitle = ($("configSubtitle")?.value || "").trim() || "App oficial da banda • eventos, agenda e comunicação interna.";
+      const bookingPhone = ($("configBookingPhone")?.value || "").trim();
+      const bookingText = ($("configBookingText")?.value || "").trim() || "Olá, quero marcar uma agenda com a Banda FENDA.";
+
       await setDoc(doc(db,"settings","main"),{
         ...state.config,
-        bandName:els.configBandName.value.trim() || "FENDA",
-        subtitle:els.configSubtitle.value.trim() || "App oficial da banda • eventos, agenda e comunicação interna.",
-        bookingPhone:els.configBookingPhone.value.trim(),
-        bookingText:els.configBookingText.value.trim() || "Olá, quero marcar uma agenda com a Banda FENDA.",
+        bandName,
+        subtitle,
+        bookingPhone,
+        bookingText,
         logoData:state.config.logoData || "",
         updatedAt:serverTimestamp()
       },{merge:true});
@@ -1130,10 +1532,13 @@
         return;
       }
 
+      const adminLogin = ($("configAdminLogin")?.value || "").trim() || "admin";
+      const adminPassword = ($("configAdminPassword")?.value || "").trim() || "1234";
+
       await setDoc(doc(db,"settings","main"),{
         ...state.config,
-        adminLogin:els.configAdminLogin.value.trim() || "admin",
-        adminPassword:els.configAdminPassword.value.trim() || "1234",
+        adminLogin,
+        adminPassword,
         updatedAt:serverTimestamp()
       },{merge:true});
 
@@ -1179,8 +1584,11 @@
 
       reader.onload = function(e){
         selectedPosterData = e.target.result;
-        els.posterPreview.src = selectedPosterData;
-        els.posterPreview.style.display = "block";
+        const preview = $("posterPreview");
+        if(preview){
+          preview.src = selectedPosterData;
+          preview.style.display = "block";
+        }
         toast("Cartaz carregado. Agora publique o evento.");
       };
 
@@ -1205,11 +1613,11 @@
         return;
       }
 
-      const title = $("posterTitleInput").value.trim();
-      const date = $("posterDateInput").value;
-      const time = $("posterTimeInput").value;
-      const place = $("posterPlaceInput").value.trim();
-      const description = $("posterDescInput").value.trim();
+      const title = ($("posterTitleInput")?.value || "").trim();
+      const date = $("posterDateInput")?.value || "";
+      const time = $("posterTimeInput")?.value || "";
+      const place = ($("posterPlaceInput")?.value || "").trim();
+      const description = ($("posterDescInput")?.value || "").trim();
 
       if(!title || !date){
         toast("Preencha título e data do evento.");
@@ -1230,15 +1638,17 @@
         docRef.id
       );
 
-      $("posterTitleInput").value = "";
-      $("posterDateInput").value = "";
-      $("posterTimeInput").value = "";
-      $("posterPlaceInput").value = "";
-      $("posterDescInput").value = "";
-      $("posterFileInput").value = "";
+      ["posterTitleInput","posterDateInput","posterTimeInput","posterPlaceInput","posterDescInput","posterFileInput"].forEach(id => {
+        const el = $(id);
+        if(el) el.value = "";
+      });
+
       selectedPosterData = "";
-      els.posterPreview.src = "";
-      els.posterPreview.style.display = "none";
+      const preview = $("posterPreview");
+      if(preview){
+        preview.src = "";
+        preview.style.display = "none";
+      }
 
       toast("Evento publicado e notificação criada.");
     }
@@ -1261,8 +1671,8 @@
         return;
       }
 
-      const title = $("publicPostTitleInput").value.trim();
-      const message = $("publicPostMessageInput").value.trim();
+      const title = ($("publicPostTitleInput")?.value || "").trim();
+      const message = ($("publicPostMessageInput")?.value || "").trim();
 
       if(!title || !message){
         toast("Digite título e mensagem.");
@@ -1281,8 +1691,10 @@
         docRef.id
       );
 
-      $("publicPostTitleInput").value = "";
-      $("publicPostMessageInput").value = "";
+      const titleInput = $("publicPostTitleInput");
+      const messageInput = $("publicPostMessageInput");
+      if(titleInput) titleInput.value = "";
+      if(messageInput) messageInput.value = "";
 
       toast("Mensagem pública publicada e notificação criada.");
     }
@@ -1293,8 +1705,8 @@
         return;
       }
 
-      const title = els.manualNotificationTitleInput.value.trim();
-      const message = els.manualNotificationMessageInput.value.trim();
+      const title = ($("manualNotificationTitleInput")?.value || "").trim();
+      const message = ($("manualNotificationMessageInput")?.value || "").trim();
 
       if(!title || !message){
         toast("Digite título e mensagem da notificação.");
@@ -1303,8 +1715,10 @@
 
       await createPublicNotification(title,message,"manual","");
 
-      els.manualNotificationTitleInput.value = "";
-      els.manualNotificationMessageInput.value = "";
+      const t = $("manualNotificationTitleInput");
+      const m = $("manualNotificationMessageInput");
+      if(t) t.value = "";
+      if(m) m.value = "";
 
       toast("Notificação publicada.");
     }
@@ -1339,10 +1753,10 @@
         return;
       }
 
-      const name = $("memberNameInput").value.trim();
-      const phone = $("memberPhoneInput").value.trim();
-      const role = $("memberRoleInput").value.trim();
-      const group = $("memberGroupInput").value;
+      const name = ($("memberNameInput")?.value || "").trim();
+      const phone = ($("memberPhoneInput")?.value || "").trim();
+      const role = ($("memberRoleInput")?.value || "").trim();
+      const group = $("memberGroupInput")?.value || "todos";
 
       if(!name || !phone){
         toast("Digite nome e celular.");
@@ -1354,10 +1768,13 @@
         updatedAt:serverTimestamp()
       },{merge:true});
 
-      $("memberNameInput").value = "";
-      $("memberPhoneInput").value = "";
-      $("memberRoleInput").value = "";
-      $("memberGroupInput").value = "todos";
+      ["memberNameInput","memberPhoneInput","memberRoleInput"].forEach(id => {
+        const el = $(id);
+        if(el) el.value = "";
+      });
+
+      const groupInput = $("memberGroupInput");
+      if(groupInput) groupInput.value = "todos";
 
       toast("Membro salvo.");
     }
@@ -1392,12 +1809,12 @@
         return;
       }
 
-      const title = $("agendaTitleInput").value.trim();
-      const type = $("agendaTypeInput").value;
-      const date = $("agendaDateInput").value;
-      const time = $("agendaTimeInput").value;
-      const place = $("agendaPlaceInput").value.trim();
-      const obs = $("agendaObsInput").value.trim();
+      const title = ($("agendaTitleInput")?.value || "").trim();
+      const type = $("agendaTypeInput")?.value || "Ensaio";
+      const date = $("agendaDateInput")?.value || "";
+      const time = $("agendaTimeInput")?.value || "";
+      const place = ($("agendaPlaceInput")?.value || "").trim();
+      const obs = ($("agendaObsInput")?.value || "").trim();
 
       if(!title || !date || !time){
         toast("Preencha título, data e horário.");
@@ -1411,12 +1828,13 @@
         createdAt:serverTimestamp()
       });
 
-      $("agendaTitleInput").value = "";
-      $("agendaTypeInput").value = "Ensaio";
-      $("agendaDateInput").value = "";
-      $("agendaTimeInput").value = "";
-      $("agendaPlaceInput").value = "";
-      $("agendaObsInput").value = "";
+      ["agendaTitleInput","agendaDateInput","agendaTimeInput","agendaPlaceInput","agendaObsInput"].forEach(id => {
+        const el = $(id);
+        if(el) el.value = "";
+      });
+
+      const typeInput = $("agendaTypeInput");
+      if(typeInput) typeInput.value = "Ensaio";
 
       notifyLocal("Nova agenda FENDA",`${title} - ${dateBR(date)} às ${time}`);
       toast("Agenda interna salva.");
@@ -1479,10 +1897,10 @@
         return;
       }
 
-      const title = $("recadoTitleInput").value.trim();
-      const message = $("recadoMessageInput").value.trim();
-      const priority = $("recadoPriorityInput").value;
-      const target = $("recadoTargetInput").value;
+      const title = ($("recadoTitleInput")?.value || "").trim();
+      const message = ($("recadoMessageInput")?.value || "").trim();
+      const priority = $("recadoPriorityInput")?.value || "normal";
+      const target = $("recadoTargetInput")?.value || "todos";
 
       if(!title || !message){
         toast("Digite título e mensagem.");
@@ -1496,10 +1914,15 @@
         createdAt:serverTimestamp()
       });
 
-      $("recadoTitleInput").value = "";
-      $("recadoMessageInput").value = "";
-      $("recadoPriorityInput").value = "normal";
-      $("recadoTargetInput").value = "todos";
+      const t = $("recadoTitleInput");
+      const m = $("recadoMessageInput");
+      const p = $("recadoPriorityInput");
+      const targetInput = $("recadoTargetInput");
+
+      if(t) t.value = "";
+      if(m) m.value = "";
+      if(p) p.value = "normal";
+      if(targetInput) targetInput.value = "todos";
 
       notifyLocal(priority === "urgente" ? "Recado urgente FENDA" : "Novo recado FENDA",title);
       toast("Recado interno enviado.");
@@ -1539,7 +1962,7 @@
         return;
       }
 
-      const text = els.chatMessageInput.value.trim();
+      const text = ($("chatMessageInput")?.value || "").trim();
 
       if(!text){
         toast("Digite uma mensagem.");
@@ -1557,7 +1980,9 @@
         updatedAt:serverTimestamp()
       });
 
-      els.chatMessageInput.value = "";
+      const input = $("chatMessageInput");
+      if(input) input.value = "";
+
       clearReply();
       setTimeout(scrollChatBottom,250);
     }
@@ -1567,8 +1992,12 @@
       if(!msg) return;
 
       replyTarget = msg;
-      els.replyActive.style.display = "block";
-      els.replyActive.innerHTML = `
+
+      const el = $("replyActive");
+      if(!el) return;
+
+      el.style.display = "block";
+      el.innerHTML = `
         <strong>Respondendo ${escapeHTML(msg.authorName || "mensagem")}</strong>
         <div>${escapeHTML(msg.text || "")}</div>
         <button class="btn red" style="margin-top:8px;min-height:34px;padding:8px 10px;" onclick="clearReply()">Cancelar resposta</button>
@@ -1577,8 +2006,11 @@
 
     function clearReply(){
       replyTarget = null;
-      els.replyActive.style.display = "none";
-      els.replyActive.innerHTML = "";
+      const el = $("replyActive");
+      if(el){
+        el.style.display = "none";
+        el.innerHTML = "";
+      }
     }
 
     async function editChatMessage(id){
@@ -1646,7 +2078,7 @@
         return;
       }
 
-      const text = els.whatsBroadcastInput.value.trim();
+      const text = ($("whatsBroadcastInput")?.value || "").trim();
 
       if(!text){
         toast("Digite a mensagem primeiro.");
@@ -1654,11 +2086,11 @@
       }
 
       if(!state.members.length){
-        els.whatsBroadcastList.innerHTML = `<div class="empty">Nenhum membro cadastrado.</div>`;
+        safeSetHTML("whatsBroadcastList", `<div class="empty">Nenhum membro cadastrado.</div>`);
         return;
       }
 
-      els.whatsBroadcastList.innerHTML = `
+      safeSetHTML("whatsBroadcastList", `
         <div class="notice success">Mensagem preparada. Clique em WhatsApp em cada membro ou copie a mensagem para enviar no grupo.</div>
         <button class="btn blue full" onclick='copyText(${JSON.stringify(text)})'>Copiar mensagem</button>
         <div class="divider"></div>
@@ -1673,7 +2105,7 @@
             </div>
           `).join("")
         }
-      `;
+      `);
     }
 
     function openBookingWhatsApp(){
@@ -1701,33 +2133,36 @@
 
     function renderLogo(){
       if(state.config.logoData){
-        els.topLogo.innerHTML = `<img src="${state.config.logoData}" alt="Logo FENDA">`;
+        safeSetHTML("topLogo", `<img src="${state.config.logoData}" alt="Logo FENDA">`);
       }else{
-        els.topLogo.innerHTML = `<div class="logoFallback">♫</div>`;
+        safeSetHTML("topLogo", `<div class="logoFallback">♫</div>`);
       }
     }
 
     function renderBrand(){
       document.title = `${state.config.bandName} - App da Banda`;
-      els.topTitle.textContent = state.config.bandName || "FENDA";
-      els.topSubtitle.textContent = state.config.subtitle || "App oficial da banda";
+      safeText("topTitle", state.config.bandName || "FENDA");
+      safeText("topSubtitle", state.config.subtitle || "App oficial da banda");
       renderLogo();
 
+      const el = $("accessStatus");
+      if(!el) return;
+
       if(state.accessRole === "creator"){
-        els.accessStatus.textContent = "● Criador conectado";
-        els.accessStatus.className = "pill creator";
+        el.textContent = "● Criador conectado";
+        el.className = "pill creator";
       }else if(state.accessRole === "admin"){
-        els.accessStatus.textContent = "● Administrador conectado";
-        els.accessStatus.className = "pill admin";
+        el.textContent = "● Administrador conectado";
+        el.className = "pill admin";
       }else if(state.personType === "member"){
-        els.accessStatus.textContent = "● Membro da banda";
-        els.accessStatus.className = "pill member";
+        el.textContent = "● Membro da banda";
+        el.className = "pill member";
       }else if(state.personType === "visitor"){
-        els.accessStatus.textContent = "● Visitante / fã";
-        els.accessStatus.className = "pill visitor";
+        el.textContent = "● Visitante / fã";
+        el.className = "pill visitor";
       }else{
-        els.accessStatus.textContent = "● Aguardando entrada";
-        els.accessStatus.className = "pill";
+        el.textContent = "● Aguardando entrada";
+        el.className = "pill";
       }
     }
 
@@ -1758,86 +2193,95 @@
       const entered = hasEntered();
 
       if(hasAdminAccess()){
-        els.entryCard.style.display = "none";
-        els.homeAfterEntry.style.display = "block";
-        els.welcomeTitle.textContent = state.accessRole === "creator"
-          ? "Criador conectado"
-          : "Administrador conectado";
+        safeDisplay("entryCard","none");
+        safeDisplay("homeAfterEntry","block");
+        safeText("welcomeTitle", state.accessRole === "creator" ? "Criador conectado" : "Administrador conectado");
 
-        els.entryResult.innerHTML = `
+        safeSetHTML("entryResult", `
           <div class="notice success">
             Acesso administrativo liberado. Use a aba Admin ou Config para gerenciar o aplicativo.
           </div>
-        `;
+        `);
 
-        els.visitorHomeMenu.style.display = "none";
-        els.memberHomeMenu.style.display = "grid";
+        safeDisplay("visitorHomeMenu","none");
+        safeDisplay("memberHomeMenu","grid");
         return;
       }
 
-      els.entryCard.style.display = entered ? "none" : "block";
-      els.homeAfterEntry.style.display = entered ? "block" : "none";
+      safeDisplay("entryCard", entered ? "none" : "block");
+      safeDisplay("homeAfterEntry", entered ? "block" : "none");
 
       if(entered){
         const name = currentUserName() || "visitante";
-        els.welcomeTitle.textContent = `Bem-vindo, ${name}`;
+        safeText("welcomeTitle", `Bem-vindo, ${name}`);
 
         if(state.personType === "member"){
-          els.entryResult.innerHTML = `
+          safeSetHTML("entryResult", `
             <div class="notice success">
               Você está conectado como <strong>membro da banda</strong>. A área interna foi liberada.
             </div>
-          `;
-          els.visitorHomeMenu.style.display = "none";
-          els.memberHomeMenu.style.display = "grid";
+          `);
+          safeDisplay("visitorHomeMenu","none");
+          safeDisplay("memberHomeMenu","grid");
         }else{
-          els.entryResult.innerHTML = `
+          safeSetHTML("entryResult", `
             <div class="notice">
               Você está conectado como <strong>visitante/fã</strong>. Você verá apenas conteúdos públicos.
             </div>
-          `;
-          els.visitorHomeMenu.style.display = "grid";
-          els.memberHomeMenu.style.display = "none";
+          `);
+          safeDisplay("visitorHomeMenu","grid");
+          safeDisplay("memberHomeMenu","none");
         }
       }
     }
 
     function renderAdmin(){
       if(hasAdminAccess()){
-        els.adminLoginCard.style.display = "none";
-        els.adminPanel.style.display = "block";
-        els.adminModeNotice.innerHTML = state.accessRole === "creator"
+        safeDisplay("adminLoginCard","none");
+        safeDisplay("adminPanel","block");
+        safeSetHTML("adminModeNotice", state.accessRole === "creator"
           ? "<strong>Modo criador ativo.</strong> Você pode administrar o app e alterar o login do administrador."
-          : "<strong>Modo administrador ativo.</strong> Você pode cadastrar eventos, recados, agendas, notificações e membros.";
+          : "<strong>Modo administrador ativo.</strong> Você pode cadastrar eventos, recados, agendas, notificações e membros."
+        );
       }else{
-        els.adminLoginCard.style.display = "block";
-        els.adminPanel.style.display = "none";
+        safeDisplay("adminLoginCard","block");
+        safeDisplay("adminPanel","none");
       }
     }
 
     function renderConfig(){
       if(hasAdminAccess()){
-        els.configBlocked.style.display = "none";
-        els.configPanel.style.display = "block";
+        safeDisplay("configBlocked","none");
+        safeDisplay("configPanel","block");
       }else{
-        els.configBlocked.style.display = "block";
-        els.configPanel.style.display = "none";
+        safeDisplay("configBlocked","block");
+        safeDisplay("configPanel","none");
       }
 
-      els.creatorAdminBox.style.display = hasCreatorAccess() ? "block" : "none";
+      safeDisplay("creatorAdminBox", hasCreatorAccess() ? "block" : "none");
 
-      els.configBandName.value = state.config.bandName || "FENDA";
-      els.configSubtitle.value = state.config.subtitle || "";
-      els.configBookingPhone.value = state.config.bookingPhone || "";
-      els.configBookingText.value = state.config.bookingText || "";
-      els.configAdminLogin.value = state.config.adminLogin || "admin";
-      els.configAdminPassword.value = state.config.adminPassword || "1234";
+      const bandName = $("configBandName");
+      const subtitle = $("configSubtitle");
+      const bookingPhone = $("configBookingPhone");
+      const bookingText = $("configBookingText");
+      const adminLogin = $("configAdminLogin");
+      const adminPassword = $("configAdminPassword");
+      const logoPreview = $("logoPreview");
 
-      if(state.config.logoData){
-        els.logoPreview.src = state.config.logoData;
-        els.logoPreview.style.display = "block";
-      }else{
-        els.logoPreview.style.display = "none";
+      if(bandName) bandName.value = state.config.bandName || "FENDA";
+      if(subtitle) subtitle.value = state.config.subtitle || "";
+      if(bookingPhone) bookingPhone.value = state.config.bookingPhone || "";
+      if(bookingText) bookingText.value = state.config.bookingText || "";
+      if(adminLogin) adminLogin.value = state.config.adminLogin || "admin";
+      if(adminPassword) adminPassword.value = state.config.adminPassword || "1234";
+
+      if(logoPreview){
+        if(state.config.logoData){
+          logoPreview.src = state.config.logoData;
+          logoPreview.style.display = "block";
+        }else{
+          logoPreview.style.display = "none";
+        }
       }
     }
 
@@ -1845,25 +2289,25 @@
       const entered = hasEntered() || hasAdminAccess();
       const internal = isMember();
 
-      els.publicAccessBlockedEventos.style.display = entered ? "none" : "block";
-      els.eventosPanel.style.display = entered ? "block" : "none";
+      safeDisplay("publicAccessBlockedEventos", entered ? "none" : "block");
+      safeDisplay("eventosPanel", entered ? "block" : "none");
 
-      els.publicAccessBlockedNotificacoes.style.display = entered ? "none" : "block";
-      els.notificacoesPanel.style.display = entered ? "block" : "none";
+      safeDisplay("publicAccessBlockedNotificacoes", entered ? "none" : "block");
+      safeDisplay("notificacoesPanel", entered ? "block" : "none");
 
-      els.publicAccessBlockedContato.style.display = entered ? "none" : "block";
-      els.contatoPanel.style.display = entered ? "block" : "none";
+      safeDisplay("publicAccessBlockedContato", entered ? "none" : "block");
+      safeDisplay("contatoPanel", entered ? "block" : "none");
 
-      els.agendaLocked.style.display = internal ? "none" : "block";
-      els.agendaPanel.style.display = internal ? "block" : "none";
+      safeDisplay("agendaLocked", internal ? "none" : "block");
+      safeDisplay("agendaPanel", internal ? "block" : "none");
 
-      els.recadosLocked.style.display = internal ? "none" : "block";
-      els.recadosPanel.style.display = internal ? "block" : "none";
+      safeDisplay("recadosLocked", internal ? "none" : "block");
+      safeDisplay("recadosPanel", internal ? "block" : "none");
 
-      els.chatLocked.style.display = internal ? "none" : "block";
-      els.chatPanel.style.display = internal ? "block" : "none";
+      safeDisplay("chatLocked", internal ? "none" : "block");
+      safeDisplay("chatPanel", internal ? "block" : "none");
 
-      els.clearChatBtn.style.display = hasAdminAccess() ? "inline-flex" : "none";
+      safeDisplay("clearChatBtn", hasAdminAccess() ? "inline-flex" : "none");
     }
 
     function eventoCard(e,mode){
@@ -2009,9 +2453,6 @@
                   </div>
                 `).join("") : `<div class="empty" style="margin-top:10px;">Nenhum membro para este destino.</div>`
               }
-              <div class="divider"></div>
-              <strong>Visualizações</strong>
-              ${seenNames.length ? seenNames.map(n => `<div class="small">✅ ${escapeHTML(n)}</div>`).join("") : `<div class="small" style="margin-top:6px;">Ninguém visualizou ainda.</div>`}
             ` : `<button class="btn blue full" style="margin-top:10px;" onclick="markRecadoSeen('${r.id}')">Marcar como visualizado</button>`
           }
         </div>
@@ -2050,18 +2491,21 @@
     }
 
     function renderChat(){
-      els.chatBox.innerHTML = state.chatMessages.length
+      safeSetHTML("chatBox", state.chatMessages.length
         ? state.chatMessages.map(chatMessageCard).join("")
-        : `<div class="empty">Nenhuma mensagem no chat ainda.</div>`;
-      els.clearChatBtn.style.display = hasAdminAccess() ? "inline-flex" : "none";
+        : `<div class="empty">Nenhuma mensagem no chat ainda.</div>`
+      );
+
+      safeDisplay("clearChatBtn", hasAdminAccess() ? "inline-flex" : "none");
     }
 
     function scrollChatBottom(){
-      if(els.chatBox) els.chatBox.scrollTop = els.chatBox.scrollHeight;
+      const el = $("chatBox");
+      if(el) el.scrollTop = el.scrollHeight;
     }
 
     function renderMembersAdmin(){
-      els.membersAdminList.innerHTML = state.members.length
+      safeSetHTML("membersAdminList", state.members.length
         ? state.members.map(m => `
           <div class="memberRow">
             <div>
@@ -2075,11 +2519,12 @@
             </div>
           </div>
         `).join("")
-        : `<div class="empty">Nenhum membro cadastrado.</div>`;
+        : `<div class="empty">Nenhum membro cadastrado.</div>`
+      );
     }
 
     function renderVisitorsAdmin(){
-      els.visitorsAdminList.innerHTML = state.visitors.length
+      safeSetHTML("visitorsAdminList", state.visitors.length
         ? state.visitors.map(v => `
           <div class="memberRow">
             <div>
@@ -2093,32 +2538,32 @@
             </div>
           </div>
         `).join("")
-        : `<div class="empty">Nenhum visitante cadastrado ainda.</div>`;
+        : `<div class="empty">Nenhum visitante cadastrado ainda.</div>`
+      );
     }
 
     function renderBooking(){
       if(state.config.bookingPhone){
-        els.bookingInfo.innerHTML = `
+        safeSetHTML("bookingInfo", `
           <div class="notice success">
             <strong>Contato para agenda:</strong><br>
             ${escapeHTML(state.config.bookingPhone)}
           </div>
-        `;
+        `);
       }else{
-        els.bookingInfo.innerHTML = `
+        safeSetHTML("bookingInfo", `
           <div class="notice warning">
             O contato para marcar agenda ainda não foi cadastrado pelo administrador.
           </div>
-        `;
+        `);
       }
     }
 
     function renderStats(){
-      if(els.statMembers) els.statMembers.textContent = state.members.length;
-      if(els.statVisitors) els.statVisitors.textContent = state.visitors.length;
-      if(els.statEventos) els.statEventos.textContent = state.eventos.length;
-      if(els.statAgendas) els.statAgendas.textContent = state.agendas.length;
-      if(els.statRecados) els.statRecados.textContent = state.recados.length;
+      safeText("statMembers", state.members.length);
+      safeText("statVisitors", state.visitors.length);
+      safeText("statEventos", state.eventos.length);
+      safeText("statRecados", state.recados.length);
     }
 
     function renderAll(){
@@ -2134,118 +2579,124 @@
       renderChat();
       renderBooking();
 
-      els.eventosList.innerHTML = state.eventos.length
+      safeSetHTML("eventosList", state.eventos.length
         ? sortByDate(state.eventos).map(e => eventoCard(e,"public")).join("")
-        : `<div class="empty">Nenhum evento público cadastrado ainda.</div>`;
+        : `<div class="empty">Nenhum evento público cadastrado ainda.</div>`
+      );
 
-      els.publicPostsList.innerHTML = state.publicPosts.length
+      safeSetHTML("publicPostsList", state.publicPosts.length
         ? state.publicPosts.map(p => publicPostCard(p,"public")).join("")
-        : `<div class="empty">Nenhuma mensagem pública cadastrada ainda.</div>`;
+        : `<div class="empty">Nenhuma mensagem pública cadastrada ainda.</div>`
+      );
 
-      els.publicNotificationsList.innerHTML = state.publicNotifications.length
+      safeSetHTML("publicNotificationsList", state.publicNotifications.length
         ? state.publicNotifications.map(n => publicNotificationCard(n,"public")).join("")
-        : `<div class="empty">Nenhuma notificação publicada ainda.</div>`;
+        : `<div class="empty">Nenhuma notificação publicada ainda.</div>`
+      );
 
-      els.adminPublicNotificationsList.innerHTML = state.publicNotifications.length
+      safeSetHTML("adminPublicNotificationsList", state.publicNotifications.length
         ? state.publicNotifications.map(n => publicNotificationCard(n,"admin")).join("")
-        : `<div class="empty">Nenhuma notificação publicada ainda.</div>`;
+        : `<div class="empty">Nenhuma notificação publicada ainda.</div>`
+      );
 
-      els.adminEventosList.innerHTML = state.eventos.length
+      safeSetHTML("adminEventosList", state.eventos.length
         ? sortByDate(state.eventos).map(e => eventoCard(e,"admin")).join("")
-        : `<div class="empty">Nenhum evento publicado ainda.</div>`;
+        : `<div class="empty">Nenhum evento publicado ainda.</div>`
+      );
 
-      els.adminPublicPostsList.innerHTML = state.publicPosts.length
+      safeSetHTML("adminPublicPostsList", state.publicPosts.length
         ? state.publicPosts.map(p => publicPostCard(p,"admin")).join("")
-        : `<div class="empty">Nenhuma mensagem pública.</div>`;
+        : `<div class="empty">Nenhuma mensagem pública.</div>`
+      );
 
-      els.agendaList.innerHTML = state.agendas.length
+      safeSetHTML("agendaList", state.agendas.length
         ? sortByDate(state.agendas).map(a => agendaCard(a,"member")).join("")
-        : `<div class="empty">Nenhuma agenda interna cadastrada.</div>`;
+        : `<div class="empty">Nenhuma agenda interna cadastrada.</div>`
+      );
 
-      els.adminAgendaList.innerHTML = state.agendas.length
+      safeSetHTML("adminAgendaList", state.agendas.length
         ? sortByDate(state.agendas).map(a => agendaCard(a,"admin")).join("")
-        : `<div class="empty">Nenhuma agenda cadastrada.</div>`;
+        : `<div class="empty">Nenhuma agenda cadastrada.</div>`
+      );
 
-      els.recadosList.innerHTML = state.recados.length
+      safeSetHTML("recadosList", state.recados.length
         ? state.recados.map(r => recadoCard(r,"member")).join("")
-        : `<div class="empty">Nenhum recado interno enviado ainda.</div>`;
+        : `<div class="empty">Nenhum recado interno enviado ainda.</div>`
+      );
 
-      els.adminRecadosList.innerHTML = state.recados.length
+      safeSetHTML("adminRecadosList", state.recados.length
         ? state.recados.map(r => recadoCard(r,"admin")).join("")
-        : `<div class="empty">Nenhum recado enviado ainda.</div>`;
+        : `<div class="empty">Nenhum recado enviado ainda.</div>`
+      );
     }
 
-    function renderPanelsByAccess(){
-      const entered = hasEntered() || hasAdminAccess();
-      const internal = isMember();
-
-      els.publicAccessBlockedEventos.style.display = entered ? "none" : "block";
-      els.eventosPanel.style.display = entered ? "block" : "none";
-
-      els.publicAccessBlockedNotificacoes.style.display = entered ? "none" : "block";
-      els.notificacoesPanel.style.display = entered ? "block" : "none";
-
-      els.publicAccessBlockedContato.style.display = entered ? "none" : "block";
-      els.contatoPanel.style.display = entered ? "block" : "none";
-
-      els.agendaLocked.style.display = internal ? "none" : "block";
-      els.agendaPanel.style.display = internal ? "block" : "none";
-
-      els.recadosLocked.style.display = internal ? "none" : "block";
-      els.recadosPanel.style.display = internal ? "block" : "none";
-
-      els.chatLocked.style.display = internal ? "none" : "block";
-      els.chatPanel.style.display = internal ? "block" : "none";
-
-      els.clearChatBtn.style.display = hasAdminAccess() ? "inline-flex" : "none";
+    function listenCollection(name,order,callback){
+      try{
+        const ref = order ? query(collection(db,name),orderBy(order,"desc")) : collection(db,name);
+        onSnapshot(ref, snap => {
+          callback(snap.docs.map(d => ({id:d.id,...d.data()})));
+        }, error => {
+          console.error("Erro em",name,error);
+        });
+      }catch(error){
+        console.error("Erro listener",name,error);
+      }
     }
 
     function listenFirestore(){
-      onSnapshot(doc(db,"settings","main"),snap => {
-        if(snap.exists()) state.config = {...state.config,...snap.data()};
+      try{
+        onSnapshot(doc(db,"settings","main"),snap => {
+          if(snap.exists()) state.config = {...state.config,...snap.data()};
+          renderAll();
+        }, error => console.error(error));
+      }catch(error){
+        console.error(error);
+      }
+
+      listenCollection("members",null,list => {
+        state.members = list;
         renderAll();
       });
 
-      onSnapshot(collection(db,"members"),snap => {
-        state.members = snap.docs.map(d => ({id:d.id,...d.data()}));
+      listenCollection("visitors",null,list => {
+        state.visitors = list;
         renderAll();
       });
 
-      onSnapshot(collection(db,"visitors"),snap => {
-        state.visitors = snap.docs.map(d => ({id:d.id,...d.data()}));
+      listenCollection("eventos","createdAt",list => {
+        state.eventos = list;
         renderAll();
       });
 
-      onSnapshot(query(collection(db,"eventos"),orderBy("createdAt","desc")),snap => {
-        state.eventos = snap.docs.map(d => ({id:d.id,...d.data()}));
+      listenCollection("publicPosts","createdAt",list => {
+        state.publicPosts = list;
         renderAll();
       });
 
-      onSnapshot(query(collection(db,"publicPosts"),orderBy("createdAt","desc")),snap => {
-        state.publicPosts = snap.docs.map(d => ({id:d.id,...d.data()}));
+      listenCollection("publicNotifications","createdAt",list => {
+        state.publicNotifications = list;
         renderAll();
       });
 
-      onSnapshot(query(collection(db,"publicNotifications"),orderBy("createdAt","desc")),snap => {
-        state.publicNotifications = snap.docs.map(d => ({id:d.id,...d.data()}));
+      listenCollection("agendas","createdAt",list => {
+        state.agendas = list;
         renderAll();
       });
 
-      onSnapshot(query(collection(db,"agendas"),orderBy("createdAt","desc")),snap => {
-        state.agendas = snap.docs.map(d => ({id:d.id,...d.data()}));
+      listenCollection("recados","createdAt",list => {
+        state.recados = list;
         renderAll();
       });
 
-      onSnapshot(query(collection(db,"recados"),orderBy("createdAt","desc")),snap => {
-        state.recados = snap.docs.map(d => ({id:d.id,...d.data()}));
-        renderAll();
-      });
-
-      onSnapshot(query(collection(db,"chatMessages"),orderBy("createdAt","asc")),snap => {
-        state.chatMessages = snap.docs.map(d => ({id:d.id,...d.data()}));
-        renderAll();
-        setTimeout(scrollChatBottom,150);
-      });
+      try{
+        onSnapshot(query(collection(db,"chatMessages"),orderBy("createdAt","asc")), snap => {
+          state.chatMessages = snap.docs.map(d => ({id:d.id,...d.data()}));
+          renderAll();
+          setTimeout(scrollChatBottom,150);
+        }, error => console.error("Erro chat",error));
+      }catch(error){
+        console.error(error);
+      }
     }
 
     window.openScreen = openScreen;
@@ -2285,16 +2736,9 @@
     window.clearChat = clearChat;
 
     document.addEventListener("DOMContentLoaded",() => {
-      cacheEls();
       loadEntryLocal();
       renderAll();
-
-      try{
-        listenFirestore();
-      }catch(error){
-        console.error(error);
-        toast("Erro ao conectar o sistema. Verifique o Firebase.");
-      }
+      listenFirestore();
     });
   </script>
 </body>
