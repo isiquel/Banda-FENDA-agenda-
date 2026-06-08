@@ -1,707 +1,129 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>FENDA - App da Banda</title>
 
   <style>
     :root{
-      --bg:#05070d;
-      --card:#111827;
-      --card2:#182033;
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --line:rgba(255,255,255,.12);
-      --blue:#38bdf8;
-      --green:#22c55e;
-      --red:#ef4444;
-      --orange:#fb923c;
-      --purple:#8b5cf6;
-      --yellow:#facc15;
-      --radius:22px;
+      --bg:#05070d;--card:#111827;--card2:#182033;--text:#f8fafc;--muted:#94a3b8;
+      --line:rgba(255,255,255,.12);--blue:#38bdf8;--green:#22c55e;--red:#ef4444;
+      --orange:#fb923c;--purple:#8b5cf6;--yellow:#facc15;--radius:22px;
       --shadow:0 18px 45px rgba(0,0,0,.35);
     }
 
-    *{
-      box-sizing:border-box;
-      -webkit-tap-highlight-color:transparent;
-    }
-
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
     body{
-      margin:0;
-      min-height:100vh;
-      font-family:Arial, Helvetica, sans-serif;
-      color:var(--text);
+      margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--text);
       background:
-        radial-gradient(circle at top left, rgba(255,255,255,.08), transparent 28%),
-        radial-gradient(circle at bottom right, rgba(56,189,248,.13), transparent 32%),
+        radial-gradient(circle at top left,rgba(255,255,255,.08),transparent 28%),
+        radial-gradient(circle at bottom right,rgba(56,189,248,.13),transparent 32%),
         linear-gradient(180deg,#020307 0%,#070b14 45%,#05070d 100%);
     }
-
-    button,input,textarea,select{
-      font-family:inherit;
-    }
-
-    .app{
-      width:100%;
-      max-width:1100px;
-      margin:0 auto;
-      padding:14px;
-      padding-bottom:90px;
-    }
-
+    button,input,textarea,select{font-family:inherit}
+    .app{width:100%;max-width:1100px;margin:0 auto;padding:14px 14px 90px}
     .hero{
       background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(56,189,248,.08)),rgba(17,24,39,.94);
-      border:1px solid var(--line);
-      border-radius:30px;
-      padding:18px;
-      box-shadow:var(--shadow);
-      margin-bottom:12px;
-      position:relative;
-      overflow:hidden;
+      border:1px solid var(--line);border-radius:30px;padding:18px;box-shadow:var(--shadow);
+      margin-bottom:12px;position:relative;overflow:hidden;
     }
-
-    .hero:after{
-      content:"♪";
-      position:absolute;
-      right:20px;
-      top:-14px;
-      font-size:110px;
-      opacity:.06;
-      transform:rotate(-12deg);
-      font-weight:900;
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:14px;
-      position:relative;
-      z-index:2;
-    }
-
+    .hero:after{content:"♪";position:absolute;right:20px;top:-14px;font-size:110px;opacity:.06;transform:rotate(-12deg);font-weight:900}
+    .brand{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
     .logoBox{
-      width:72px;
-      height:72px;
-      border-radius:22px;
-      overflow:hidden;
-      background:#fff;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      flex:none;
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow:0 14px 30px rgba(255,255,255,.08);
+      width:72px;height:72px;border-radius:22px;overflow:hidden;background:#fff;display:flex;align-items:center;justify-content:center;
+      flex:none;border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 30px rgba(255,255,255,.08);
     }
+    .logoBox img{width:100%;height:100%;object-fit:cover;display:block}
+    .logoFallback{font-size:34px;color:#111827;font-weight:900}
+    h1{margin:0;font-size:28px;letter-spacing:.7px;line-height:1.1}
+    .subtitle{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
+    .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;position:relative;z-index:2}
+    .pill{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--line);color:#e5e7eb;font-size:12px;font-weight:900}
+    .pill.creator{background:rgba(139,92,246,.15);color:#e9d5ff;border-color:rgba(139,92,246,.35)}
+    .pill.admin{background:rgba(34,197,94,.15);color:#bbf7d0;border-color:rgba(34,197,94,.35)}
+    .pill.member{background:rgba(56,189,248,.15);color:#bae6fd;border-color:rgba(56,189,248,.35)}
+    .pill.visitor{background:rgba(250,204,21,.12);color:#fef3c7;border-color:rgba(250,204,21,.30)}
 
-    .logoBox img{
-      width:100%;
-      height:100%;
-      object-fit:cover;
-      display:block;
-    }
+    .tabs{position:sticky;top:0;z-index:30;display:flex;gap:7px;padding:9px 0;background:rgba(5,7,13,.88);backdrop-filter:blur(12px);margin-bottom:12px;overflow-x:auto}
+    .tab{border:1px solid var(--line);background:rgba(17,24,39,.88);color:var(--muted);border-radius:15px;padding:12px 13px;font-size:12px;font-weight:900;cursor:pointer;white-space:nowrap;min-width:86px}
+    .tab.active{background:linear-gradient(135deg,#fff,#d1d5db);color:#111827;border:0}
 
-    .logoFallback{
-      font-size:34px;
-      color:#111827;
-      font-weight:900;
-    }
-
-    h1{
-      margin:0;
-      font-size:28px;
-      letter-spacing:.7px;
-      line-height:1.1;
-    }
-
-    .subtitle{
-      margin:6px 0 0;
-      color:var(--muted);
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    .pills{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:13px;
-      position:relative;
-      z-index:2;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      padding:8px 11px;
-      border-radius:999px;
-      background:rgba(255,255,255,.06);
-      border:1px solid var(--line);
-      color:#e5e7eb;
-      font-size:12px;
-      font-weight:900;
-    }
-
-    .pill.creator{
-      background:rgba(139,92,246,.15);
-      color:#e9d5ff;
-      border-color:rgba(139,92,246,.35);
-    }
-
-    .pill.admin{
-      background:rgba(34,197,94,.15);
-      color:#bbf7d0;
-      border-color:rgba(34,197,94,.35);
-    }
-
-    .pill.member{
-      background:rgba(56,189,248,.15);
-      color:#bae6fd;
-      border-color:rgba(56,189,248,.35);
-    }
-
-    .tabs{
-      position:sticky;
-      top:0;
-      z-index:30;
-      display:flex;
-      gap:7px;
-      padding:9px 0;
-      background:rgba(5,7,13,.88);
-      backdrop-filter:blur(12px);
-      margin-bottom:12px;
-      overflow-x:auto;
-    }
-
-    .tab{
-      border:1px solid var(--line);
-      background:rgba(17,24,39,.88);
-      color:var(--muted);
-      border-radius:15px;
-      padding:12px 13px;
-      font-size:12px;
-      font-weight:900;
-      cursor:pointer;
-      white-space:nowrap;
-      min-width:86px;
-    }
-
-    .tab.active{
-      background:linear-gradient(135deg,#fff,#d1d5db);
-      color:#111827;
-      border:0;
-    }
-
-    .screen{
-      display:none;
-    }
-
-    .screen.active{
-      display:block;
-    }
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-    }
-
-    .homeMenu{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:12px;
-      margin-top:12px;
-    }
-
+    .screen{display:none}.screen.active{display:block}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+    .homeMenu{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
     .homeBtn{
-      border:1px solid var(--line);
-      background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
-      color:var(--text);
-      border-radius:24px;
-      min-height:108px;
-      padding:18px;
-      cursor:pointer;
-      box-shadow:0 12px 30px rgba(0,0,0,.16);
-      text-align:left;
+      border:1px solid var(--line);background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
+      color:var(--text);border-radius:24px;min-height:108px;padding:18px;cursor:pointer;box-shadow:0 12px 30px rgba(0,0,0,.16);text-align:left;
     }
+    .homeBtn strong{display:block;font-size:19px;margin-bottom:7px}
+    .homeBtn span{display:block;color:var(--muted);font-size:13px;line-height:1.4}
 
-    .homeBtn strong{
-      display:block;
-      font-size:19px;
-      margin-bottom:7px;
-    }
-
-    .homeBtn span{
-      display:block;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.4;
-    }
-
-    .card{
-      background:rgba(17,24,39,.94);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:16px;
-      box-shadow:0 12px 35px rgba(0,0,0,.22);
-    }
-
-    .card h2{
-      margin:0 0 12px;
-      font-size:19px;
-    }
-
-    .card h3{
-      margin:0 0 10px;
-      font-size:16px;
-    }
-
-    .muted{
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.45;
-    }
-
-    label{
-      display:block;
-      margin:10px 0 6px;
-      color:#cbd5e1;
-      font-size:13px;
-      font-weight:900;
-    }
-
+    .card{background:rgba(17,24,39,.94);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:0 12px 35px rgba(0,0,0,.22)}
+    .card h2{margin:0 0 12px;font-size:19px}.card h3{margin:0 0 10px;font-size:16px}
+    .muted{color:var(--muted);font-size:13px;line-height:1.45}
+    label{display:block;margin:10px 0 6px;color:#cbd5e1;font-size:13px;font-weight:900}
     input,textarea,select{
-      width:100%;
-      border:1px solid var(--line);
-      background:rgba(15,23,42,.98);
-      color:var(--text);
-      border-radius:15px;
-      padding:13px 14px;
-      outline:none;
-      font-size:15px;
+      width:100%;border:1px solid var(--line);background:rgba(15,23,42,.98);color:var(--text);
+      border-radius:15px;padding:13px 14px;outline:none;font-size:15px;
     }
-
-    textarea{
-      min-height:96px;
-      resize:vertical;
-      line-height:1.45;
-    }
-
-    input:focus,textarea:focus,select:focus{
-      border-color:rgba(255,255,255,.32);
-      box-shadow:0 0 0 3px rgba(255,255,255,.08);
-    }
-
+    textarea{min-height:96px;resize:vertical;line-height:1.45}
+    input:focus,textarea:focus,select:focus{border-color:rgba(255,255,255,.32);box-shadow:0 0 0 3px rgba(255,255,255,.08)}
     .btn{
-      border:1px solid var(--line);
-      background:var(--card2);
-      color:var(--text);
-      border-radius:15px;
-      min-height:44px;
-      padding:12px 14px;
-      font-size:14px;
-      font-weight:900;
-      cursor:pointer;
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      gap:8px;
-      text-decoration:none;
+      border:1px solid var(--line);background:var(--card2);color:var(--text);border-radius:15px;min-height:44px;padding:12px 14px;
+      font-size:14px;font-weight:900;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;
     }
-
-    .btn.full{
-      width:100%;
-    }
-
-    .btn.primary{
-      background:linear-gradient(135deg,#fff,#d1d5db);
-      color:#111827;
-      border:0;
-    }
-
-    .btn.green{
-      background:rgba(34,197,94,.16);
-      color:#bbf7d0;
-      border-color:rgba(34,197,94,.3);
-    }
-
-    .btn.blue{
-      background:rgba(56,189,248,.16);
-      color:#bae6fd;
-      border-color:rgba(56,189,248,.3);
-    }
-
-    .btn.red{
-      background:rgba(239,68,68,.16);
-      color:#fecaca;
-      border-color:rgba(239,68,68,.3);
-    }
-
-    .btn.orange{
-      background:rgba(251,146,60,.16);
-      color:#fed7aa;
-      border-color:rgba(251,146,60,.3);
-    }
-
-    .btn.purple{
-      background:rgba(139,92,246,.16);
-      color:#e9d5ff;
-      border-color:rgba(139,92,246,.3);
-    }
-
-    .btn.yellow{
-      background:rgba(250,204,21,.16);
-      color:#fef3c7;
-      border-color:rgba(250,204,21,.3);
-    }
-
-    .actions{
-      display:grid;
-      grid-template-columns:repeat(2,1fr);
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:12px;
-      margin-top:12px;
-    }
-
-    .item{
-      background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
-      border:1px solid var(--line);
-      border-radius:20px;
-      padding:15px;
-      box-shadow:0 12px 30px rgba(0,0,0,.16);
-    }
-
-    .itemHead{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-start;
-      gap:10px;
-      margin-bottom:10px;
-    }
-
-    .itemTitle{
-      margin:0;
-      font-size:18px;
-      font-weight:900;
-    }
-
-    .small{
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.4;
-    }
-
-    .line{
-      display:flex;
-      gap:8px;
-      align-items:flex-start;
-      margin:6px 0;
-      color:#e2e8f0;
-      font-size:14px;
-      line-height:1.45;
-    }
-
-    .line span:first-child{
-      width:22px;
-      flex:none;
-      text-align:center;
-    }
-
-    .badge{
-      display:inline-flex;
-      border-radius:999px;
-      padding:6px 9px;
-      font-size:12px;
-      font-weight:900;
-      border:1px solid var(--line);
-      white-space:nowrap;
-    }
-
-    .badge.normal{
-      background:rgba(56,189,248,.14);
-      color:#bae6fd;
-      border-color:rgba(56,189,248,.28);
-    }
-
-    .badge.urgente{
-      background:rgba(239,68,68,.14);
-      color:#fecaca;
-      border-color:rgba(239,68,68,.28);
-    }
-
-    .badge.ok{
-      background:rgba(34,197,94,.14);
-      color:#bbf7d0;
-      border-color:rgba(34,197,94,.28);
-    }
-
-    .badge.evento{
-      background:rgba(255,255,255,.10);
-      color:#f8fafc;
-      border-color:rgba(255,255,255,.18);
-    }
-
-    .memberRow{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      gap:10px;
-      padding:12px;
-      border:1px solid var(--line);
-      background:rgba(15,23,42,.75);
-      border-radius:16px;
-      margin-top:8px;
-      flex-wrap:wrap;
-    }
-
-    .compactStats{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:10px;
-      margin-top:12px;
-    }
-
-    .statBox{
-      border:1px solid var(--line);
-      background:rgba(15,23,42,.75);
-      border-radius:18px;
-      padding:13px;
-    }
-
-    .statBox strong{
-      display:block;
-      font-size:20px;
-    }
-
-    .statBox span{
-      color:var(--muted);
-      font-size:12px;
-    }
-
-    .divider{
-      height:1px;
-      background:var(--line);
-      margin:12px 0;
-    }
-
-    .notice{
-      background:rgba(255,255,255,.06);
-      border:1px solid rgba(255,255,255,.12);
-      color:#e2e8f0;
-      border-radius:18px;
-      padding:13px;
-      font-size:14px;
-      line-height:1.45;
-      margin-bottom:12px;
-    }
-
-    .notice.warning{
-      background:rgba(251,146,60,.10);
-      border-color:rgba(251,146,60,.25);
-      color:#fed7aa;
-    }
-
-    .notice.success{
-      background:rgba(34,197,94,.10);
-      border-color:rgba(34,197,94,.25);
-      color:#bbf7d0;
-    }
-
-    .empty{
-      text-align:center;
-      color:var(--muted);
-      border:1px dashed var(--line);
-      border-radius:18px;
-      padding:22px 12px;
-    }
-
-    details.cleanDetails{
-      border:1px solid var(--line);
-      background:rgba(17,24,39,.75);
-      border-radius:18px;
-      padding:0;
-      margin-bottom:12px;
-      overflow:hidden;
-    }
-
-    details.cleanDetails summary{
-      cursor:pointer;
-      padding:14px 15px;
-      font-weight:900;
-      color:#e5e7eb;
-      list-style:none;
-    }
-
-    details.cleanDetails summary::-webkit-details-marker{
-      display:none;
-    }
-
-    .detailsBody{
-      padding:0 15px 15px;
-      border-top:1px solid var(--line);
-    }
-
-    .previewLogo{
-      width:95px;
-      height:95px;
-      border-radius:22px;
-      object-fit:cover;
-      border:1px solid var(--line);
-      background:#0f172a;
-      display:none;
-      margin-top:10px;
-    }
-
-    .posterPreview{
-      width:100%;
-      max-height:360px;
-      object-fit:cover;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:#0f172a;
-      display:none;
-      margin-top:10px;
-    }
-
-    .posterImage{
-      width:100%;
-      max-height:560px;
-      object-fit:cover;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:#0f172a;
-      margin-bottom:12px;
-    }
-
-    .chatBox{
-      height:480px;
-      overflow-y:auto;
-      border:1px solid var(--line);
-      border-radius:20px;
-      background:rgba(15,23,42,.55);
-      padding:12px;
-    }
-
-    .chatMsg{
-      border:1px solid var(--line);
-      background:rgba(17,24,39,.95);
-      border-radius:18px;
-      padding:12px;
-      margin-bottom:10px;
-    }
-
-    .chatMsg.mine{
-      border-color:rgba(56,189,248,.35);
-      background:rgba(56,189,248,.09);
-    }
-
-    .replyBox{
-      border-left:3px solid var(--blue);
-      padding:8px;
-      border-radius:10px;
-      background:rgba(56,189,248,.08);
-      color:#bae6fd;
-      font-size:12px;
-      margin-bottom:8px;
-    }
-
-    .replyActive{
-      display:none;
-      margin-bottom:10px;
-      border:1px solid rgba(56,189,248,.30);
-      background:rgba(56,189,248,.10);
-      color:#bae6fd;
-      border-radius:16px;
-      padding:10px;
-      font-size:13px;
-    }
-
-    .chatInputBar{
-      margin-top:12px;
-      display:grid;
-      grid-template-columns:1fr auto;
-      gap:10px;
-    }
-
-    .toast{
-      position:fixed;
-      left:50%;
-      bottom:18px;
-      transform:translateX(-50%) translateY(120px);
-      background:#0f172a;
-      color:#fff;
-      border:1px solid var(--line);
-      border-radius:18px;
-      padding:13px 16px;
-      box-shadow:var(--shadow);
-      z-index:999;
-      opacity:0;
-      transition:.25s;
-      max-width:92%;
-      font-size:14px;
-      line-height:1.4;
-    }
-
-    .toast.show{
-      transform:translateX(-50%) translateY(0);
-      opacity:1;
-    }
-
-    .footer{
-      text-align:center;
-      color:var(--muted);
-      font-size:12px;
-      padding:18px 0 0;
-    }
+    .btn.full{width:100%}.btn.primary{background:linear-gradient(135deg,#fff,#d1d5db);color:#111827;border:0}
+    .btn.green{background:rgba(34,197,94,.16);color:#bbf7d0;border-color:rgba(34,197,94,.3)}
+    .btn.blue{background:rgba(56,189,248,.16);color:#bae6fd;border-color:rgba(56,189,248,.3)}
+    .btn.red{background:rgba(239,68,68,.16);color:#fecaca;border-color:rgba(239,68,68,.3)}
+    .btn.orange{background:rgba(251,146,60,.16);color:#fed7aa;border-color:rgba(251,146,60,.3)}
+    .btn.purple{background:rgba(139,92,246,.16);color:#e9d5ff;border-color:rgba(139,92,246,.3)}
+    .btn.yellow{background:rgba(250,204,21,.16);color:#fef3c7;border-color:rgba(250,204,21,.3)}
+    .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
+    .list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+    .item{background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:0 12px 30px rgba(0,0,0,.16)}
+    .itemHead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
+    .itemTitle{margin:0;font-size:18px;font-weight:900}
+    .small{color:var(--muted);font-size:12px;line-height:1.4}
+    .line{display:flex;gap:8px;align-items:flex-start;margin:6px 0;color:#e2e8f0;font-size:14px;line-height:1.45}
+    .line span:first-child{width:22px;flex:none;text-align:center}
+    .badge{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;border:1px solid var(--line);white-space:nowrap}
+    .badge.normal{background:rgba(56,189,248,.14);color:#bae6fd;border-color:rgba(56,189,248,.28)}
+    .badge.urgente{background:rgba(239,68,68,.14);color:#fecaca;border-color:rgba(239,68,68,.28)}
+    .badge.ok{background:rgba(34,197,94,.14);color:#bbf7d0;border-color:rgba(34,197,94,.28)}
+    .badge.evento{background:rgba(255,255,255,.10);color:#f8fafc;border-color:rgba(255,255,255,.18)}
+    .memberRow{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;border:1px solid var(--line);background:rgba(15,23,42,.75);border-radius:16px;margin-top:8px;flex-wrap:wrap}
+    .compactStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+    .statBox{border:1px solid var(--line);background:rgba(15,23,42,.75);border-radius:18px;padding:13px}
+    .statBox strong{display:block;font-size:20px}.statBox span{color:var(--muted);font-size:12px}
+    .divider{height:1px;background:var(--line);margin:12px 0}
+    .notice{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:#e2e8f0;border-radius:18px;padding:13px;font-size:14px;line-height:1.45;margin-bottom:12px}
+    .notice.warning{background:rgba(251,146,60,.10);border-color:rgba(251,146,60,.25);color:#fed7aa}
+    .notice.success{background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.25);color:#bbf7d0}
+    .empty{text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px;padding:22px 12px}
+    details.cleanDetails{border:1px solid var(--line);background:rgba(17,24,39,.75);border-radius:18px;padding:0;margin-bottom:12px;overflow:hidden}
+    details.cleanDetails summary{cursor:pointer;padding:14px 15px;font-weight:900;color:#e5e7eb;list-style:none}
+    details.cleanDetails summary::-webkit-details-marker{display:none}
+    .detailsBody{padding:0 15px 15px;border-top:1px solid var(--line)}
+    .previewLogo{width:95px;height:95px;border-radius:22px;object-fit:cover;border:1px solid var(--line);background:#0f172a;display:none;margin-top:10px}
+    .posterPreview{width:100%;max-height:360px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#0f172a;display:none;margin-top:10px}
+    .posterImage{width:100%;max-height:560px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#0f172a;margin-bottom:12px}
+    .chatBox{height:480px;overflow-y:auto;border:1px solid var(--line);border-radius:20px;background:rgba(15,23,42,.55);padding:12px}
+    .chatMsg{border:1px solid var(--line);background:rgba(17,24,39,.95);border-radius:18px;padding:12px;margin-bottom:10px}
+    .chatMsg.mine{border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.09)}
+    .replyBox{border-left:3px solid var(--blue);padding:8px;border-radius:10px;background:rgba(56,189,248,.08);color:#bae6fd;font-size:12px;margin-bottom:8px}
+    .replyActive{display:none;margin-bottom:10px;border:1px solid rgba(56,189,248,.30);background:rgba(56,189,248,.10);color:#bae6fd;border-radius:16px;padding:10px;font-size:13px}
+    .chatInputBar{margin-top:12px;display:grid;grid-template-columns:1fr auto;gap:10px}
+    .toast{position:fixed;left:50%;bottom:18px;transform:translateX(-50%) translateY(120px);background:#0f172a;color:#fff;border:1px solid var(--line);border-radius:18px;padding:13px 16px;box-shadow:var(--shadow);z-index:999;opacity:0;transition:.25s;max-width:92%;font-size:14px;line-height:1.4}
+    .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
+    .footer{text-align:center;color:var(--muted);font-size:12px;padding:18px 0 0}
 
     @media(max-width:800px){
-      .app{
-        padding:12px;
-        padding-bottom:78px;
-      }
-
-      .grid,.homeMenu,.compactStats{
-        grid-template-columns:1fr;
-      }
-
-      .tab{
-        font-size:10px;
-        padding:10px 10px;
-        min-width:78px;
-      }
-
-      h1{
-        font-size:24px;
-      }
-
-      .logoBox{
-        width:66px;
-        height:66px;
-      }
-
-      .actions{
-        grid-template-columns:1fr;
-      }
-
-      .homeBtn{
-        min-height:88px;
-      }
-
-      .chatInputBar{
-        grid-template-columns:1fr;
-      }
-
-      .chatBox{
-        height:430px;
-      }
+      .app{padding:12px 12px 78px}.grid,.homeMenu,.compactStats{grid-template-columns:1fr}
+      .tab{font-size:10px;padding:10px 10px;min-width:78px}
+      h1{font-size:24px}.logoBox{width:66px;height:66px}.actions{grid-template-columns:1fr}
+      .homeBtn{min-height:88px}.chatInputBar{grid-template-columns:1fr}.chatBox{height:430px}
     }
   </style>
 </head>
@@ -713,10 +135,9 @@
         <div class="logoBox" id="topLogo"></div>
         <div>
           <h1 id="topTitle">FENDA</h1>
-          <p class="subtitle" id="topSubtitle">App da banda • agenda, eventos, recados e membros.</p>
+          <p class="subtitle" id="topSubtitle">App da banda • eventos, agenda, recados e membros.</p>
         </div>
       </div>
-
       <div class="pills">
         <div class="pill" id="firebaseStatus">● Conectando Firebase...</div>
         <div class="pill">● Tempo real</div>
@@ -736,28 +157,29 @@
 
     <section id="inicio" class="screen active">
       <div class="card">
-        <h2>App oficial da Banda FENDA</h2>
+        <h2>Bem-vindo ao app da Banda FENDA</h2>
         <p class="muted">
-          Visitantes podem acompanhar eventos públicos e agenda. Membros cadastrados têm acesso interno ao chat, recados e confirmação de presença.
+          Faça seu cadastro com nome e telefone. O sistema identifica automaticamente se você é membro da banda ou visitante.
         </p>
 
+        <label>Seu nome</label>
+        <input id="entryName" placeholder="Digite seu nome"/>
+
+        <label>Seu telefone</label>
+        <input id="entryPhone" placeholder="Ex: 44999998888"/>
+
+        <div class="actions">
+          <button class="btn primary" onclick="enterApp()">Entrar no app</button>
+          <button class="btn blue" onclick="openScreen('eventos')">Ver eventos públicos</button>
+        </div>
+
+        <div id="entryResult" style="margin-top:12px;"></div>
+
         <div class="compactStats">
-          <div class="statBox">
-            <strong id="statMembers">0</strong>
-            <span>Membros</span>
-          </div>
-          <div class="statBox">
-            <strong id="statEventos">0</strong>
-            <span>Eventos</span>
-          </div>
-          <div class="statBox">
-            <strong id="statAgendas">0</strong>
-            <span>Agendas</span>
-          </div>
-          <div class="statBox">
-            <strong id="statRecados">0</strong>
-            <span>Recados</span>
-          </div>
+          <div class="statBox"><strong id="statMembers">0</strong><span>Membros</span></div>
+          <div class="statBox"><strong id="statEventos">0</strong><span>Eventos</span></div>
+          <div class="statBox"><strong id="statAgendas">0</strong><span>Agendas internas</span></div>
+          <div class="statBox"><strong id="statRecados">0</strong><span>Recados internos</span></div>
         </div>
 
         <div class="homeMenu">
@@ -766,19 +188,19 @@
             <span>Cartazes, programações e onde a banda estará.</span>
           </button>
 
+          <button class="homeBtn" onclick="openScreen('contato')">
+            <strong>📲 Quero marcar agenda</strong>
+            <span>Contato para convidar a banda para eventos.</span>
+          </button>
+
           <button class="homeBtn" onclick="openScreen('agenda')">
-            <strong>📅 Agenda</strong>
-            <span>Ensaios, cultos, viagens e compromissos.</span>
+            <strong>📅 Área interna</strong>
+            <span>Ensaios e compromissos somente para membros.</span>
           </button>
 
           <button class="homeBtn" onclick="openScreen('chat')">
             <strong>💬 Chat interno</strong>
-            <span>Conversa exclusiva para membros cadastrados.</span>
-          </button>
-
-          <button class="homeBtn" onclick="openScreen('admin')">
-            <strong>🔐 Administração</strong>
-            <span>Área do responsável e do criador do app.</span>
+            <span>Conversa exclusiva dos membros cadastrados.</span>
           </button>
         </div>
       </div>
@@ -786,68 +208,62 @@
 
     <section id="eventos" class="screen">
       <div class="card">
-        <h2>Eventos e cartazes</h2>
-        <p class="muted">Área pública para fãs, visitantes e pessoas que acompanham a banda.</p>
+        <h2>Eventos públicos</h2>
+        <p class="muted">Cartazes, programações, mensagens e avisos públicos da banda.</p>
         <div id="eventosList" class="list"></div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h2>Mensagens públicas</h2>
+        <p class="muted">Versículos, avisos e mensagens para quem acompanha a banda.</p>
+        <div id="publicPostsList" class="list"></div>
+      </div>
+    </section>
+
+    <section id="contato" class="screen">
+      <div class="card">
+        <h2>Quero marcar agenda com a FENDA</h2>
+        <p class="muted">Use o contato abaixo para convidar a banda para culto, evento, congresso ou programação especial.</p>
+
+        <div id="bookingInfo"></div>
+
+        <button class="btn green full" style="margin-top:12px;" onclick="openBookingWhatsApp()">Chamar no WhatsApp</button>
       </div>
     </section>
 
     <section id="agenda" class="screen">
-      <details class="cleanDetails">
-        <summary>👤 Entrar como membro para confirmar presença</summary>
-        <div class="detailsBody">
-          <label>Seu nome</label>
-          <input id="myName" placeholder="Digite seu nome" oninput="saveMyLocalData()"/>
-
-          <label>Seu celular cadastrado</label>
-          <input id="myPhone" placeholder="Ex: 44999998888" oninput="saveMyLocalData()"/>
-
-          <label>Sua função</label>
-          <input id="myRole" placeholder="Ex: Vocal, teclado, bateria..." oninput="saveMyLocalData()"/>
-
-          <label>Grupo</label>
-          <select id="myGroup" onchange="saveMyLocalData()">
-            <option value="todos">Todos</option>
-            <option value="vocal">Vocal</option>
-            <option value="instrumental">Instrumental</option>
-            <option value="tecnica">Equipe técnica</option>
-          </select>
-
-          <div class="actions">
-            <button class="btn green" onclick="memberLogin()">Entrar como membro</button>
-            <button class="btn blue" onclick="activatePush()">Ativar notificação</button>
-          </div>
+      <div id="agendaLocked" class="card">
+        <h2>Agenda interna</h2>
+        <div class="notice warning">
+          A agenda de ensaios, locais e compromissos internos é exclusiva para membros cadastrados da banda.
         </div>
-      </details>
+        <button class="btn primary full" onclick="openScreen('inicio')">Fazer cadastro / entrar</button>
+      </div>
 
-      <div class="card">
-        <h2>Agenda da banda</h2>
-        <p class="muted">Visitantes podem ver. Confirmação de presença é somente para membros cadastrados.</p>
-        <div id="agendaList" class="list"></div>
+      <div id="agendaPanel" style="display:none;">
+        <div class="card">
+          <h2>Agenda interna da banda</h2>
+          <p class="muted">Ensaios, compromissos internos e confirmações de presença.</p>
+          <div id="agendaList" class="list"></div>
+        </div>
       </div>
     </section>
 
     <section id="recados" class="screen">
-      <details class="cleanDetails">
-        <summary>👤 Entrar como membro para marcar recados como visualizados</summary>
-        <div class="detailsBody">
-          <label>Seu nome</label>
-          <input id="myNameRecados" placeholder="Digite seu nome" oninput="syncMemberMirror('recados')"/>
-
-          <label>Seu celular cadastrado</label>
-          <input id="myPhoneRecados" placeholder="Ex: 44999998888" oninput="syncMemberMirror('recados')"/>
-
-          <label>Sua função</label>
-          <input id="myRoleRecados" placeholder="Ex: Vocal, teclado, bateria..." oninput="syncMemberMirror('recados')"/>
-
-          <button class="btn green full" style="margin-top:12px;" onclick="memberLogin()">Entrar como membro</button>
-        </div>
-      </details>
-
-      <div class="card">
+      <div id="recadosLocked" class="card">
         <h2>Recados internos</h2>
-        <p class="muted">Recados administrativos para membros da banda.</p>
-        <div id="recadosList" class="list"></div>
+        <div class="notice warning">
+          Recados internos são exclusivos para membros cadastrados.
+        </div>
+        <button class="btn primary full" onclick="openScreen('inicio')">Fazer cadastro / entrar</button>
+      </div>
+
+      <div id="recadosPanel" style="display:none;">
+        <div class="card">
+          <h2>Recados internos</h2>
+          <p class="muted">Avisos enviados pelo administrador aos membros da banda.</p>
+          <div id="recadosList" class="list"></div>
+        </div>
       </div>
     </section>
 
@@ -855,16 +271,9 @@
       <div id="chatLocked" class="card">
         <h2>Chat interno da banda</h2>
         <div class="notice warning">
-          O chat é exclusivo para membros cadastrados, administrador ou criador. Visitantes não conseguem conversar aqui.
+          O chat é exclusivo para membros cadastrados, administrador ou criador.
         </div>
-
-        <label>Seu nome</label>
-        <input id="chatLoginName" placeholder="Digite seu nome" />
-
-        <label>Seu celular cadastrado</label>
-        <input id="chatLoginPhone" placeholder="Ex: 44999998888" />
-
-        <button class="btn green full" style="margin-top:12px;" onclick="memberLoginFromChat()">Entrar no chat</button>
+        <button class="btn primary full" onclick="openScreen('inicio')">Fazer cadastro / entrar</button>
       </div>
 
       <div id="chatPanel" style="display:none;">
@@ -872,13 +281,12 @@
           <div class="itemHead">
             <div>
               <h2>Chat da banda</h2>
-              <p class="muted">Conversa em tempo real entre os membros cadastrados.</p>
+              <p class="muted">Conversa em tempo real entre membros cadastrados.</p>
             </div>
             <button class="btn red" id="clearChatBtn" onclick="clearChat()">Limpar chat</button>
           </div>
 
           <div id="replyActive" class="replyActive"></div>
-
           <div id="chatBox" class="chatBox"></div>
 
           <div class="chatInputBar">
@@ -893,27 +301,19 @@
       <div id="adminLoginCard" class="card">
         <h2>Login administrativo</h2>
 
-        <div class="notice">
-          Administrador da banda entra com login e senha. Criador entra pela área de manutenção.
-        </div>
-
         <label>Login do administrador</label>
-        <input id="adminLoginInput" placeholder="Ex: admin, responsavel..." />
+        <input id="adminLoginInput" placeholder="Ex: admin"/>
 
         <label>Senha do administrador</label>
-        <input id="adminPasswordInput" type="password" placeholder="Digite a senha" />
+        <input id="adminPasswordInput" type="password" placeholder="Digite a senha"/>
 
         <button class="btn primary full" style="margin-top:12px;" onclick="loginAdmin()">Entrar como administrador</button>
 
         <div class="divider"></div>
 
         <h3>Criador / manutenção</h3>
-        <div class="notice warning">
-          Acesso para manutenção do app e cadastro do administrador.
-        </div>
-
         <label>Senha do criador</label>
-        <input id="creatorPasswordInput" type="password" placeholder="Senha do criador" />
+        <input id="creatorPasswordInput" type="password" placeholder="Senha do criador"/>
 
         <button class="btn purple full" style="margin-top:12px;" onclick="loginCreator()">Entrar como criador</button>
       </div>
@@ -948,7 +348,21 @@
           </div>
 
           <div class="card">
-            <h2>Nova agenda interna</h2>
+            <h2>Mensagem pública</h2>
+
+            <label>Título</label>
+            <input id="publicPostTitleInput" placeholder="Ex: Palavra da semana"/>
+
+            <label>Mensagem / versículo / aviso</label>
+            <textarea id="publicPostMessageInput" placeholder="Mensagem pública para fãs e visitantes..."></textarea>
+
+            <button class="btn primary full" style="margin-top:12px;" onclick="savePublicPost()">Publicar mensagem</button>
+          </div>
+        </div>
+
+        <div class="grid" style="margin-top:12px;">
+          <div class="card">
+            <h2>Agenda interna</h2>
 
             <label>Título</label>
             <input id="agendaTitleInput" placeholder="Ex: Ensaio geral"/>
@@ -969,18 +383,16 @@
             <input id="agendaTimeInput" type="time"/>
 
             <label>Local</label>
-            <input id="agendaPlaceInput" placeholder="Ex: Igreja, evento, cidade..."/>
+            <input id="agendaPlaceInput" placeholder="Local interno do compromisso"/>
 
             <label>Observações</label>
             <textarea id="agendaObsInput" placeholder="Ex: Chegar 30 min antes, roupa preta, levar instrumento..."></textarea>
 
-            <button class="btn primary full" style="margin-top:12px;" onclick="saveAgenda()">Salvar agenda</button>
+            <button class="btn primary full" style="margin-top:12px;" onclick="saveAgenda()">Salvar agenda interna</button>
           </div>
-        </div>
 
-        <div class="grid" style="margin-top:12px;">
           <div class="card">
-            <h2>Novo recado interno</h2>
+            <h2>Recado interno</h2>
 
             <label>Título</label>
             <input id="recadoTitleInput" placeholder="Ex: Ensaio confirmado"/>
@@ -1002,19 +414,7 @@
               <option value="tecnica">Somente equipe técnica</option>
             </select>
 
-            <button class="btn primary full" style="margin-top:12px;" onclick="sendRecado()">Enviar recado</button>
-          </div>
-
-          <div class="card">
-            <h2>Mensagem WhatsApp para todos</h2>
-            <p class="muted">Escreva uma mensagem e gere os botões para enviar pelo WhatsApp aos cadastrados.</p>
-
-            <label>Mensagem</label>
-            <textarea id="whatsBroadcastInput" placeholder="Digite a mensagem para enviar aos membros..."></textarea>
-
-            <button class="btn green full" style="margin-top:12px;" onclick="prepareWhatsBroadcast()">Preparar WhatsApp para todos</button>
-
-            <div id="whatsBroadcastList" style="margin-top:12px;"></div>
+            <button class="btn primary full" style="margin-top:12px;" onclick="sendRecado()">Enviar recado interno</button>
           </div>
         </div>
 
@@ -1043,30 +443,41 @@
           </div>
 
           <div class="card">
-            <h2>Membros cadastrados</h2>
-            <div id="membersAdminList"></div>
+            <h2>Mensagem WhatsApp para todos</h2>
+            <p class="muted">Gera botões para enviar mensagem pelo WhatsApp aos membros cadastrados.</p>
+
+            <label>Mensagem</label>
+            <textarea id="whatsBroadcastInput" placeholder="Digite a mensagem para enviar aos membros..."></textarea>
+
+            <button class="btn green full" style="margin-top:12px;" onclick="prepareWhatsBroadcast()">Preparar WhatsApp</button>
+
+            <div id="whatsBroadcastList" style="margin-top:12px;"></div>
           </div>
         </div>
 
         <details class="cleanDetails" style="margin-top:12px;">
-          <summary>🎤 Ver eventos/cartazes publicados</summary>
-          <div class="detailsBody">
-            <div id="adminEventosList" class="list"></div>
-          </div>
+          <summary>👥 Membros cadastrados</summary>
+          <div class="detailsBody"><div id="membersAdminList"></div></div>
         </details>
 
         <details class="cleanDetails">
-          <summary>📅 Ver agendas cadastradas</summary>
-          <div class="detailsBody">
-            <div id="adminAgendaList" class="list"></div>
-          </div>
+          <summary>🎤 Eventos publicados</summary>
+          <div class="detailsBody"><div id="adminEventosList" class="list"></div></div>
         </details>
 
         <details class="cleanDetails">
-          <summary>💬 Ver recados enviados</summary>
-          <div class="detailsBody">
-            <div id="adminRecadosList" class="list"></div>
-          </div>
+          <summary>📖 Mensagens públicas</summary>
+          <div class="detailsBody"><div id="adminPublicPostsList" class="list"></div></div>
+        </details>
+
+        <details class="cleanDetails">
+          <summary>📅 Agendas internas</summary>
+          <div class="detailsBody"><div id="adminAgendaList" class="list"></div></div>
+        </details>
+
+        <details class="cleanDetails">
+          <summary>💬 Recados internos</summary>
+          <div class="detailsBody"><div id="adminRecadosList" class="list"></div></div>
         </details>
       </div>
     </section>
@@ -1074,9 +485,7 @@
     <section id="config" class="screen">
       <div id="configBlocked" class="card">
         <h2>Configurações protegidas</h2>
-        <div class="notice warning">
-          Para editar o app, entre primeiro como administrador ou criador na aba Admin.
-        </div>
+        <div class="notice warning">Para editar o app, entre primeiro como administrador ou criador na aba Admin.</div>
         <button class="btn primary full" onclick="openScreen('admin')">Ir para login</button>
       </div>
 
@@ -1095,35 +504,33 @@
             <input id="configLogoFile" type="file" accept="image/*" onchange="loadLogoFile(event)"/>
             <img id="logoPreview" class="previewLogo"/>
 
+            <label>Telefone para marcar agenda</label>
+            <input id="configBookingPhone" placeholder="Ex: 44999998888"/>
+
+            <label>Texto do botão de agenda</label>
+            <textarea id="configBookingText" placeholder="Ex: Olá, quero marcar uma agenda com a Banda FENDA."></textarea>
+
             <button class="btn primary full" style="margin-top:12px;" onclick="saveConfig()">Salvar personalização</button>
           </div>
 
           <div class="card" id="creatorAdminBox">
             <h2>Cadastrar administrador</h2>
-            <div class="notice">
-              Somente o criador pode criar ou trocar o login e senha do administrador da banda.
-            </div>
 
             <label>Login do administrador</label>
-            <input id="configAdminLogin" placeholder="Ex: admin" />
+            <input id="configAdminLogin" placeholder="Ex: admin"/>
 
             <label>Senha do administrador</label>
-            <input id="configAdminPassword" placeholder="Senha do administrador" />
+            <input id="configAdminPassword" placeholder="Senha do administrador"/>
 
             <button class="btn purple full" style="margin-top:12px;" onclick="saveAdminAccount()">Salvar login do administrador</button>
           </div>
 
           <div class="card">
-            <h2>Informações</h2>
-            <div class="notice">
-              Dados em tempo real pelo Firebase. Visitantes veem eventos públicos. Membros cadastrados usam chat e área interna.
-            </div>
-
+            <h2>Acesso</h2>
+            <div class="notice">Visitantes veem só a área pública. Membros veem a área interna. Admin gerencia tudo.</div>
             <button class="btn blue full" onclick="activatePush()">Ativar notificação neste aparelho</button>
-
             <div class="divider"></div>
-
-            <button class="btn red full" onclick="logoutAccess()">Sair do acesso administrativo</button>
+            <button class="btn red full" onclick="logoutAccess()">Sair / trocar usuário</button>
           </div>
         </div>
       </div>
@@ -1136,27 +543,12 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
-
     import {
-      getFirestore,
-      collection,
-      doc,
-      addDoc,
-      setDoc,
-      updateDoc,
-      deleteDoc,
-      getDocs,
-      onSnapshot,
-      query,
-      orderBy,
-      serverTimestamp
+      getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, getDocs,
+      onSnapshot, query, orderBy, serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-
     import {
-      getMessaging,
-      getToken,
-      onMessage,
-      isSupported
+      getMessaging, getToken, onMessage, isSupported
     } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging.js";
 
     const firebaseConfig = {
@@ -1181,41 +573,43 @@
     let state = {
       config:{
         bandName:"FENDA",
-        subtitle:"App da banda • agenda, eventos, recados e membros.",
+        subtitle:"App da banda • eventos, agenda, recados e membros.",
         logoData:"",
         adminLogin:"admin",
-        adminPassword:"1234"
+        adminPassword:"1234",
+        bookingPhone:"",
+        bookingText:"Olá, quero marcar uma agenda com a Banda FENDA."
       },
       members:[],
+      visitors:[],
       eventos:[],
+      publicPosts:[],
       agendas:[],
       recados:[],
       chatMessages:[],
       accessRole: localStorage.getItem("fenda_access_role") || "",
-      memberLogged: localStorage.getItem("fenda_member_logged") === "yes"
+      personType: localStorage.getItem("fenda_person_type") || "visitor"
     };
 
     const els = {};
 
-    function $(id){
-      return document.getElementById(id);
-    }
+    function $(id){return document.getElementById(id);}
 
     function cacheEls(){
       [
         "topLogo","topTitle","topSubtitle","firebaseStatus","accessStatus",
-        "myName","myPhone","myRole","myGroup",
-        "myNameRecados","myPhoneRecados","myRoleRecados",
-        "chatLoginName","chatLoginPhone",
+        "entryName","entryPhone","entryResult",
         "statMembers","statEventos","statAgendas","statRecados",
-        "eventosList","agendaList","recadosList",
+        "eventosList","publicPostsList","bookingInfo",
+        "agendaLocked","agendaPanel","agendaList",
+        "recadosLocked","recadosPanel","recadosList",
         "chatLocked","chatPanel","chatBox","chatMessageInput","replyActive","clearChatBtn",
         "adminLoginCard","adminPanel","adminModeNotice","membersAdminList",
-        "adminEventosList","adminAgendaList","adminRecadosList",
+        "adminEventosList","adminPublicPostsList","adminAgendaList","adminRecadosList",
         "whatsBroadcastInput","whatsBroadcastList",
         "configBlocked","configPanel","creatorAdminBox",
-        "configBandName","configSubtitle","configAdminLogin","configAdminPassword","logoPreview",
-        "posterPreview"
+        "configBandName","configSubtitle","configBookingPhone","configBookingText",
+        "configAdminLogin","configAdminPassword","logoPreview","posterPreview"
       ].forEach(id => els[id] = $(id));
     }
 
@@ -1235,9 +629,7 @@
         .replaceAll("'","&#039;");
     }
 
-    function cleanPhone(phone){
-      return String(phone || "").replace(/\D/g,"");
-    }
+    function cleanPhone(phone){return String(phone || "").replace(/\D/g,"");}
 
     function whatsappPhone(phone){
       let p = cleanPhone(phone);
@@ -1246,7 +638,7 @@
       return p;
     }
 
-    function whatsappLink(phone, text){
+    function whatsappLink(phone,text){
       const p = whatsappPhone(phone);
       if(!p) return "#";
       return `https://wa.me/${p}?text=${encodeURIComponent(text)}`;
@@ -1258,28 +650,23 @@
       return `${d}/${m}/${y}`;
     }
 
-    function hasAdminAccess(){
-      return state.accessRole === "admin" || state.accessRole === "creator";
-    }
-
-    function hasCreatorAccess(){
-      return state.accessRole === "creator";
-    }
-
-    function hasChatAccess(){
-      return hasAdminAccess() || state.memberLogged;
-    }
+    function hasAdminAccess(){return state.accessRole === "admin" || state.accessRole === "creator";}
+    function hasCreatorAccess(){return state.accessRole === "creator";}
+    function isMember(){return state.personType === "member" || hasAdminAccess();}
+    function isVisitor(){return state.personType === "visitor" && !hasAdminAccess();}
+    function hasChatAccess(){return isMember();}
 
     function currentUserName(){
-      if(hasAdminAccess()){
-        return state.accessRole === "creator" ? "Criador" : "Administrador";
-      }
-
-      return localStorage.getItem("fenda_my_name") || "";
+      if(state.accessRole === "creator") return "Criador";
+      if(state.accessRole === "admin") return "Administrador";
+      return localStorage.getItem("fenda_name") || "";
     }
 
-    function currentUserPhone(){
-      return localStorage.getItem("fenda_my_phone") || "";
+    function currentUserPhone(){return localStorage.getItem("fenda_phone") || "";}
+
+    function findMemberByPhone(phone){
+      const clean = cleanPhone(phone);
+      return state.members.find(m => cleanPhone(m.phone) === clean);
     }
 
     function openScreen(id){
@@ -1292,7 +679,7 @@
       const idx = order.indexOf(id);
       if(idx >= 0) document.querySelectorAll(".tab")[idx].classList.add("active");
 
-      syncMemberFieldsFromLocal();
+      loadEntryLocal();
       renderAll();
 
       if(id === "chat"){
@@ -1300,154 +687,97 @@
       }
     }
 
-    function saveMyLocalData(){
-      localStorage.setItem("fenda_my_name", els.myName.value.trim());
-      localStorage.setItem("fenda_my_phone", els.myPhone.value.trim());
-      localStorage.setItem("fenda_my_role", els.myRole.value.trim());
-      localStorage.setItem("fenda_my_group", els.myGroup.value);
-
-      if(els.myNameRecados) els.myNameRecados.value = els.myName.value;
-      if(els.myPhoneRecados) els.myPhoneRecados.value = els.myPhone.value;
-      if(els.myRoleRecados) els.myRoleRecados.value = els.myRole.value;
-      if(els.chatLoginName) els.chatLoginName.value = els.myName.value;
-      if(els.chatLoginPhone) els.chatLoginPhone.value = els.myPhone.value;
+    function loadEntryLocal(){
+      els.entryName.value = localStorage.getItem("fenda_name") || "";
+      els.entryPhone.value = localStorage.getItem("fenda_phone") || "";
     }
 
-    function syncMemberMirror(){
-      els.myName.value = els.myNameRecados.value.trim();
-      els.myPhone.value = els.myPhoneRecados.value.trim();
-      els.myRole.value = els.myRoleRecados.value.trim();
-      saveMyLocalData();
-    }
-
-    function syncMemberFieldsFromLocal(){
-      const name = localStorage.getItem("fenda_my_name") || "";
-      const phone = localStorage.getItem("fenda_my_phone") || "";
-      const role = localStorage.getItem("fenda_my_role") || "";
-      const group = localStorage.getItem("fenda_my_group") || "todos";
-
-      els.myName.value = name;
-      els.myPhone.value = phone;
-      els.myRole.value = role;
-      els.myGroup.value = group;
-
-      els.myNameRecados.value = name;
-      els.myPhoneRecados.value = phone;
-      els.myRoleRecados.value = role;
-
-      els.chatLoginName.value = name;
-      els.chatLoginPhone.value = phone;
-    }
-
-    function findMemberByPhone(phone){
-      const clean = cleanPhone(phone);
-      return state.members.find(m => cleanPhone(m.phone) === clean);
-    }
-
-    async function memberLogin(){
-      const name = els.myName.value.trim() || els.myNameRecados.value.trim();
-      const phone = els.myPhone.value.trim() || els.myPhoneRecados.value.trim();
-      const role = els.myRole.value.trim() || els.myRoleRecados.value.trim();
-      const group = els.myGroup.value || "todos";
+    async function enterApp(){
+      const name = els.entryName.value.trim();
+      const phone = els.entryPhone.value.trim();
 
       if(!name || !phone){
-        toast("Digite nome e celular.");
+        toast("Digite seu nome e telefone.");
         return;
       }
 
       const member = findMemberByPhone(phone);
 
-      if(!member){
-        toast("Este celular ainda não está cadastrado como membro da banda.");
-        return;
+      localStorage.setItem("fenda_name", name);
+      localStorage.setItem("fenda_phone", phone);
+
+      if(member){
+        state.personType = "member";
+        localStorage.setItem("fenda_person_type", "member");
+        localStorage.setItem("fenda_role", member.role || "");
+        localStorage.setItem("fenda_group", member.group || "todos");
+
+        els.entryResult.innerHTML = `
+          <div class="notice success">
+            <strong>Bem-vindo, ${escapeHTML(name)}.</strong><br>
+            Seu telefone está cadastrado como membro da banda. Área interna liberada.
+          </div>
+        `;
+
+        toast("Membro identificado. Área interna liberada.");
+      }else{
+        state.personType = "visitor";
+        localStorage.setItem("fenda_person_type", "visitor");
+        localStorage.removeItem("fenda_role");
+        localStorage.removeItem("fenda_group");
+
+        await setDoc(doc(db, "visitors", cleanPhone(phone)), {
+          name,
+          phone,
+          type:"visitor",
+          updatedAt: serverTimestamp()
+        }, { merge:true });
+
+        els.entryResult.innerHTML = `
+          <div class="notice">
+            <strong>Bem-vindo, ${escapeHTML(name)}.</strong><br>
+            Você entrou como visitante. Você pode ver eventos públicos, mensagens e contato para agenda.
+          </div>
+        `;
+
+        toast("Visitante liberado.");
       }
 
-      localStorage.setItem("fenda_my_name", name || member.name);
-      localStorage.setItem("fenda_my_phone", phone);
-      localStorage.setItem("fenda_my_role", role || member.role || "");
-      localStorage.setItem("fenda_my_group", group || member.group || "todos");
-      localStorage.setItem("fenda_member_logged", "yes");
-
-      state.memberLogged = true;
-
-      syncMemberFieldsFromLocal();
       renderAll();
-      toast("Membro liberado.");
-    }
-
-    function memberLoginFromChat(){
-      const name = els.chatLoginName.value.trim();
-      const phone = els.chatLoginPhone.value.trim();
-
-      if(!name || !phone){
-        toast("Digite nome e celular.");
-        return;
-      }
-
-      els.myName.value = name;
-      els.myPhone.value = phone;
-      saveMyLocalData();
-      memberLogin();
-      openScreen("chat");
     }
 
     async function activatePush(){
       try{
-        if(!("Notification" in window)){
-          toast("Este navegador não suporta notificação.");
-          return;
-        }
-
+        if(!("Notification" in window)){toast("Este navegador não suporta notificação.");return;}
         const permission = await Notification.requestPermission();
-
-        if(permission !== "granted"){
-          toast("Permissão de notificação não liberada.");
-          return;
-        }
+        if(permission !== "granted"){toast("Permissão de notificação não liberada.");return;}
 
         if(!VAPID_KEY){
           toast("Notificação local ativada. Falta VAPID KEY para push avançado.");
-          notifyLocal("FENDA", "Notificação local ativada neste aparelho.");
+          notifyLocal("FENDA","Notificação local ativada neste aparelho.");
           return;
         }
 
         const supported = await isSupported();
-
-        if(!supported){
-          toast("Firebase Messaging não é suportado neste navegador.");
-          return;
-        }
-
-        if(!("serviceWorker" in navigator)){
-          toast("Este navegador não suporta service worker.");
-          return;
-        }
+        if(!supported){toast("Firebase Messaging não é suportado neste navegador.");return;}
+        if(!("serviceWorker" in navigator)){toast("Este navegador não suporta service worker.");return;}
 
         const registration = await navigator.serviceWorker.register("./firebase-messaging-sw.js");
-
         messaging = getMessaging(app);
 
-        const token = await getToken(messaging, {
-          vapidKey: VAPID_KEY,
-          serviceWorkerRegistration: registration
-        });
-
-        const name = currentUserName() || "Aparelho sem nome";
-        const phone = currentUserPhone();
+        const token = await getToken(messaging,{vapidKey:VAPID_KEY,serviceWorkerRegistration:registration});
         const tokenId = token.replaceAll("[","").replaceAll("]","").replaceAll("/","_").slice(0,120);
 
-        await setDoc(doc(db, "pushTokens", tokenId), {
+        await setDoc(doc(db,"pushTokens",tokenId),{
           token,
-          name,
-          phone,
-          userAgent: navigator.userAgent,
-          updatedAt: serverTimestamp()
-        }, { merge:true });
+          name:currentUserName() || "Aparelho sem nome",
+          phone:currentUserPhone(),
+          personType:state.personType,
+          userAgent:navigator.userAgent,
+          updatedAt:serverTimestamp()
+        },{merge:true});
 
-        onMessage(messaging, payload => {
-          toast(payload?.notification?.title || "Nova notificação da FENDA");
-        });
-
+        onMessage(messaging,payload => toast(payload?.notification?.title || "Nova notificação da FENDA"));
         toast("Notificação push ativada neste aparelho.");
       }catch(error){
         console.error(error);
@@ -1455,11 +785,9 @@
       }
     }
 
-    function notifyLocal(title, body){
+    function notifyLocal(title,body){
       if("Notification" in window && Notification.permission === "granted"){
-        try{
-          new Notification(title, { body, tag:"fenda-app" });
-        }catch(e){}
+        try{new Notification(title,{body,tag:"fenda-app"});}catch(e){}
       }
     }
 
@@ -1469,7 +797,7 @@
 
       if(login === state.config.adminLogin && password === state.config.adminPassword){
         state.accessRole = "admin";
-        localStorage.setItem("fenda_access_role", "admin");
+        localStorage.setItem("fenda_access_role","admin");
         renderAll();
         toast("Administrador liberado.");
       }else{
@@ -1482,7 +810,7 @@
 
       if(password === CREATOR_PASSWORD){
         state.accessRole = "creator";
-        localStorage.setItem("fenda_access_role", "creator");
+        localStorage.setItem("fenda_access_role","creator");
         renderAll();
         toast("Criador liberado.");
       }else{
@@ -1492,48 +820,43 @@
 
     function logoutAccess(){
       state.accessRole = "";
-      state.memberLogged = false;
+      state.personType = "visitor";
       localStorage.removeItem("fenda_access_role");
-      localStorage.removeItem("fenda_member_logged");
+      localStorage.removeItem("fenda_person_type");
+      localStorage.removeItem("fenda_role");
+      localStorage.removeItem("fenda_group");
+      localStorage.removeItem("fenda_name");
+      localStorage.removeItem("fenda_phone");
+      loadEntryLocal();
       renderAll();
       toast("Acesso encerrado.");
     }
 
     async function saveConfig(){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
 
-      const bandName = els.configBandName.value.trim() || "FENDA";
-      const subtitle = els.configSubtitle.value.trim() || "App da banda";
-
-      await setDoc(doc(db, "settings", "main"), {
+      await setDoc(doc(db,"settings","main"),{
         ...state.config,
-        bandName,
-        subtitle,
-        logoData: state.config.logoData || "",
-        updatedAt: serverTimestamp()
-      }, { merge:true });
+        bandName:els.configBandName.value.trim() || "FENDA",
+        subtitle:els.configSubtitle.value.trim() || "App da banda",
+        bookingPhone:els.configBookingPhone.value.trim(),
+        bookingText:els.configBookingText.value.trim() || "Olá, quero marcar uma agenda com a Banda FENDA.",
+        logoData:state.config.logoData || "",
+        updatedAt:serverTimestamp()
+      },{merge:true});
 
       toast("Personalização salva online.");
     }
 
     async function saveAdminAccount(){
-      if(!hasCreatorAccess()){
-        toast("Somente o criador pode alterar o administrador.");
-        return;
-      }
+      if(!hasCreatorAccess()){toast("Somente o criador pode alterar o administrador.");return;}
 
-      const adminLogin = els.configAdminLogin.value.trim() || "admin";
-      const adminPassword = els.configAdminPassword.value.trim() || "1234";
-
-      await setDoc(doc(db, "settings", "main"), {
+      await setDoc(doc(db,"settings","main"),{
         ...state.config,
-        adminLogin,
-        adminPassword,
-        updatedAt: serverTimestamp()
-      }, { merge:true });
+        adminLogin:els.configAdminLogin.value.trim() || "admin",
+        adminPassword:els.configAdminPassword.value.trim() || "1234",
+        updatedAt:serverTimestamp()
+      },{merge:true});
 
       toast("Login do administrador salvo.");
     }
@@ -1541,55 +864,38 @@
     function loadLogoFile(event){
       const file = event.target.files[0];
       if(!file) return;
-
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
 
       const reader = new FileReader();
-
       reader.onload = async function(e){
         state.config.logoData = e.target.result;
-
-        await setDoc(doc(db, "settings", "main"), {
+        await setDoc(doc(db,"settings","main"),{
           ...state.config,
-          logoData: state.config.logoData,
-          updatedAt: serverTimestamp()
-        }, { merge:true });
-
+          logoData:state.config.logoData,
+          updatedAt:serverTimestamp()
+        },{merge:true});
         toast("Logo salva online.");
       };
-
       reader.readAsDataURL(file);
     }
 
     function loadPosterFile(event){
       const file = event.target.files[0];
       if(!file) return;
-
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
 
       const reader = new FileReader();
-
       reader.onload = function(e){
         selectedPosterData = e.target.result;
         els.posterPreview.src = selectedPosterData;
         els.posterPreview.style.display = "block";
         toast("Cartaz carregado. Agora publique o evento.");
       };
-
       reader.readAsDataURL(file);
     }
 
     async function savePosterEvent(){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
 
       const title = $("posterTitleInput").value.trim();
       const date = $("posterDateInput").value;
@@ -1597,20 +903,13 @@
       const place = $("posterPlaceInput").value.trim();
       const description = $("posterDescInput").value.trim();
 
-      if(!title || !date){
-        toast("Preencha título e data do evento.");
-        return;
-      }
+      if(!title || !date){toast("Preencha título e data do evento.");return;}
 
-      await addDoc(collection(db, "eventos"), {
-        title,
-        date,
-        time,
-        place,
-        description,
+      await addDoc(collection(db,"eventos"),{
+        title,date,time,place,description,
         imageData:selectedPosterData || "",
         public:true,
-        createdAt: serverTimestamp()
+        createdAt:serverTimestamp()
       });
 
       $("posterTitleInput").value = "";
@@ -1627,41 +926,52 @@
     }
 
     async function deletePosterEvent(id){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
-
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
       if(!confirm("Deseja apagar este evento/cartaz?")) return;
-      await deleteDoc(doc(db, "eventos", id));
+      await deleteDoc(doc(db,"eventos",id));
       toast("Evento apagado.");
     }
 
+    async function savePublicPost(){
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+
+      const title = $("publicPostTitleInput").value.trim();
+      const message = $("publicPostMessageInput").value.trim();
+
+      if(!title || !message){toast("Digite título e mensagem.");return;}
+
+      await addDoc(collection(db,"publicPosts"),{
+        title,message,
+        createdAt:serverTimestamp()
+      });
+
+      $("publicPostTitleInput").value = "";
+      $("publicPostMessageInput").value = "";
+
+      toast("Mensagem pública publicada.");
+    }
+
+    async function deletePublicPost(id){
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!confirm("Deseja apagar esta mensagem pública?")) return;
+      await deleteDoc(doc(db,"publicPosts",id));
+      toast("Mensagem pública apagada.");
+    }
+
     async function saveMember(){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
 
       const name = $("memberNameInput").value.trim();
       const phone = $("memberPhoneInput").value.trim();
       const role = $("memberRoleInput").value.trim();
       const group = $("memberGroupInput").value;
 
-      if(!name || !phone){
-        toast("Digite nome e celular.");
-        return;
-      }
+      if(!name || !phone){toast("Digite nome e celular.");return;}
 
-      const id = cleanPhone(phone);
-
-      await setDoc(doc(db, "members", id), {
-        name,
-        phone,
-        role,
-        group,
-        updatedAt: serverTimestamp()
-      }, { merge:true });
+      await setDoc(doc(db,"members",cleanPhone(phone)),{
+        name,phone,role,group,
+        updatedAt:serverTimestamp()
+      },{merge:true});
 
       $("memberNameInput").value = "";
       $("memberPhoneInput").value = "";
@@ -1672,21 +982,14 @@
     }
 
     async function removeMember(id){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
-
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
       if(!confirm("Deseja remover este membro?")) return;
-      await deleteDoc(doc(db, "members", id));
+      await deleteDoc(doc(db,"members",id));
       toast("Membro removido.");
     }
 
     async function saveAgenda(){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
 
       const title = $("agendaTitleInput").value.trim();
       const type = $("agendaTypeInput").value;
@@ -1695,20 +998,13 @@
       const place = $("agendaPlaceInput").value.trim();
       const obs = $("agendaObsInput").value.trim();
 
-      if(!title || !date || !time){
-        toast("Preencha título, data e horário.");
-        return;
-      }
+      if(!title || !date || !time){toast("Preencha título, data e horário.");return;}
 
-      await addDoc(collection(db, "agendas"), {
-        title,
-        type,
-        date,
-        time,
-        place,
-        obs,
+      await addDoc(collection(db,"agendas"),{
+        title,type,date,time,place,obs,
         presence:{},
-        createdAt: serverTimestamp()
+        internal:true,
+        createdAt:serverTimestamp()
       });
 
       $("agendaTitleInput").value = "";
@@ -1718,54 +1014,36 @@
       $("agendaPlaceInput").value = "";
       $("agendaObsInput").value = "";
 
-      notifyLocal("Nova agenda FENDA", `${title} - ${dateBR(date)} às ${time}`);
-      toast("Agenda salva online.");
+      notifyLocal("Nova agenda FENDA",`${title} - ${dateBR(date)} às ${time}`);
+      toast("Agenda interna salva.");
     }
 
     async function deleteAgenda(id){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
-
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
       if(!confirm("Deseja apagar esta agenda?")) return;
-      await deleteDoc(doc(db, "agendas", id));
+      await deleteDoc(doc(db,"agendas",id));
       toast("Agenda apagada.");
     }
 
-    async function markPresence(agendaId, status){
-      if(!state.memberLogged && !hasAdminAccess()){
-        toast("Entre como membro cadastrado para confirmar presença.");
-        return;
-      }
+    async function markPresence(agendaId,status){
+      if(!isMember()){toast("Área exclusiva para membros cadastrados.");return;}
 
       const name = currentUserName();
-
-      if(!name){
-        toast("Digite seu nome primeiro.");
-        return;
-      }
-
       const agenda = state.agendas.find(a => a.id === agendaId);
       const presence = agenda?.presence || {};
 
       presence[name] = {
         status,
-        role:localStorage.getItem("fenda_my_role") || "",
-        when: new Date().toISOString()
+        role:localStorage.getItem("fenda_role") || "",
+        when:new Date().toISOString()
       };
 
-      await updateDoc(doc(db, "agendas", agendaId), { presence });
+      await updateDoc(doc(db,"agendas",agendaId),{presence});
       toast("Resposta registrada.");
     }
 
     function targetName(target){
-      const map = {
-        todos:"Todos os membros",
-        vocal:"Somente vocal",
-        instrumental:"Somente instrumental",
-        tecnica:"Somente equipe técnica"
-      };
+      const map = {todos:"Todos os membros",vocal:"Somente vocal",instrumental:"Somente instrumental",tecnica:"Somente equipe técnica"};
       return map[target] || "Todos";
     }
 
@@ -1779,28 +1057,20 @@
     }
 
     async function sendRecado(){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
 
       const title = $("recadoTitleInput").value.trim();
       const message = $("recadoMessageInput").value.trim();
       const priority = $("recadoPriorityInput").value;
       const target = $("recadoTargetInput").value;
 
-      if(!title || !message){
-        toast("Digite título e mensagem.");
-        return;
-      }
+      if(!title || !message){toast("Digite título e mensagem.");return;}
 
-      await addDoc(collection(db, "recados"), {
-        title,
-        message,
-        priority,
-        target,
+      await addDoc(collection(db,"recados"),{
+        title,message,priority,target,
         seenBy:{},
-        createdAt: serverTimestamp()
+        internal:true,
+        createdAt:serverTimestamp()
       });
 
       $("recadoTitleInput").value = "";
@@ -1808,85 +1078,50 @@
       $("recadoPriorityInput").value = "normal";
       $("recadoTargetInput").value = "todos";
 
-      notifyLocal(priority === "urgente" ? "Recado urgente FENDA" : "Novo recado FENDA", title);
-      toast("Recado enviado online.");
+      notifyLocal(priority === "urgente" ? "Recado urgente FENDA" : "Novo recado FENDA",title);
+      toast("Recado interno enviado.");
     }
 
     async function markRecadoSeen(id){
-      if(!state.memberLogged && !hasAdminAccess()){
-        toast("Entre como membro cadastrado para marcar como visualizado.");
-        return;
-      }
+      if(!isMember()){toast("Área exclusiva para membros cadastrados.");return;}
 
       const name = currentUserName();
-
-      if(!name){
-        toast("Digite seu nome primeiro.");
-        return;
-      }
-
       const recado = state.recados.find(r => r.id === id);
       const seenBy = recado?.seenBy || {};
 
-      seenBy[name] = {
-        name,
-        when: new Date().toISOString()
-      };
+      seenBy[name] = {name,when:new Date().toISOString()};
 
-      await updateDoc(doc(db, "recados", id), { seenBy });
+      await updateDoc(doc(db,"recados",id),{seenBy});
       toast("Recado marcado como visualizado.");
     }
 
     async function deleteRecado(id){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
-
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
       if(!confirm("Deseja apagar este recado?")) return;
-      await deleteDoc(doc(db, "recados", id));
+      await deleteDoc(doc(db,"recados",id));
       toast("Recado apagado.");
     }
 
     async function sendChatMessage(){
-      if(!hasChatAccess()){
-        toast("Chat exclusivo para membros cadastrados.");
-        return;
-      }
+      if(!hasChatAccess()){toast("Chat exclusivo para membros cadastrados.");return;}
 
       const text = els.chatMessageInput.value.trim();
+      if(!text){toast("Digite uma mensagem.");return;}
 
-      if(!text){
-        toast("Digite uma mensagem.");
-        return;
-      }
-
-      const name = currentUserName();
-      const phone = currentUserPhone();
-
-      if(!name){
-        toast("Entre como membro primeiro.");
-        return;
-      }
-
-      await addDoc(collection(db, "chatMessages"), {
+      await addDoc(collection(db,"chatMessages"),{
         text,
-        authorName:name,
-        authorPhone:phone,
+        authorName:currentUserName(),
+        authorPhone:currentUserPhone(),
         authorRole:state.accessRole || "member",
-        replyTo:replyTarget ? {
-          id:replyTarget.id,
-          authorName:replyTarget.authorName,
-          text:replyTarget.text
-        } : null,
+        replyTo:replyTarget ? {id:replyTarget.id,authorName:replyTarget.authorName,text:replyTarget.text} : null,
         edited:false,
-        createdAt: serverTimestamp(),
-        updatedAt: serverTimestamp()
+        createdAt:serverTimestamp(),
+        updatedAt:serverTimestamp()
       });
 
       els.chatMessageInput.value = "";
       clearReply();
-      setTimeout(scrollChatBottom, 250);
+      setTimeout(scrollChatBottom,250);
     }
 
     function setReply(id){
@@ -1913,27 +1148,16 @@
       if(!msg) return;
 
       const canEdit = hasAdminAccess() || msg.authorPhone === currentUserPhone();
+      if(!canEdit){toast("Você só pode editar suas próprias mensagens.");return;}
 
-      if(!canEdit){
-        toast("Você só pode editar suas próprias mensagens.");
-        return;
-      }
-
-      const newText = prompt("Editar mensagem:", msg.text || "");
-
+      const newText = prompt("Editar mensagem:",msg.text || "");
       if(newText === null) return;
 
       const text = newText.trim();
+      if(!text){toast("Mensagem vazia não pode ser salva.");return;}
 
-      if(!text){
-        toast("Mensagem vazia não pode ser salva.");
-        return;
-      }
-
-      await updateDoc(doc(db, "chatMessages", id), {
-        text,
-        edited:true,
-        updatedAt: serverTimestamp()
+      await updateDoc(doc(db,"chatMessages",id),{
+        text,edited:true,updatedAt:serverTimestamp()
       });
 
       toast("Mensagem editada.");
@@ -1944,45 +1168,29 @@
       if(!msg) return;
 
       const canDelete = hasAdminAccess() || msg.authorPhone === currentUserPhone();
-
-      if(!canDelete){
-        toast("Você só pode apagar suas próprias mensagens.");
-        return;
-      }
+      if(!canDelete){toast("Você só pode apagar suas próprias mensagens.");return;}
 
       if(!confirm("Deseja apagar esta mensagem?")) return;
 
-      await deleteDoc(doc(db, "chatMessages", id));
+      await deleteDoc(doc(db,"chatMessages",id));
       toast("Mensagem apagada.");
     }
 
     async function clearChat(){
-      if(!hasAdminAccess()){
-        toast("Somente admin/criador pode limpar o chat.");
-        return;
-      }
-
+      if(!hasAdminAccess()){toast("Somente admin/criador pode limpar o chat.");return;}
       if(!confirm("Deseja apagar TODO o chat do Firebase?")) return;
 
-      const snap = await getDocs(collection(db, "chatMessages"));
-      const deletions = snap.docs.map(d => deleteDoc(doc(db, "chatMessages", d.id)));
-      await Promise.all(deletions);
+      const snap = await getDocs(collection(db,"chatMessages"));
+      await Promise.all(snap.docs.map(d => deleteDoc(doc(db,"chatMessages",d.id))));
 
       toast("Chat apagado do Firebase.");
     }
 
     function prepareWhatsBroadcast(){
-      if(!hasAdminAccess()){
-        toast("Acesso negado.");
-        return;
-      }
+      if(!hasAdminAccess()){toast("Acesso negado.");return;}
 
       const text = els.whatsBroadcastInput.value.trim();
-
-      if(!text){
-        toast("Digite a mensagem primeiro.");
-        return;
-      }
+      if(!text){toast("Digite a mensagem primeiro.");return;}
 
       if(!state.members.length){
         els.whatsBroadcastList.innerHTML = `<div class="empty">Nenhum membro cadastrado.</div>`;
@@ -1990,14 +1198,9 @@
       }
 
       els.whatsBroadcastList.innerHTML = `
-        <div class="notice success">
-          Mensagem preparada. Clique em WhatsApp em cada membro ou copie a mensagem para enviar no grupo.
-        </div>
-
+        <div class="notice success">Mensagem preparada. Clique em WhatsApp em cada membro ou copie a mensagem para enviar no grupo.</div>
         <button class="btn blue full" onclick='copyText(${JSON.stringify(text)})'>Copiar mensagem</button>
-
         <div class="divider"></div>
-
         ${
           state.members.map(m => `
             <div class="memberRow">
@@ -2005,30 +1208,26 @@
                 <strong>${escapeHTML(m.name)}</strong>
                 <div class="small">${escapeHTML(m.phone)} • ${escapeHTML(m.role || "")}</div>
               </div>
-              <a class="btn green" target="_blank" href="${whatsappLink(m.phone, text)}">WhatsApp</a>
+              <a class="btn green" target="_blank" href="${whatsappLink(m.phone,text)}">WhatsApp</a>
             </div>
           `).join("")
         }
       `;
     }
 
+    function openBookingWhatsApp(){
+      if(!state.config.bookingPhone){
+        toast("Contato de agenda ainda não cadastrado.");
+        return;
+      }
+      window.open(whatsappLink(state.config.bookingPhone,state.config.bookingText || "Olá, quero marcar uma agenda com a Banda FENDA."),"_blank");
+    }
+
     function copyText(text){
-      navigator.clipboard.writeText(text).then(() => {
-        toast("Mensagem copiada.");
-      }).catch(() => {
-        toast("Não foi possível copiar.");
-      });
+      navigator.clipboard.writeText(text).then(() => toast("Mensagem copiada.")).catch(() => toast("Não foi possível copiar."));
     }
 
-    function sortAgendas(list){
-      return [...list].sort((a,b) => {
-        const da = new Date(`${a.date}T${a.time || "00:00"}`);
-        const db = new Date(`${b.date}T${b.time || "00:00"}`);
-        return da - db;
-      });
-    }
-
-    function sortEventos(list){
+    function sortByDate(list){
       return [...list].sort((a,b) => {
         const da = new Date(`${a.date || "9999-12-31"}T${a.time || "00:00"}`);
         const db = new Date(`${b.date || "9999-12-31"}T${b.time || "00:00"}`);
@@ -2056,12 +1255,12 @@
       }else if(state.accessRole === "admin"){
         els.accessStatus.textContent = "● Administrador conectado";
         els.accessStatus.className = "pill admin";
-      }else if(state.memberLogged){
-        els.accessStatus.textContent = "● Membro conectado";
+      }else if(state.personType === "member"){
+        els.accessStatus.textContent = "● Membro da banda";
         els.accessStatus.className = "pill member";
       }else{
-        els.accessStatus.textContent = "● Visitante";
-        els.accessStatus.className = "pill";
+        els.accessStatus.textContent = "● Visitante / fã";
+        els.accessStatus.className = "pill visitor";
       }
     }
 
@@ -2069,10 +1268,9 @@
       if(hasAdminAccess()){
         els.adminLoginCard.style.display = "none";
         els.adminPanel.style.display = "block";
-
         els.adminModeNotice.innerHTML = state.accessRole === "creator"
           ? "<strong>Modo criador ativo.</strong> Você pode administrar o app e alterar o login do administrador."
-          : "<strong>Modo administrador ativo.</strong> Você pode cadastrar agendas, recados, membros e cartazes.";
+          : "<strong>Modo administrador ativo.</strong> Você pode cadastrar eventos, recados, agendas e membros.";
       }else{
         els.adminLoginCard.style.display = "block";
         els.adminPanel.style.display = "none";
@@ -2092,6 +1290,8 @@
 
       els.configBandName.value = state.config.bandName || "FENDA";
       els.configSubtitle.value = state.config.subtitle || "";
+      els.configBookingPhone.value = state.config.bookingPhone || "";
+      els.configBookingText.value = state.config.bookingText || "";
       els.configAdminLogin.value = state.config.adminLogin || "admin";
       els.configAdminPassword.value = state.config.adminPassword || "1234";
 
@@ -2103,11 +1303,25 @@
       }
     }
 
-    function eventoCard(e, mode){
+    function renderPanelsByAccess(){
+      const internal = isMember();
+
+      els.agendaLocked.style.display = internal ? "none" : "block";
+      els.agendaPanel.style.display = internal ? "block" : "none";
+
+      els.recadosLocked.style.display = internal ? "none" : "block";
+      els.recadosPanel.style.display = internal ? "block" : "none";
+
+      els.chatLocked.style.display = internal ? "none" : "block";
+      els.chatPanel.style.display = internal ? "block" : "none";
+
+      els.clearChatBtn.style.display = hasAdminAccess() ? "inline-flex" : "none";
+    }
+
+    function eventoCard(e,mode){
       return `
         <div class="item">
           ${e.imageData ? `<img class="posterImage" src="${e.imageData}" alt="Cartaz do evento">` : ""}
-
           <div class="itemHead">
             <div>
               <p class="itemTitle">${escapeHTML(e.title)}</p>
@@ -2115,25 +1329,31 @@
             </div>
             <span class="badge evento">Evento</span>
           </div>
-
           ${e.date ? `<div class="line"><span>📅</span><div>${dateBR(e.date)} ${e.time ? "às " + escapeHTML(e.time) : ""}</div></div>` : ""}
           ${e.place ? `<div class="line"><span>📍</span><div>${escapeHTML(e.place)}</div></div>` : ""}
           ${e.description ? `<div class="line"><span>📝</span><div>${escapeHTML(e.description)}</div></div>` : ""}
-
-          ${
-            mode === "admin"
-            ? `
-              <div class="actions">
-                <button class="btn red" onclick="deletePosterEvent('${e.id}')">Apagar evento</button>
-              </div>
-            `
-            : ""
-          }
+          ${mode === "admin" ? `<div class="actions"><button class="btn red" onclick="deletePosterEvent('${e.id}')">Apagar evento</button></div>` : ""}
         </div>
       `;
     }
 
-    function agendaCard(a, mode){
+    function publicPostCard(p,mode){
+      return `
+        <div class="item">
+          <div class="itemHead">
+            <div>
+              <p class="itemTitle">${escapeHTML(p.title)}</p>
+              <div class="small">${p.createdAt?.toDate ? p.createdAt.toDate().toLocaleString("pt-BR") : ""}</div>
+            </div>
+            <span class="badge normal">Público</span>
+          </div>
+          <div class="line"><span>📖</span><div>${escapeHTML(p.message)}</div></div>
+          ${mode === "admin" ? `<div class="actions"><button class="btn red" onclick="deletePublicPost('${p.id}')">Apagar</button></div>` : ""}
+        </div>
+      `;
+    }
+
+    function agendaCard(a,mode){
       const presence = a.presence || {};
       const names = Object.keys(presence);
       const confirmed = names.filter(n => presence[n].status === "confirmado").length;
@@ -2149,20 +1369,16 @@
             </div>
             <span class="badge evento">${escapeHTML(a.type)}</span>
           </div>
-
           <div class="line"><span>📅</span><div>${dateBR(a.date)} às ${escapeHTML(a.time)}</div></div>
           ${a.place ? `<div class="line"><span>📍</span><div>${escapeHTML(a.place)}</div></div>` : ""}
           ${a.obs ? `<div class="line"><span>📝</span><div>${escapeHTML(a.obs)}</div></div>` : ""}
-
           ${
-            mode === "admin"
-            ? `
+            mode === "admin" ? `
               <div class="divider"></div>
               <strong>Respostas</strong>
               <div class="small">Confirmados: ${confirmed} • Não irão: ${absent} • Visualizaram: ${seen}</div>
               ${
-                names.length
-                ? names.map(n => `
+                names.length ? names.map(n => `
                   <div class="memberRow">
                     <div>
                       <strong>${escapeHTML(n)}</strong>
@@ -2170,14 +1386,10 @@
                     </div>
                     <span class="badge ok">${escapeHTML(presence[n].status)}</span>
                   </div>
-                `).join("")
-                : `<div class="small" style="margin-top:8px;">Ninguém respondeu ainda.</div>`
+                `).join("") : `<div class="small" style="margin-top:8px;">Ninguém respondeu ainda.</div>`
               }
-              <div class="actions">
-                <button class="btn red" onclick="deleteAgenda('${a.id}')">Apagar agenda</button>
-              </div>
-            `
-            : `
+              <div class="actions"><button class="btn red" onclick="deleteAgenda('${a.id}')">Apagar agenda</button></div>
+            ` : `
               <div class="divider"></div>
               <strong>Presença</strong>
               <div class="small">Confirmados: ${confirmed} • Não irão: ${absent} • Visualizaram: ${seen}</div>
@@ -2192,7 +1404,7 @@
       `;
     }
 
-    function recadoCard(r, mode){
+    function recadoCard(r,mode){
       const seenBy = r.seenBy || {};
       const seenNames = Object.keys(seenBy);
       const waText = recadoWhatsappText(r);
@@ -2208,46 +1420,33 @@
             </div>
             <span class="badge ${badgeClass}">${r.priority === "urgente" ? "Urgente" : "Normal"}</span>
           </div>
-
           <div class="line"><span>💬</span><div>${escapeHTML(r.message)}</div></div>
           <div class="line"><span>👥</span><div>${escapeHTML(targetName(r.target))}</div></div>
           <div class="small">Visualizações: ${seenNames.length}</div>
-
           ${
-            mode === "admin"
-            ? `
+            mode === "admin" ? `
               <div class="divider"></div>
               <strong>Enviar no celular dos membros</strong>
               <div class="small">Clique em WhatsApp para enviar para cada cadastrado.</div>
-
               <div class="actions">
                 <button class="btn green" onclick='copyText(${JSON.stringify(waText)})'>Copiar mensagem</button>
                 <button class="btn red" onclick="deleteRecado('${r.id}')">Apagar recado</button>
               </div>
-
               ${
-                members.length
-                ? members.map(m => `
+                members.length ? members.map(m => `
                   <div class="memberRow">
                     <div>
                       <strong>${escapeHTML(m.name)}</strong>
                       <div class="small">${escapeHTML(m.phone)} • ${escapeHTML(m.role || "")}</div>
                     </div>
-                    <a class="btn green" target="_blank" href="${whatsappLink(m.phone, waText)}">WhatsApp</a>
+                    <a class="btn green" target="_blank" href="${whatsappLink(m.phone,waText)}">WhatsApp</a>
                   </div>
-                `).join("")
-                : `<div class="empty" style="margin-top:10px;">Nenhum membro para este destino.</div>`
+                `).join("") : `<div class="empty" style="margin-top:10px;">Nenhum membro para este destino.</div>`
               }
-
               <div class="divider"></div>
               <strong>Visualizações</strong>
-              ${
-                seenNames.length
-                ? seenNames.map(n => `<div class="small">✅ ${escapeHTML(n)}</div>`).join("")
-                : `<div class="small" style="margin-top:6px;">Ninguém visualizou ainda.</div>`
-              }
-            `
-            : `<button class="btn blue full" style="margin-top:10px;" onclick="markRecadoSeen('${r.id}')">Marcar como visualizado</button>`
+              ${seenNames.length ? seenNames.map(n => `<div class="small">✅ ${escapeHTML(n)}</div>`).join("") : `<div class="small" style="margin-top:6px;">Ninguém visualizou ainda.</div>`}
+            ` : `<button class="btn blue full" style="margin-top:10px;" onclick="markRecadoSeen('${r.id}')">Marcar como visualizado</button>`
           }
         </div>
       `;
@@ -2260,29 +1459,21 @@
       return `
         <div class="chatMsg ${mine ? "mine" : ""}">
           ${
-            m.replyTo
-            ? `
+            m.replyTo ? `
               <div class="replyBox">
                 <strong>Resposta para ${escapeHTML(m.replyTo.authorName || "mensagem")}</strong>
                 <div>${escapeHTML(m.replyTo.text || "")}</div>
               </div>
-            `
-            : ""
+            ` : ""
           }
-
           <div class="itemHead">
             <div>
               <strong>${escapeHTML(m.authorName || "Membro")}</strong>
-              <div class="small">
-                ${m.createdAt?.toDate ? m.createdAt.toDate().toLocaleString("pt-BR") : ""}
-                ${m.edited ? " • editada" : ""}
-              </div>
+              <div class="small">${m.createdAt?.toDate ? m.createdAt.toDate().toLocaleString("pt-BR") : ""}${m.edited ? " • editada" : ""}</div>
             </div>
             <span class="badge normal">${m.authorRole === "creator" ? "Criador" : m.authorRole === "admin" ? "Admin" : "Membro"}</span>
           </div>
-
           <div class="line"><span>💬</span><div>${escapeHTML(m.text || "")}</div></div>
-
           <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
             <button class="btn blue" onclick="setReply('${m.id}')">Responder</button>
             ${canManage ? `<button class="btn yellow" onclick="editChatMessage('${m.id}')">Editar</button>` : ""}
@@ -2293,25 +1484,14 @@
     }
 
     function renderChat(){
-      if(hasChatAccess()){
-        els.chatLocked.style.display = "none";
-        els.chatPanel.style.display = "block";
-      }else{
-        els.chatLocked.style.display = "block";
-        els.chatPanel.style.display = "none";
-      }
-
-      els.clearChatBtn.style.display = hasAdminAccess() ? "inline-flex" : "none";
-
       els.chatBox.innerHTML = state.chatMessages.length
         ? state.chatMessages.map(chatMessageCard).join("")
         : `<div class="empty">Nenhuma mensagem no chat ainda.</div>`;
+      els.clearChatBtn.style.display = hasAdminAccess() ? "inline-flex" : "none";
     }
 
     function scrollChatBottom(){
-      if(els.chatBox){
-        els.chatBox.scrollTop = els.chatBox.scrollHeight;
-      }
+      if(els.chatBox) els.chatBox.scrollTop = els.chatBox.scrollHeight;
     }
 
     function renderMembersAdmin(){
@@ -2322,13 +1502,30 @@
               <strong>${escapeHTML(m.name)}</strong>
               <div class="small">${escapeHTML(m.phone)} • ${escapeHTML(m.role || "Sem função")} • ${escapeHTML(targetName(m.group || "todos"))}</div>
             </div>
-            <div style="display:flex; gap:8px; flex-wrap:wrap;">
-              <a class="btn green" target="_blank" href="${whatsappLink(m.phone, `Olá ${m.name}, você foi cadastrado no app da banda ${state.config.bandName}.`)}">WhatsApp</a>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <a class="btn green" target="_blank" href="${whatsappLink(m.phone,`Olá ${m.name}, você foi cadastrado no app da banda ${state.config.bandName}.`)}">WhatsApp</a>
               <button class="btn red" onclick="removeMember('${m.id}')">Remover</button>
             </div>
           </div>
         `).join("")
         : `<div class="empty">Nenhum membro cadastrado.</div>`;
+    }
+
+    function renderBooking(){
+      if(state.config.bookingPhone){
+        els.bookingInfo.innerHTML = `
+          <div class="notice success">
+            <strong>Contato para agenda:</strong><br>
+            ${escapeHTML(state.config.bookingPhone)}
+          </div>
+        `;
+      }else{
+        els.bookingInfo.innerHTML = `
+          <div class="notice warning">
+            O contato para marcar agenda ainda não foi cadastrado pelo administrador.
+          </div>
+        `;
+      }
     }
 
     function renderStats(){
@@ -2342,80 +1539,91 @@
       renderBrand();
       renderAdmin();
       renderConfig();
+      renderPanelsByAccess();
       renderMembersAdmin();
       renderStats();
       renderChat();
+      renderBooking();
 
       els.eventosList.innerHTML = state.eventos.length
-        ? sortEventos(state.eventos).map(e => eventoCard(e, "public")).join("")
+        ? sortByDate(state.eventos).map(e => eventoCard(e,"public")).join("")
         : `<div class="empty">Nenhum evento público cadastrado ainda.</div>`;
 
+      els.publicPostsList.innerHTML = state.publicPosts.length
+        ? state.publicPosts.map(p => publicPostCard(p,"public")).join("")
+        : `<div class="empty">Nenhuma mensagem pública cadastrada ainda.</div>`;
+
       els.adminEventosList.innerHTML = state.eventos.length
-        ? sortEventos(state.eventos).map(e => eventoCard(e, "admin")).join("")
+        ? sortByDate(state.eventos).map(e => eventoCard(e,"admin")).join("")
         : `<div class="empty">Nenhum evento publicado ainda.</div>`;
 
+      els.adminPublicPostsList.innerHTML = state.publicPosts.length
+        ? state.publicPosts.map(p => publicPostCard(p,"admin")).join("")
+        : `<div class="empty">Nenhuma mensagem pública.</div>`;
+
       els.agendaList.innerHTML = state.agendas.length
-        ? sortAgendas(state.agendas).map(a => agendaCard(a, "member")).join("")
-        : `<div class="empty">Nenhuma agenda cadastrada.</div>`;
+        ? sortByDate(state.agendas).map(a => agendaCard(a,"member")).join("")
+        : `<div class="empty">Nenhuma agenda interna cadastrada.</div>`;
 
       els.adminAgendaList.innerHTML = state.agendas.length
-        ? sortAgendas(state.agendas).map(a => agendaCard(a, "admin")).join("")
+        ? sortByDate(state.agendas).map(a => agendaCard(a,"admin")).join("")
         : `<div class="empty">Nenhuma agenda cadastrada.</div>`;
 
       els.recadosList.innerHTML = state.recados.length
-        ? state.recados.map(r => recadoCard(r, "member")).join("")
-        : `<div class="empty">Nenhum recado enviado ainda.</div>`;
+        ? state.recados.map(r => recadoCard(r,"member")).join("")
+        : `<div class="empty">Nenhum recado interno enviado ainda.</div>`;
 
       els.adminRecadosList.innerHTML = state.recados.length
-        ? state.recados.map(r => recadoCard(r, "admin")).join("")
+        ? state.recados.map(r => recadoCard(r,"admin")).join("")
         : `<div class="empty">Nenhum recado enviado ainda.</div>`;
     }
 
     function listenFirestore(){
-      onSnapshot(doc(db, "settings", "main"), snap => {
-        if(snap.exists()){
-          state.config = {
-            ...state.config,
-            ...snap.data()
-          };
-        }
+      onSnapshot(doc(db,"settings","main"),snap => {
+        if(snap.exists()) state.config = {...state.config,...snap.data()};
         renderAll();
       });
 
-      onSnapshot(collection(db, "members"), snap => {
-        state.members = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      onSnapshot(collection(db,"members"),snap => {
+        state.members = snap.docs.map(d => ({id:d.id,...d.data()}));
         renderAll();
       });
 
-      onSnapshot(query(collection(db, "eventos"), orderBy("createdAt", "desc")), snap => {
-        state.eventos = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      onSnapshot(collection(db,"visitors"),snap => {
+        state.visitors = snap.docs.map(d => ({id:d.id,...d.data()}));
+      });
+
+      onSnapshot(query(collection(db,"eventos"),orderBy("createdAt","desc")),snap => {
+        state.eventos = snap.docs.map(d => ({id:d.id,...d.data()}));
         renderAll();
       });
 
-      onSnapshot(query(collection(db, "agendas"), orderBy("createdAt", "desc")), snap => {
-        state.agendas = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      onSnapshot(query(collection(db,"publicPosts"),orderBy("createdAt","desc")),snap => {
+        state.publicPosts = snap.docs.map(d => ({id:d.id,...d.data()}));
         renderAll();
       });
 
-      onSnapshot(query(collection(db, "recados"), orderBy("createdAt", "desc")), snap => {
-        state.recados = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      onSnapshot(query(collection(db,"agendas"),orderBy("createdAt","desc")),snap => {
+        state.agendas = snap.docs.map(d => ({id:d.id,...d.data()}));
         renderAll();
       });
 
-      onSnapshot(query(collection(db, "chatMessages"), orderBy("createdAt", "asc")), snap => {
-        state.chatMessages = snap.docs.map(d => ({ id:d.id, ...d.data() }));
+      onSnapshot(query(collection(db,"recados"),orderBy("createdAt","desc")),snap => {
+        state.recados = snap.docs.map(d => ({id:d.id,...d.data()}));
         renderAll();
-        setTimeout(scrollChatBottom, 150);
+      });
+
+      onSnapshot(query(collection(db,"chatMessages"),orderBy("createdAt","asc")),snap => {
+        state.chatMessages = snap.docs.map(d => ({id:d.id,...d.data()}));
+        renderAll();
+        setTimeout(scrollChatBottom,150);
       });
 
       els.firebaseStatus.textContent = "● Firebase conectado";
     }
 
     window.openScreen = openScreen;
-    window.saveMyLocalData = saveMyLocalData;
-    window.syncMemberMirror = syncMemberMirror;
-    window.memberLogin = memberLogin;
-    window.memberLoginFromChat = memberLoginFromChat;
+    window.enterApp = enterApp;
     window.activatePush = activatePush;
     window.loginAdmin = loginAdmin;
     window.loginCreator = loginCreator;
@@ -2426,6 +1634,8 @@
     window.loadPosterFile = loadPosterFile;
     window.savePosterEvent = savePosterEvent;
     window.deletePosterEvent = deletePosterEvent;
+    window.savePublicPost = savePublicPost;
+    window.deletePublicPost = deletePublicPost;
     window.saveMember = saveMember;
     window.removeMember = removeMember;
     window.saveAgenda = saveAgenda;
@@ -2436,6 +1646,7 @@
     window.markRecadoSeen = markRecadoSeen;
     window.prepareWhatsBroadcast = prepareWhatsBroadcast;
     window.copyText = copyText;
+    window.openBookingWhatsApp = openBookingWhatsApp;
     window.sendChatMessage = sendChatMessage;
     window.setReply = setReply;
     window.clearReply = clearReply;
@@ -2443,9 +1654,9 @@
     window.deleteChatMessage = deleteChatMessage;
     window.clearChat = clearChat;
 
-    document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded",() => {
       cacheEls();
-      syncMemberFieldsFromLocal();
+      loadEntryLocal();
       renderAll();
 
       try{
