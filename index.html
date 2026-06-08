@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Agenda da Banda</title>
+
+  <style>
+    :root {
+      --bg: #070a12;
+      --card: #111827;
+      --card2: #172033;
+      --text: #f8fafc;
+      --muted: #94a3b8;
+      --line: rgba(255,255,255,.12);
+      --gold: #facc15;
+      --gold2: #eab308;
+      --blue: #38bdf8;
+      --green: #22c55e;
+      --red: #ef4444;
+      --orange: #fb923c;
+      --radius: 22px;
+      --shadow: 0 18px 45px rgba(0,0,0,.35);
+    }
+
+    * {
+      box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, rgba(250,204,21,.22), transparent 32%),
+        radial-gradient(circle at bottom right, rgba(56,189,248,.16), transparent 35%),
+        var(--bg);
+    }
+
+    button, input, textarea, select {
+      font-family: inherit;
+    }
+
+    .app {
+      width: 100%;
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 16px;
+      padding-bottom: 80px;
+    }
+
+    .hero {
+      background: linear-gradient(135deg, rgba(250,204,21,.18), rgba(56,189,248,.10));
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 20px;
+      box-shadow: var(--shadow);
+      margin-bottom: 14px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "♪";
+      position: absolute;
+      right: 18px;
+      top: -8px;
+      font-size: 110px;
+      opacity: .10;
+      transform: rotate(-12deg);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .logoBox {
+      width: 70px;
+      height: 70px;
+      border-radius: 22px;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--gold), #fff4aa);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #111827;
+      font-size: 34px;
+      font-weight: 900;
+      flex: none;
+      box-shadow: 0 12px 30px rgba(250,204,21,.24);
+    }
+
+    .logoBox img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 26px;
+      line-height: 1.1;
+    }
+
+    .subtitle {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      margin-top: 14px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(34,197,94,.13);
+      color: #bbf7d0;
+      border: 1px solid rgba(34,197,94,.25);
+      font-size: 13px;
+      font-weight: 800;
+      position: relative;
+      z-index: 2;
+    }
+
+    .tabs {
+      position: sticky;
+      top: 0;
+      z-index: 20;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      padding: 10px 0;
+      background: rgba(7,10,18,.88);
+      backdrop-filter: blur(12px);
+      margin-bottom: 12px;
+    }
+
+    .tab {
+      border: 1px solid var(--line);
+      background: rgba(17,24,39,.86);
+      color: var(--muted);
+      border-radius: 15px;
+      padding: 11px 8px;
+      font-size: 12px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #111827;
+      border: 0;
+    }
+
+    .screen {
+      display: none;
+    }
+
+    .screen.active {
+      display: block;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+
+    .card {
+      background: rgba(17,24,39,.93);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 16px;
+      box-shadow: 0 12px 35px rgba(0,0,0,.25);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 19px;
+    }
+
+    .card h3 {
+      margin: 0 0 10px;
+      font-size: 16px;
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 6px;
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    input, textarea, select {
+      width: 100%;
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,.96);
+      color: var(--text);
+      border-radius: 15px;
+      padding: 13px 14px;
+      outline: none;
+      font-size: 15px;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+      line-height: 1.45;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: rgba(250,204,21,.72);
+      box-shadow: 0 0 0 3px rgba(250,204,21,.12);
+    }
+
+    .btn {
+      border: 1px solid var(--line);
+      background: var(--card2);
+      color: var(--text);
+      border-radius: 15px;
+      padding: 12px 14px;
+      min-height: 44px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 900;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn:active {
+      transform: scale(.98);
+    }
+
+    .btn.full {
+      width: 100%;
+    }
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--gold), var(--gold2));
+      color: #111827;
+      border: 0;
+    }
+
+    .btn.green {
+      background: rgba(34,197,94,.16);
+      color: #bbf7d0;
+      border-color: rgba(34,197,94,.32);
+    }
+
+    .btn.blue {
+      background: rgba(56,189,248,.16);
+      color: #bae6fd;
+      border-color: rgba(56,189,248,.32);
+    }
+
+    .btn.red {
+      background: rgba(239,68,68,.16);
+      color: #fecaca;
+      border-color: rgba(239,68,68,.32);
+    }
+
+    .btn.orange {
+      background: rgba(251,146,60,.16);
+      color: #fed7aa;
+      border-color: rgba(251,146,60,.32);
+    }
+
+    .actions {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .item {
+      background: linear-gradient(135deg, rgba(23,32,51,.97), rgba(15,23,42,.97));
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 12px 30px rgba(0,0,0,.18);
+    }
+
+    .itemHead {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: flex-start;
+      margin-bottom: 10px;
+    }
+
+    .itemTitle {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.4;
+    }
+
+    .line {
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+      color: #dbeafe;
+      font-size: 14px;
+      line-height: 1.4;
+      margin: 6px 0;
+    }
+
+    .line span:first-child {
+      width: 22px;
+      flex: none;
+      text-align: center;
+    }
+
+    .badge {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 6px 9px;
+      font-size: 12px;
+      font-weight: 900;
+      border: 1px solid var(--line);
+      white-space: nowrap;
+    }
+
+    .badge.normal {
+      background: rgba(56,189,248,.13);
+      color: #bae6fd;
+      border-color: rgba(56,189,248,.25);
+    }
+
+    .badge.urgente {
+      background: rgba(239,68,68,.14);
+      color: #fecaca;
+      border-color: rgba(239,68,68,.28);
+    }
+
+    .badge.evento {
+      background: rgba(250,204,21,.13);
+      color: #fef3c7;
+      border-color: rgba(250,204,21,.25);
+    }
+
+    .divider {
+      height: 1px;
+      background: var(--line);
+      margin: 12px 0;
+    }
+
+    .notice {
+      background: rgba(250,204,21,.10);
+      border: 1px solid rgba(250,204,21,.24);
+      color: #fef9c3;
+      border-radius: 18px;
+      padding: 13px;
+      font-size: 14px;
+      line-height: 1.45;
+      margin-bottom: 12px;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 22px 12px;
+      border: 1px dashed var(--line);
+      border-radius: 18px;
+    }
+
+    .memberCard {
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,.76);
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 18px;
+      transform: translateX(-50%) translateY(120px);
+      background: #0f172a;
+      color: #fff;
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 13px 16px;
+      box-shadow: var(--shadow);
+      z-index: 999;
+      opacity: 0;
+      transition: .25s;
+      max-width: 92%;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    .previewLogo {
+      width: 90px;
+      height: 90px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: rgba(15,23,42,.96);
+      object-fit: cover;
+      display: none;
+      margin-top: 10px;
+    }
+
+    .whatsappBox {
+      background: rgba(34,197,94,.10);
+      border: 1px solid rgba(34,197,94,.22);
+      color: #dcfce7;
+      border-radius: 16px;
+      padding: 12px;
+      margin-top: 10px;
+    }
+
+    @media(max-width: 760px) {
+      .app {
+        padding: 12px;
+        padding-bottom: 70px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 22px;
+      }
+
+      .logoBox {
+        width: 62px;
+        height: 62px;
+      }
+
+      .tabs {
+        gap: 6px;
+      }
+
+      .tab {
+        font-size: 11px;
+        padding: 10px 5px;
+      }
+
+      .actions {
+        grid-template-columns: 1fr;
+      }
+
+      .memberCard {
+        align-items: flex-start;
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <section class="hero">
+      <div class="brand">
+        <div class="logoBox" id="logoBox">♫</div>
+        <div>
+          <h1 id="tituloApp">Agenda da Banda</h1>
+          <p class="subtitle">
+            Agenda, recados, notificações e comunicação com os membros cadastrados.
+          </p>
+        </div>
+      </div>
+      <div class="pill">● Aplicativo da banda ativo</div>
+    </section>
+
+    <div class="tabs">
+      <button class="tab active" onclick="abrirTela('inicio')">Início</button>
+      <button class="tab" onclick="abrirTela('membros')">Membros</button>
+      <button class="tab" onclick="abrirTela('admin')">Admin</button>
+      <button class="tab" onclick="abrirTela('config')">Config</button>
+    </div>
+
+    <section id="inicio" class="screen active">
+      <div class="grid">
+        <div class="card">
+          <h2>Recados da banda</h2>
+          <p class="muted">
+            Todos os recados criados pelo administrador aparecem aqui para os membros.
+          </p>
+          <div class="actions">
+            <button class="btn primary" onclick="abrirTela('membros')">Ver recados</button>
+            <button class="btn blue" onclick="pedirPermissaoNotificacao()">Ativar notificação</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2>Administração</h2>
+          <p class="muted">
+            O responsável pode cadastrar membros, editar nome/logo e enviar recados.
+          </p>
+          <div class="actions">
+            <button class="btn primary" onclick="abrirTela('admin')">Entrar no admin</button>
+            <button class="btn green" onclick="abrirTela('config')">Editar app</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h2>Últimos recados</h2>
+        <div id="ultimosRecados" class="list"></div>
+      </div>
+    </section>
+
+    <section id="membros" class="screen">
+      <div class="card">
+        <h2>Área do membro</h2>
+
+        <label>Seu nome</label>
+        <input id="meuNome" placeholder="Digite seu nome" oninput="salvarUsuarioLocal()" />
+
+        <label>Seu celular</label>
+        <input id="meuCelular" placeholder="Ex: 44999998888" oninput="salvarUsuarioLocal()" />
+
+        <label>Sua função na banda</label>
+        <input id="minhaFuncao" placeholder="Ex: Vocal, bateria, teclado..." oninput="salvarUsuarioLocal()" />
+
+        <div class="actions">
+          <button class="btn blue" onclick="pedirPermissaoNotificacao()">Ativar notificação</button>
+          <button class="btn green" onclick="cadastrarMeuAparelho()">Cadastrar este aparelho</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h2>Recados recebidos</h2>
+        <div id="recadosMembro" class="list"></div>
+      </div>
+    </section>
+
+    <section id="admin" class="screen">
+      <div id="areaLogin" class="card">
+        <h2>Login do administrador</h2>
+        <p class="muted">Senha padrão:</p>
+        <div class="notice"><strong>1234</strong></div>
+
+        <label>Senha</label>
+        <input id="senhaAdmin" type="password" placeholder="Digite a senha" />
+
+        <button class="btn primary full" style="margin-top:12px;" onclick="loginAdmin()">Entrar</button>
+      </div>
+
+      <div id="painelAdmin" style="display:none;">
+        <div class="grid">
+          <div class="card">
+            <h2>Novo recado</h2>
+
+            <label>Título</label>
+            <input id="recadoTitulo" placeholder="Ex: Ensaio confirmado" />
+
+            <label>Mensagem</label>
+            <textarea id="recadoMensagem" placeholder="Digite o recado para os membros da banda..."></textarea>
+
+            <label>Prioridade</label>
+            <select id="recadoPrioridade">
+              <option value="normal">Normal</option>
+              <option value="urgente">Urgente</option>
+            </select>
+
+            <label>Enviar para</label>
+            <select id="recadoDestino">
+              <option value="todos">Todos os membros</option>
+              <option value="vocal">Somente vocal</option>
+              <option value="instrumental">Somente instrumental</option>
+              <option value="som">Somente equipe de som</option>
+            </select>
+
+            <button class="btn primary full" style="margin-top:12px;" onclick="enviarRecado()">
+              Enviar recado
+            </button>
+
+            <div class="notice" style="margin-top:12px;">
+              O recado aparece no app e gera notificação neste aparelho. Para enviar para o celular dos cadastrados nesta versão, use os botões de WhatsApp gerados no recado.
+            </div>
+          </div>
+
+          <div class="card">
+            <h2>Cadastrar membro</h2>
+
+            <label>Nome</label>
+            <input id="membroNome" placeholder="Nome do membro" />
+
+            <label>Celular</label>
+            <input id="membroCelular" placeholder="Ex: 44999998888" />
+
+            <label>Função</label>
+            <input id="membroFuncao" placeholder="Ex: Vocal, teclado, bateria..." />
+
+            <label>Grupo</label>
+            <select id="membroGrupo">
+              <option value="todos">Todos</option>
+              <option value="vocal">Vocal</option>
+              <option value="instrumental">Instrumental</option>
+              <option value="som">Equipe de som</option>
+            </select>
+
+            <button class="btn primary full" style="margin-top:12px;" onclick="salvarMembro()">
+              Salvar membro
+            </button>
+          </div>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <h2>Membros cadastrados</h2>
+          <div id="listaMembrosAdmin"></div>
+        </div>
+
+        <div class="card" style="margin-top:12px;">
+          <h2>Recados enviados</h2>
+          <div id="recadosAdmin" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="config" class="screen">
+      <div class="card">
+        <h2>Editar nome e logo</h2>
+
+        <label>Nome da banda</label>
+        <input id="configNomeBanda" placeholder="Ex: Ministério de Louvor RCID" />
+
+        <label>Logo da banda</label>
+        <input id="configLogo" type="file" accept="image/*" onchange="carregarLogo(event)" />
+
+        <img id="previewLogo" class="previewLogo" />
+
+        <label>Senha do administrador</label>
+        <input id="configSenha" placeholder="Senha do admin" />
+
+        <button class="btn primary full" style="margin-top:12px;" onclick="salvarConfig()">
+          Salvar nome, logo e senha
+        </button>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h2>Backup</h2>
+        <p class="muted">Use para copiar os dados deste app e restaurar depois.</p>
+
+        <div class="actions">
+          <button class="btn blue" onclick="exportarBackup()">Exportar</button>
+          <button class="btn orange" onclick="importarBackup()">Importar</button>
+        </div>
+
+        <label>Área do backup</label>
+        <textarea id="backupArea" placeholder="O backup aparece aqui."></textarea>
+      </div>
+
+      <div class="card" style="margin-top:12px;">
+        <h2>Limpeza</h2>
+        <button class="btn red full" onclick="limparTudo()">Apagar tudo</button>
+      </div>
+    </section>
+  </div>
+
+  <div id="toast" class="toast"></div>
+
+  <script>
+    const STORAGE_KEY = "app_agenda_banda_logo_recados_v1";
+
+    const estadoPadrao = {
+      config: {
+        nomeBanda: "Agenda da Banda",
+        logo: "",
+        senha: "1234"
+      },
+      adminLogado: false,
+      membros: [],
+      recados: []
+    };
+
+    let estado = carregarEstado();
+
+    function carregarEstado() {
+      try {
+        const salvo = localStorage.getItem(STORAGE_KEY);
+        if (!salvo) return structuredClone(estadoPadrao);
+        const obj = JSON.parse(salvo);
+
+        return {
+          ...structuredClone(estadoPadrao),
+          ...obj,
+          config: {
+            ...estadoPadrao.config,
+            ...(obj.config || {})
+          },
+          membros: Array.isArray(obj.membros) ? obj.membros : [],
+          recados: Array.isArray(obj.recados) ? obj.recados : []
+        };
+      } catch (e) {
+        return structuredClone(estadoPadrao);
+      }
+    }
+
+    function salvarEstado() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(estado));
+    }
+
+    function uid() {
+      return Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+    }
+
+    function abrirTela(id) {
+      document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
+      document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
+
+      document.getElementById(id).classList.add("active");
+
+      const ordem = ["inicio", "membros", "admin", "config"];
+      const index = ordem.indexOf(id);
+      if (index >= 0) document.querySelectorAll(".tab")[index].classList.add("active");
+
+      renderTudo();
+    }
+
+    function toast(msg) {
+      const el = document.getElementById("toast");
+      el.textContent = msg;
+      el.classList.add("show");
+      setTimeout(() => el.classList.remove("show"), 3200);
+    }
+
+    function escapeHTML(str) {
+      return String(str || "")
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function limparTelefone(tel) {
+      return String(tel || "").replace(/\D/g, "");
+    }
+
+    function telefoneWhatsApp(tel) {
+      let n = limparTelefone(tel);
+      if (!n) return "";
+      if (!n.startsWith("55")) n = "55" + n;
+      return n;
+    }
+
+    function pedirPermissaoNotificacao() {
+      if (!("Notification" in window)) {
+        toast("Este navegador não suporta notificação.");
+        return;
+      }
+
+      Notification.requestPermission().then(status => {
+        if (status === "granted") {
+          notificar("Notificações ativadas", "Agora este aparelho pode receber avisos do app.");
+          toast("Notificação ativada neste aparelho.");
+        } else {
+          toast("Permissão de notificação não liberada.");
+        }
+      });
+    }
+
+    function notificar(titulo, corpo) {
+      if ("Notification" in window && Notification.permission === "granted") {
+        try {
+          new Notification(titulo, {
+            body: corpo,
+            tag: "agenda-banda"
+          });
+        } catch (e) {}
+      }
+    }
+
+    function salvarUsuarioLocal() {
+      localStorage.setItem("banda_usuario_nome", document.getElementById("meuNome").value.trim());
+      localStorage.setItem("banda_usuario_celular", document.getElementById("meuCelular").value.trim());
+      localStorage.setItem("banda_usuario_funcao", document.getElementById("minhaFuncao").value.trim());
+    }
+
+    function carregarUsuarioLocal() {
+      document.getElementById("meuNome").value = localStorage.getItem("banda_usuario_nome") || "";
+      document.getElementById("meuCelular").value = localStorage.getItem("banda_usuario_celular") || "";
+      document.getElementById("minhaFuncao").value = localStorage.getItem("banda_usuario_funcao") || "";
+    }
+
+    function cadastrarMeuAparelho() {
+      const nome = document.getElementById("meuNome").value.trim();
+      const celular = document.getElementById("meuCelular").value.trim();
+      const funcao = document.getElementById("minhaFuncao").value.trim();
+
+      if (!nome || !celular) {
+        toast("Digite nome e celular.");
+        return;
+      }
+
+      const existente = estado.membros.find(m => limparTelefone(m.celular) === limparTelefone(celular));
+
+      if (existente) {
+        existente.nome = nome;
+        existente.funcao = funcao;
+      } else {
+        estado.membros.push({
+          id: uid(),
+          nome,
+          celular,
+          funcao,
+          grupo: "todos",
+          criadoEm: new Date().toISOString()
+        });
+      }
+
+      salvarEstado();
+      renderTudo();
+      toast("Membro cadastrado neste app.");
+    }
+
+    function loginAdmin() {
+      const senha = document.getElementById("senhaAdmin").value.trim();
+
+      if (senha === estado.config.senha) {
+        estado.adminLogado = true;
+        salvarEstado();
+        renderTudo();
+        toast("Administrador liberado.");
+      } else {
+        toast("Senha incorreta.");
+      }
+    }
+
+    function salvarMembro() {
+      const nome = document.getElementById("membroNome").value.trim();
+      const celular = document.getElementById("membroCelular").value.trim();
+      const funcao = document.getElementById("membroFuncao").value.trim();
+      const grupo = document.getElementById("membroGrupo").value;
+
+      if (!nome || !celular) {
+        toast("Digite nome e celular do membro.");
+        return;
+      }
+
+      const existente = estado.membros.find(m => limparTelefone(m.celular) === limparTelefone(celular));
+
+      if (existente) {
+        existente.nome = nome;
+        existente.celular = celular;
+        existente.funcao = funcao;
+        existente.grupo = grupo;
+      } else {
+        estado.membros.push({
+          id: uid(),
+          nome,
+          celular,
+          funcao,
+          grupo,
+          criadoEm: new Date().toISOString()
+        });
+      }
+
+      salvarEstado();
+
+      document.getElementById("membroNome").value = "";
+      document.getElementById("membroCelular").value = "";
+      document.getElementById("membroFuncao").value = "";
+      document.getElementById("membroGrupo").value = "todos";
+
+      renderTudo();
+      toast("Membro salvo.");
+    }
+
+    function removerMembro(id) {
+      if (!confirm("Deseja remover este membro?")) return;
+      estado.membros = estado.membros.filter(m => m.id !== id);
+      salvarEstado();
+      renderTudo();
+      toast("Membro removido.");
+    }
+
+    function enviarRecado() {
+      const titulo = document.getElementById("recadoTitulo").value.trim();
+      const mensagem = document.getElementById("recadoMensagem").value.trim();
+      const prioridade = document.getElementById("recadoPrioridade").value;
+      const destino = document.getElementById("recadoDestino").value;
+
+      if (!titulo || !mensagem) {
+        toast("Digite o título e a mensagem.");
+        return;
+      }
+
+      const recado = {
+        id: uid(),
+        titulo,
+        mensagem,
+        prioridade,
+        destino,
+        visualizacoes: {},
+        criadoEm: new Date().toISOString()
+      };
+
+      estado.recados.unshift(recado);
+      salvarEstado();
+
+      document.getElementById("recadoTitulo").value = "";
+      document.getElementById("recadoMensagem").value = "";
+      document.getElementById("recadoPrioridade").value = "normal";
+      document.getElementById("recadoDestino").value = "todos";
+
+      renderTudo();
+
+      notificar(
+        prioridade === "urgente" ? "Recado urgente da banda" : "Novo recado da banda",
+        titulo + " - " + mensagem
+      );
+
+      toast("Recado enviado no app. Use os botões do WhatsApp para mandar no celular.");
+    }
+
+    function membrosDoDestino(destino) {
+      if (destino === "todos") return estado.membros;
+      return estado.membros.filter(m => m.grupo === destino || m.grupo === "todos");
+    }
+
+    function textoRecadoWhatsApp(recado) {
+      return `*${estado.config.nomeBanda}*\n\n*${recado.titulo}*\n\n${recado.mensagem}\n\nPrioridade: ${recado.prioridade === "urgente" ? "URGENTE" : "Normal"}`;
+    }
+
+    function linkWhatsApp(celular, texto) {
+      const tel = telefoneWhatsApp(celular);
+      if (!tel) return "#";
+      return `https://wa.me/${tel}?text=${encodeURIComponent(texto)}`;
+    }
+
+    function copiarTexto(texto) {
+      navigator.clipboard.writeText(texto).then(() => {
+        toast("Mensagem copiada.");
+      }).catch(() => {
+        toast("Não foi possível copiar.");
+      });
+    }
+
+    function marcarRecadoVisto(id) {
+      const nome = document.getElementById("meuNome").value.trim();
+
+      if (!nome) {
+        toast("Digite seu nome primeiro.");
+        return;
+      }
+
+      const recado = estado.recados.find(r => r.id === id);
+      if (!recado) return;
+
+      recado.visualizacoes[nome] = {
+        nome,
+        quando: new Date().toISOString()
+      };
+
+      salvarEstado();
+      renderTudo();
+      toast("Recado marcado como visualizado.");
+    }
+
+    function excluirRecado(id) {
+      if (!confirm("Deseja apagar este recado?")) return;
+      estado.recados = estado.recados.filter(r => r.id !== id);
+      salvarEstado();
+      renderTudo();
+      toast("Recado apagado.");
+    }
+
+    function carregarLogo(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+
+      const reader = new FileReader();
+
+      reader.onload = function(e) {
+        estado.config.logo = e.target.result;
+        salvarEstado();
+        renderTudo();
+        toast("Logo carregada. Aperte salvar configurações.");
+      };
+
+      reader.readAsDataURL(file);
+    }
+
+    function salvarConfig() {
+      const nome = document.getElementById("configNomeBanda").value.trim();
+      const senha = document.getElementById("configSenha").value.trim();
+
+      estado.config.nomeBanda = nome || "Agenda da Banda";
+      estado.config.senha = senha || "1234";
+
+      salvarEstado();
+      renderTudo();
+      toast("Configurações salvas.");
+    }
+
+    function renderTudo() {
+      renderTopo();
+      renderConfig();
+      renderLoginAdmin();
+      renderMembrosAdmin();
+      renderRecados();
+    }
+
+    function renderTopo() {
+      document.getElementById("tituloApp").textContent = estado.config.nomeBanda || "Agenda da Banda";
+
+      const logoBox = document.getElementById("logoBox");
+
+      if (estado.config.logo) {
+        logoBox.innerHTML = `<img src="${estado.config.logo}" alt="Logo da banda">`;
+      } else {
+        logoBox.innerHTML = "♫";
+      }
+    }
+
+    function renderConfig() {
+      document.getElementById("configNomeBanda").value = estado.config.nomeBanda || "";
+      document.getElementById("configSenha").value = estado.config.senha || "1234";
+
+      const preview = document.getElementById("previewLogo");
+
+      if (estado.config.logo) {
+        preview.src = estado.config.logo;
+        preview.style.display = "block";
+      } else {
+        preview.style.display = "none";
+      }
+    }
+
+    function renderLoginAdmin() {
+      const login = document.getElementById("areaLogin");
+      const painel = document.getElementById("painelAdmin");
+
+      if (estado.adminLogado) {
+        login.style.display = "none";
+        painel.style.display = "block";
+      } else {
+        login.style.display = "block";
+        painel.style.display = "none";
+      }
+    }
+
+    function renderMembrosAdmin() {
+      const el = document.getElementById("listaMembrosAdmin");
+
+      if (!estado.membros.length) {
+        el.innerHTML = `<div class="empty">Nenhum membro cadastrado ainda.</div>`;
+        return;
+      }
+
+      el.innerHTML = estado.membros.map(m => `
+        <div class="memberCard">
+          <div>
+            <strong>${escapeHTML(m.nome)}</strong>
+            <div class="small">
+              ${escapeHTML(m.funcao || "Sem função")} • ${escapeHTML(m.celular)} • Grupo: ${escapeHTML(m.grupo || "todos")}
+            </div>
+          </div>
+          <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <a class="btn green" target="_blank" href="${linkWhatsApp(m.celular, `Olá ${m.nome}, você foi cadastrado no app ${estado.config.nomeBanda}.`)}">
+              WhatsApp
+            </a>
+            <button class="btn red" onclick="removerMembro('${m.id}')">Remover</button>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function renderRecados() {
+      const ultimos = document.getElementById("ultimosRecados");
+      const membro = document.getElementById("recadosMembro");
+      const admin = document.getElementById("recadosAdmin");
+
+      if (!estado.recados.length) {
+        const vazio = `<div class="empty">Nenhum recado enviado ainda.</div>`;
+        ultimos.innerHTML = vazio;
+        membro.innerHTML = vazio;
+        admin.innerHTML = vazio;
+        return;
+      }
+
+      ultimos.innerHTML = estado.recados.slice(0, 3).map(r => cardRecado(r, "inicio")).join("");
+      membro.innerHTML = estado.recados.map(r => cardRecado(r, "membro")).join("");
+      admin.innerHTML = estado.recados.map(r => cardRecado(r, "admin")).join("");
+    }
+
+    function cardRecado(recado, modo) {
+      const textoWhats = textoRecadoWhatsApp(recado);
+      const membrosDestino = membrosDoDestino(recado.destino);
+      const visualizacoes = Object.keys(recado.visualizacoes || {});
+      const badgeClass = recado.prioridade === "urgente" ? "urgente" : "normal";
+
+      let botoesMembro = "";
+
+      if (modo === "membro") {
+        botoesMembro = `
+          <button class="btn blue" style="margin-top:10px;" onclick="marcarRecadoVisto('${recado.id}')">
+            Marcar como visualizado
+          </button>
+        `;
+      }
+
+      let areaAdmin = "";
+
+      if (modo === "admin") {
+        areaAdmin = `
+          <div class="divider"></div>
+
+          <div class="whatsappBox">
+            <strong>Enviar este recado no celular dos membros:</strong>
+            <div class="small" style="margin-top:4px;">
+              Clique no WhatsApp de cada membro cadastrado ou copie a mensagem para mandar no grupo.
+            </div>
+          </div>
+
+          <div class="actions">
+            <button class="btn green" onclick='copiarTexto(${JSON.stringify(textoWhats)})'>
+              Copiar mensagem
+            </button>
+            <button class="btn red" onclick="excluirRecado('${recado.id}')">
+              Apagar recado
+            </button>
+          </div>
+
+          <div style="margin-top:10px;">
+            ${
+              membrosDestino.length
+              ? membrosDestino.map(m => `
+                <div class="memberCard">
+                  <div>
+                    <strong>${escapeHTML(m.nome)}</strong>
+                    <div class="small">${escapeHTML(m.celular)} • ${escapeHTML(m.funcao || "")}</div>
+                  </div>
+                  <a class="btn green" target="_blank" href="${linkWhatsApp(m.celular, textoWhats)}">
+                    Enviar WhatsApp
+                  </a>
+                </div>
+              `).join("")
+              : `<div class="empty">Nenhum membro cadastrado para este destino.</div>`
+            }
+          </div>
+
+          <div class="divider"></div>
+          <strong>Visualizações no app:</strong>
+          ${
+            visualizacoes.length
+            ? visualizacoes.map(nome => `<div class="small">✅ ${escapeHTML(nome)}</div>`).join("")
+            : `<div class="small">Ninguém marcou como visualizado ainda.</div>`
+          }
+        `;
+      }
+
+      return `
+        <div class="item">
+          <div class="itemHead">
+            <div>
+              <p class="itemTitle">${recado.prioridade === "urgente" ? "🚨 " : ""}${escapeHTML(recado.titulo)}</p>
+              <div class="small">${new Date(recado.criadoEm).toLocaleString("pt-BR")}</div>
+            </div>
+            <span class="badge ${badgeClass}">
+              ${recado.prioridade === "urgente" ? "Urgente" : "Normal"}
+            </span>
+          </div>
+
+          <div class="line">
+            <span>💬</span>
+            <div>${escapeHTML(recado.mensagem)}</div>
+          </div>
+
+          <div class="line">
+            <span>👥</span>
+            <div>Destino: ${escapeHTML(nomeDestino(recado.destino))}</div>
+          </div>
+
+          <div class="small">Visualizações: ${visualizacoes.length}</div>
+
+          ${botoesMembro}
+          ${areaAdmin}
+        </div>
+      `;
+    }
+
+    function nomeDestino(destino) {
+      const mapa = {
+        todos: "Todos os membros",
+        vocal: "Somente vocal",
+        instrumental: "Somente instrumental",
+        som: "Equipe de som"
+      };
+
+      return mapa[destino] || "Todos os membros";
+    }
+
+    function exportarBackup() {
+      document.getElementById("backupArea").value = JSON.stringify(estado, null, 2);
+      toast("Backup gerado.");
+    }
+
+    function importarBackup() {
+      const txt = document.getElementById("backupArea").value.trim();
+
+      if (!txt) {
+        toast("Cole o backup primeiro.");
+        return;
+      }
+
+      try {
+        const dados = JSON.parse(txt);
+
+        estado = {
+          ...structuredClone(estadoPadrao),
+          ...dados,
+          config: {
+            ...estadoPadrao.config,
+            ...(dados.config || {})
+          },
+          membros: Array.isArray(dados.membros) ? dados.membros : [],
+          recados: Array.isArray(dados.recados) ? dados.recados : []
+        };
+
+        salvarEstado();
+        renderTudo();
+        toast("Backup importado.");
+      } catch (e) {
+        toast("Backup inválido.");
+      }
+    }
+
+    function limparTudo() {
+      if (!confirm("Tem certeza que deseja apagar todos os dados deste navegador?")) return;
+
+      localStorage.removeItem(STORAGE_KEY);
+      estado = structuredClone(estadoPadrao);
+      salvarEstado();
+      renderTudo();
+      toast("Tudo foi apagado.");
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      carregarUsuarioLocal();
+      renderTudo();
+    });
+  </script>
+</body>
+</html>
