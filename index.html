@@ -14,6 +14,7 @@
     }
 
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+
     body{
       margin:0;min-height:100vh;font-family:Arial,Helvetica,sans-serif;color:var(--text);
       background:
@@ -21,7 +22,9 @@
         radial-gradient(circle at bottom right,rgba(56,189,248,.13),transparent 32%),
         linear-gradient(180deg,#020307 0%,#070b14 45%,#05070d 100%);
     }
+
     button,input,textarea,select{font-family:inherit}
+
     .app{width:100%;max-width:1100px;margin:0 auto;padding:14px 14px 90px}
 
     .hero{
@@ -29,27 +32,33 @@
       border:1px solid var(--line);border-radius:30px;padding:18px;box-shadow:var(--shadow);
       margin-bottom:12px;position:relative;overflow:hidden;
     }
+
     .hero:after{
       content:"♪";position:absolute;right:20px;top:-14px;font-size:110px;
       opacity:.06;transform:rotate(-12deg);font-weight:900;
     }
+
     .brand{display:flex;align-items:center;gap:14px;position:relative;z-index:2}
+
     .logoBox{
       width:72px;height:72px;border-radius:22px;overflow:hidden;background:#fff;
       display:flex;align-items:center;justify-content:center;flex:none;
       border:1px solid rgba(255,255,255,.18);box-shadow:0 14px 30px rgba(255,255,255,.08);
     }
+
     .logoBox img{width:100%;height:100%;object-fit:cover;display:block}
     .logoFallback{font-size:34px;color:#111827;font-weight:900}
     h1{margin:0;font-size:28px;letter-spacing:.7px;line-height:1.1}
     .subtitle{margin:6px 0 0;color:var(--muted);font-size:14px;line-height:1.45}
 
     .pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px;position:relative;z-index:2}
+
     .pill{
       display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;
       background:rgba(255,255,255,.06);border:1px solid var(--line);
       color:#e5e7eb;font-size:12px;font-weight:900;
     }
+
     .pill.creator{background:rgba(139,92,246,.15);color:#e9d5ff;border-color:rgba(139,92,246,.35)}
     .pill.admin{background:rgba(34,197,94,.15);color:#bbf7d0;border-color:rgba(34,197,94,.35)}
     .pill.member{background:rgba(56,189,248,.15);color:#bae6fd;border-color:rgba(56,189,248,.35)}
@@ -59,21 +68,27 @@
       position:sticky;top:0;z-index:30;display:flex;gap:7px;padding:9px 0;
       background:rgba(5,7,13,.88);backdrop-filter:blur(12px);margin-bottom:12px;overflow-x:auto;
     }
+
     .tab{
       border:1px solid var(--line);background:rgba(17,24,39,.88);color:var(--muted);
       border-radius:15px;padding:12px 13px;font-size:12px;font-weight:900;
       cursor:pointer;white-space:nowrap;min-width:86px;
     }
+
     .tab.active{background:linear-gradient(135deg,#fff,#d1d5db);color:#111827;border:0}
 
-    .screen{display:none}.screen.active{display:block}
+    .screen{display:none}
+    .screen.active{display:block}
+
     .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
     .homeMenu{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+
     .homeBtn{
       border:1px solid var(--line);background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
       color:var(--text);border-radius:24px;min-height:108px;padding:18px;cursor:pointer;
       box-shadow:0 12px 30px rgba(0,0,0,.16);text-align:left;
     }
+
     .homeBtn strong{display:block;font-size:19px;margin-bottom:7px}
     .homeBtn span{display:block;color:var(--muted);font-size:13px;line-height:1.4}
 
@@ -81,15 +96,20 @@
       background:rgba(17,24,39,.94);border:1px solid var(--line);
       border-radius:var(--radius);padding:16px;box-shadow:0 12px 35px rgba(0,0,0,.22);
     }
+
     .card h2{margin:0 0 12px;font-size:19px}
     .card h3{margin:0 0 10px;font-size:16px}
     .muted{color:var(--muted);font-size:13px;line-height:1.45}
+
     label{display:block;margin:10px 0 6px;color:#cbd5e1;font-size:13px;font-weight:900}
+
     input,textarea,select{
       width:100%;border:1px solid var(--line);background:rgba(15,23,42,.98);
       color:var(--text);border-radius:15px;padding:13px 14px;outline:none;font-size:15px;
     }
+
     textarea{min-height:96px;resize:vertical;line-height:1.45}
+
     input:focus,textarea:focus,select:focus{
       border-color:rgba(255,255,255,.32);box-shadow:0 0 0 3px rgba(255,255,255,.08);
     }
@@ -100,6 +120,7 @@
       font-weight:900;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;
       gap:8px;text-decoration:none;
     }
+
     .btn.full{width:100%}
     .btn.primary{background:linear-gradient(135deg,#fff,#d1d5db);color:#111827;border:0}
     .btn.green{background:rgba(34,197,94,.16);color:#bbf7d0;border-color:rgba(34,197,94,.3)}
@@ -111,36 +132,45 @@
 
     .actions{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:12px}
     .list{display:flex;flex-direction:column;gap:12px;margin-top:12px}
+
     .item{
       background:linear-gradient(135deg,rgba(24,32,51,.98),rgba(15,23,42,.98));
       border:1px solid var(--line);border-radius:20px;padding:15px;box-shadow:0 12px 30px rgba(0,0,0,.16);
     }
+
     .itemHead{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin-bottom:10px}
     .itemTitle{margin:0;font-size:18px;font-weight:900}
     .small{color:var(--muted);font-size:12px;line-height:1.4}
+
     .line{display:flex;gap:8px;align-items:flex-start;margin:6px 0;color:#e2e8f0;font-size:14px;line-height:1.45}
     .line span:first-child{width:22px;flex:none;text-align:center}
+
     .badge{display:inline-flex;border-radius:999px;padding:6px 9px;font-size:12px;font-weight:900;border:1px solid var(--line);white-space:nowrap}
     .badge.normal{background:rgba(56,189,248,.14);color:#bae6fd;border-color:rgba(56,189,248,.28)}
     .badge.urgente{background:rgba(239,68,68,.14);color:#fecaca;border-color:rgba(239,68,68,.28)}
     .badge.ok{background:rgba(34,197,94,.14);color:#bbf7d0;border-color:rgba(34,197,94,.28)}
     .badge.evento{background:rgba(255,255,255,.10);color:#f8fafc;border-color:rgba(255,255,255,.18)}
+    .badge.visitor{background:rgba(250,204,21,.12);color:#fef3c7;border-color:rgba(250,204,21,.30)}
+    .badge.member{background:rgba(56,189,248,.14);color:#bae6fd;border-color:rgba(56,189,248,.28)}
 
     .memberRow{
       display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px;
       border:1px solid var(--line);background:rgba(15,23,42,.75);
       border-radius:16px;margin-top:8px;flex-wrap:wrap;
     }
+
     .compactStats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
     .statBox{border:1px solid var(--line);background:rgba(15,23,42,.75);border-radius:18px;padding:13px}
     .statBox strong{display:block;font-size:20px}
     .statBox span{color:var(--muted);font-size:12px}
+
     .divider{height:1px;background:var(--line);margin:12px 0}
 
     .notice{
       background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);
       color:#e2e8f0;border-radius:18px;padding:13px;font-size:14px;line-height:1.45;margin-bottom:12px;
     }
+
     .notice.warning{background:rgba(251,146,60,.10);border-color:rgba(251,146,60,.25);color:#fed7aa}
     .notice.success{background:rgba(34,197,94,.10);border-color:rgba(34,197,94,.25);color:#bbf7d0}
     .empty{text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:18px;padding:22px 12px}
@@ -149,15 +179,18 @@
       border:1px solid var(--line);background:rgba(17,24,39,.75);
       border-radius:18px;padding:0;margin-bottom:12px;overflow:hidden;
     }
+
     details.cleanDetails summary{
       cursor:pointer;padding:14px 15px;font-weight:900;color:#e5e7eb;list-style:none;
       display:flex;align-items:center;justify-content:space-between;gap:10px;
     }
+
     details.cleanDetails summary::after{
       content:"+";display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;
       border-radius:999px;background:rgba(255,255,255,.08);border:1px solid var(--line);
       color:#fff;font-size:18px;line-height:1;
     }
+
     details.cleanDetails[open] summary::after{content:"−"}
     details.cleanDetails summary::-webkit-details-marker{display:none}
     .detailsBody{padding:0 15px 15px;border-top:1px solid var(--line)}
@@ -165,6 +198,7 @@
     .previewLogo{width:95px;height:95px;border-radius:22px;object-fit:cover;border:1px solid var(--line);background:#0f172a;display:none;margin-top:10px}
     .posterPreview{width:100%;max-height:360px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#0f172a;display:none;margin-top:10px}
     .posterImage{width:100%;max-height:560px;object-fit:cover;border-radius:18px;border:1px solid var(--line);background:#0f172a;margin-bottom:12px}
+
     .chatBox{height:480px;overflow-y:auto;border:1px solid var(--line);border-radius:20px;background:rgba(15,23,42,.55);padding:12px}
     .chatMsg{border:1px solid var(--line);background:rgba(17,24,39,.95);border-radius:18px;padding:12px;margin-bottom:10px}
     .chatMsg.mine{border-color:rgba(56,189,248,.35);background:rgba(56,189,248,.09)}
@@ -178,6 +212,7 @@
       padding:13px 16px;box-shadow:var(--shadow);z-index:999;opacity:0;transition:.25s;
       max-width:92%;font-size:14px;line-height:1.4;
     }
+
     .toast.show{transform:translateX(-50%) translateY(0);opacity:1}
     .footer{text-align:center;color:var(--muted);font-size:12px;padding:18px 0 0}
 
@@ -214,6 +249,7 @@
     <div class="tabs">
       <button class="tab active" id="tab-inicio" onclick="openScreen('inicio')">Início</button>
       <button class="tab" id="tab-eventos" onclick="openScreen('eventos')">Eventos</button>
+      <button class="tab" id="tab-notificacoes" onclick="openScreen('notificacoes')">Notificações</button>
       <button class="tab" id="tab-contato" onclick="openScreen('contato')">Contato</button>
       <button class="tab" id="tab-agenda" onclick="openScreen('agenda')">Agenda</button>
       <button class="tab" id="tab-recados" onclick="openScreen('recados')">Recados</button>
@@ -250,6 +286,10 @@
               <strong>🎤 Eventos públicos</strong>
               <span>Cartazes, programações e onde a banda estará.</span>
             </button>
+            <button class="homeBtn" onclick="openScreen('notificacoes')">
+              <strong>🔔 Notificações</strong>
+              <span>Veja novidades, avisos e publicações recentes.</span>
+            </button>
             <button class="homeBtn" onclick="openScreen('contato')">
               <strong>📲 Quero marcar agenda</strong>
               <span>Contato para convidar a banda para eventos.</span>
@@ -268,6 +308,10 @@
             <button class="homeBtn" onclick="openScreen('chat')">
               <strong>💬 Chat da banda</strong>
               <span>Conversa entre os membros cadastrados.</span>
+            </button>
+            <button class="homeBtn" onclick="openScreen('notificacoes')">
+              <strong>🔔 Notificações</strong>
+              <span>Novidades públicas da banda.</span>
             </button>
             <button class="homeBtn" onclick="openScreen('eventos')">
               <strong>🎤 Eventos públicos</strong>
@@ -298,6 +342,22 @@
           <h2>Mensagens públicas</h2>
           <p class="muted">Versículos, avisos e mensagens para quem acompanha a banda.</p>
           <div id="publicPostsList" class="list"></div>
+        </div>
+      </div>
+    </section>
+
+    <section id="notificacoes" class="screen">
+      <div id="publicAccessBlockedNotificacoes" class="card">
+        <h2>Notificações</h2>
+        <div class="notice warning">Para ver as notificações, primeiro entre no app com seu nome e telefone.</div>
+        <button class="btn primary full" onclick="openScreen('inicio')">Entrar no app</button>
+      </div>
+
+      <div id="notificacoesPanel" style="display:none;">
+        <div class="card">
+          <h2>Notificações da banda</h2>
+          <p class="muted">Novidades publicadas pelo administrador.</p>
+          <div id="publicNotificationsList" class="list"></div>
         </div>
       </div>
     </section>
@@ -408,8 +468,8 @@
           <div class="detailsBody">
             <div class="compactStats">
               <div class="statBox"><strong id="statMembers">0</strong><span>Membros</span></div>
+              <div class="statBox"><strong id="statVisitors">0</strong><span>Visitantes</span></div>
               <div class="statBox"><strong id="statEventos">0</strong><span>Eventos</span></div>
-              <div class="statBox"><strong id="statAgendas">0</strong><span>Agendas internas</span></div>
               <div class="statBox"><strong id="statRecados">0</strong><span>Recados internos</span></div>
             </div>
           </div>
@@ -420,17 +480,23 @@
           <div class="detailsBody">
             <label>Título do evento</label>
             <input id="posterTitleInput" placeholder="Ex: Noite de Louvor com FENDA"/>
+
             <label>Data</label>
             <input id="posterDateInput" type="date"/>
+
             <label>Horário</label>
             <input id="posterTimeInput" type="time"/>
+
             <label>Local</label>
             <input id="posterPlaceInput" placeholder="Ex: Igreja, praça, cidade..."/>
+
             <label>Descrição</label>
             <textarea id="posterDescInput" placeholder="Informações públicas do evento..."></textarea>
+
             <label>Imagem/cartaz do evento</label>
             <input id="posterFileInput" type="file" accept="image/*" onchange="loadPosterFile(event)"/>
             <img id="posterPreview" class="posterPreview"/>
+
             <button class="btn primary full" style="margin-top:12px;" onclick="savePosterEvent()">Publicar evento</button>
           </div>
         </details>
@@ -440,9 +506,24 @@
           <div class="detailsBody">
             <label>Título</label>
             <input id="publicPostTitleInput" placeholder="Ex: Palavra da semana"/>
+
             <label>Mensagem / versículo / aviso</label>
             <textarea id="publicPostMessageInput" placeholder="Mensagem pública para fãs e visitantes..."></textarea>
+
             <button class="btn primary full" style="margin-top:12px;" onclick="savePublicPost()">Publicar mensagem</button>
+          </div>
+        </details>
+
+        <details class="cleanDetails">
+          <summary>🔔 Notificação pública manual</summary>
+          <div class="detailsBody">
+            <label>Título da notificação</label>
+            <input id="manualNotificationTitleInput" placeholder="Ex: Nova programação da FENDA"/>
+
+            <label>Mensagem</label>
+            <textarea id="manualNotificationMessageInput" placeholder="Digite a mensagem da notificação..."></textarea>
+
+            <button class="btn primary full" style="margin-top:12px;" onclick="saveManualNotification()">Publicar notificação</button>
           </div>
         </details>
 
@@ -451,6 +532,7 @@
           <div class="detailsBody">
             <label>Título</label>
             <input id="agendaTitleInput" placeholder="Ex: Ensaio geral"/>
+
             <label>Tipo</label>
             <select id="agendaTypeInput">
               <option value="Ensaio">Ensaio</option>
@@ -459,14 +541,19 @@
               <option value="Viagem">Viagem</option>
               <option value="Outro">Outro</option>
             </select>
+
             <label>Data</label>
             <input id="agendaDateInput" type="date"/>
+
             <label>Horário</label>
             <input id="agendaTimeInput" type="time"/>
+
             <label>Local</label>
             <input id="agendaPlaceInput" placeholder="Local interno do compromisso"/>
+
             <label>Observações</label>
             <textarea id="agendaObsInput" placeholder="Ex: Chegar 30 min antes, roupa preta, levar instrumento..."></textarea>
+
             <button class="btn primary full" style="margin-top:12px;" onclick="saveAgenda()">Salvar agenda interna</button>
           </div>
         </details>
@@ -476,13 +563,16 @@
           <div class="detailsBody">
             <label>Título</label>
             <input id="recadoTitleInput" placeholder="Ex: Ensaio confirmado"/>
+
             <label>Mensagem</label>
             <textarea id="recadoMessageInput" placeholder="Digite o recado para a banda..."></textarea>
+
             <label>Prioridade</label>
             <select id="recadoPriorityInput">
               <option value="normal">Normal</option>
               <option value="urgente">Urgente</option>
             </select>
+
             <label>Destino</label>
             <select id="recadoTargetInput">
               <option value="todos">Todos os membros</option>
@@ -490,6 +580,7 @@
               <option value="instrumental">Somente instrumental</option>
               <option value="tecnica">Equipe técnica</option>
             </select>
+
             <button class="btn primary full" style="margin-top:12px;" onclick="sendRecado()">Enviar recado interno</button>
           </div>
         </details>
@@ -499,10 +590,13 @@
           <div class="detailsBody">
             <label>Nome</label>
             <input id="memberNameInput" placeholder="Nome"/>
+
             <label>Celular</label>
             <input id="memberPhoneInput" placeholder="Ex: 44999998888"/>
+
             <label>Função</label>
             <input id="memberRoleInput" placeholder="Ex: Vocal, bateria..."/>
+
             <label>Grupo</label>
             <select id="memberGroupInput">
               <option value="todos">Todos</option>
@@ -510,6 +604,7 @@
               <option value="instrumental">Instrumental</option>
               <option value="tecnica">Equipe técnica</option>
             </select>
+
             <button class="btn primary full" style="margin-top:12px;" onclick="saveMember()">Salvar membro</button>
           </div>
         </details>
@@ -518,16 +613,34 @@
           <summary>📲 Mensagem WhatsApp para todos</summary>
           <div class="detailsBody">
             <p class="muted">Gera botões para enviar mensagem pelo WhatsApp aos membros cadastrados.</p>
+
             <label>Mensagem</label>
             <textarea id="whatsBroadcastInput" placeholder="Digite a mensagem para enviar aos membros..."></textarea>
+
             <button class="btn green full" style="margin-top:12px;" onclick="prepareWhatsBroadcast()">Preparar WhatsApp</button>
+
             <div id="whatsBroadcastList" style="margin-top:12px;"></div>
           </div>
         </details>
 
         <details class="cleanDetails">
-          <summary>👥 Ver membros cadastrados</summary>
-          <div class="detailsBody"><div id="membersAdminList"></div></div>
+          <summary>👤 Pessoas cadastradas no app</summary>
+          <div class="detailsBody">
+            <h3>Membros da banda</h3>
+            <div id="membersAdminList"></div>
+
+            <div class="divider"></div>
+
+            <h3>Visitantes / fãs</h3>
+            <div id="visitorsAdminList"></div>
+          </div>
+        </details>
+
+        <details class="cleanDetails">
+          <summary>🔔 Ver notificações publicadas</summary>
+          <div class="detailsBody">
+            <div id="adminPublicNotificationsList" class="list"></div>
+          </div>
         </details>
 
         <details class="cleanDetails">
@@ -565,15 +678,20 @@
           <div class="detailsBody">
             <label>Nome da banda</label>
             <input id="configBandName" placeholder="FENDA"/>
+
             <label>Subtítulo</label>
             <input id="configSubtitle" placeholder="App oficial da banda"/>
+
             <label>Logo da banda</label>
             <input id="configLogoFile" type="file" accept="image/*" onchange="loadLogoFile(event)"/>
             <img id="logoPreview" class="previewLogo"/>
+
             <label>Telefone para marcar agenda</label>
             <input id="configBookingPhone" placeholder="Ex: 44999998888"/>
+
             <label>Texto do botão de agenda</label>
             <textarea id="configBookingText" placeholder="Ex: Olá, quero marcar uma agenda com a Banda FENDA."></textarea>
+
             <button class="btn primary full" style="margin-top:12px;" onclick="saveConfig()">Salvar personalização</button>
           </div>
         </details>
@@ -583,8 +701,10 @@
           <div class="detailsBody">
             <label>Login do administrador</label>
             <input id="configAdminLogin" placeholder="Ex: admin"/>
+
             <label>Senha do administrador</label>
             <input id="configAdminPassword" placeholder="Senha do administrador"/>
+
             <button class="btn purple full" style="margin-top:12px;" onclick="saveAdminAccount()">Salvar login do administrador</button>
           </div>
         </details>
@@ -608,11 +728,28 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
     import {
-      getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, getDocs,
-      onSnapshot, query, orderBy, serverTimestamp
+      getFirestore,
+      collection,
+      doc,
+      addDoc,
+      setDoc,
+      updateDoc,
+      deleteDoc,
+      getDocs,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
-    import { getMessaging, getToken, onMessage, isSupported } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging.js";
+
+    import {
+      getMessaging,
+      getToken,
+      onMessage,
+      isSupported
+    } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCzi1uEzYiFl6wvFkeB54FD68ZMIwvmMkU",
@@ -647,6 +784,7 @@
       visitors:[],
       eventos:[],
       publicPosts:[],
+      publicNotifications:[],
       agendas:[],
       recados:[],
       chatMessages:[],
@@ -656,21 +794,25 @@
 
     const els = {};
 
-    function $(id){return document.getElementById(id);}
+    function $(id){
+      return document.getElementById(id);
+    }
 
     function cacheEls(){
       [
         "topLogo","topTitle","topSubtitle","accessStatus",
         "entryCard","homeAfterEntry","entryName","entryPhone","entryResult","welcomeTitle",
         "visitorHomeMenu","memberHomeMenu",
-        "statMembers","statEventos","statAgendas","statRecados",
+        "statMembers","statVisitors","statEventos","statAgendas","statRecados",
         "publicAccessBlockedEventos","eventosPanel","eventosList","publicPostsList",
+        "publicAccessBlockedNotificacoes","notificacoesPanel","publicNotificationsList","adminPublicNotificationsList",
         "publicAccessBlockedContato","contatoPanel","bookingInfo",
         "agendaLocked","agendaPanel","agendaList",
         "recadosLocked","recadosPanel","recadosList",
         "chatLocked","chatPanel","chatBox","chatMessageInput","replyActive","clearChatBtn",
-        "adminLoginCard","adminPanel","adminModeNotice","membersAdminList",
+        "adminLoginCard","adminPanel","adminModeNotice","membersAdminList","visitorsAdminList",
         "adminEventosList","adminPublicPostsList","adminAgendaList","adminRecadosList",
+        "manualNotificationTitleInput","manualNotificationMessageInput",
         "whatsBroadcastInput","whatsBroadcastList",
         "configBlocked","configPanel","creatorAdminBox",
         "configBandName","configSubtitle","configBookingPhone","configBookingText",
@@ -694,7 +836,9 @@
         .replaceAll("'","&#039;");
     }
 
-    function cleanPhone(phone){return String(phone || "").replace(/\D/g,"");}
+    function cleanPhone(phone){
+      return String(phone || "").replace(/\D/g,"");
+    }
 
     function whatsappPhone(phone){
       let p = cleanPhone(phone);
@@ -715,11 +859,25 @@
       return `${d}/${m}/${y}`;
     }
 
-    function hasAdminAccess(){return state.accessRole === "admin" || state.accessRole === "creator";}
-    function hasCreatorAccess(){return state.accessRole === "creator";}
-    function hasEntered(){return !!localStorage.getItem("fenda_name");}
-    function isMember(){return state.personType === "member" || hasAdminAccess();}
-    function hasChatAccess(){return isMember();}
+    function hasAdminAccess(){
+      return state.accessRole === "admin" || state.accessRole === "creator";
+    }
+
+    function hasCreatorAccess(){
+      return state.accessRole === "creator";
+    }
+
+    function hasEntered(){
+      return !!localStorage.getItem("fenda_name");
+    }
+
+    function isMember(){
+      return state.personType === "member" || hasAdminAccess();
+    }
+
+    function hasChatAccess(){
+      return isMember();
+    }
 
     function currentUserName(){
       if(state.accessRole === "creator") return "Criador";
@@ -727,7 +885,9 @@
       return localStorage.getItem("fenda_name") || "";
     }
 
-    function currentUserPhone(){return localStorage.getItem("fenda_phone") || "";}
+    function currentUserPhone(){
+      return localStorage.getItem("fenda_phone") || "";
+    }
 
     function findMemberByPhone(phone){
       const clean = cleanPhone(phone);
@@ -737,12 +897,18 @@
     function openScreen(id){
       document.querySelectorAll(".screen").forEach(el => el.classList.remove("active"));
       document.querySelectorAll(".tab").forEach(el => el.classList.remove("active"));
+
       $(id).classList.add("active");
+
       const tab = $("tab-" + id);
       if(tab) tab.classList.add("active");
+
       loadEntryLocal();
       renderAll();
-      if(id === "chat") setTimeout(scrollChatBottom, 200);
+
+      if(id === "chat"){
+        setTimeout(scrollChatBottom, 200);
+      }
     }
 
     function loadEntryLocal(){
@@ -797,7 +963,7 @@
         els.entryResult.innerHTML = `
           <div class="notice">
             <strong>Bem-vindo, ${escapeHTML(name)}.</strong><br>
-            Você entrou como visitante. Você pode ver apenas eventos públicos, mensagens públicas e contato para agenda.
+            Você entrou como visitante. Você pode ver apenas eventos públicos, mensagens públicas, notificações e contato para agenda.
           </div>
         `;
 
@@ -825,9 +991,17 @@
 
     async function activatePush(){
       try{
-        if(!("Notification" in window)){toast("Este navegador não suporta notificação.");return;}
+        if(!("Notification" in window)){
+          toast("Este navegador não suporta notificação.");
+          return;
+        }
+
         const permission = await Notification.requestPermission();
-        if(permission !== "granted"){toast("Permissão de notificação não liberada.");return;}
+
+        if(permission !== "granted"){
+          toast("Permissão de notificação não liberada.");
+          return;
+        }
 
         if(!VAPID_KEY){
           toast("Notificação local ativada. Falta VAPID KEY para push avançado.");
@@ -836,11 +1010,20 @@
         }
 
         const supported = await isSupported();
-        if(!supported){toast("Firebase Messaging não é suportado neste navegador.");return;}
-        if(!("serviceWorker" in navigator)){toast("Este navegador não suporta service worker.");return;}
+
+        if(!supported){
+          toast("Firebase Messaging não é suportado neste navegador.");
+          return;
+        }
+
+        if(!("serviceWorker" in navigator)){
+          toast("Este navegador não suporta service worker.");
+          return;
+        }
 
         const registration = await navigator.serviceWorker.register("./firebase-messaging-sw.js");
         messaging = getMessaging(app);
+
         const token = await getToken(messaging,{vapidKey:VAPID_KEY,serviceWorkerRegistration:registration});
         const tokenId = token.replaceAll("[","").replaceAll("]","").replaceAll("/","_").slice(0,120);
 
@@ -863,7 +1046,9 @@
 
     function notifyLocal(title,body){
       if("Notification" in window && Notification.permission === "granted"){
-        try{new Notification(title,{body,tag:"fenda-app"});}catch(e){}
+        try{
+          new Notification(title,{body,tag:"fenda-app"});
+        }catch(e){}
       }
     }
 
@@ -921,7 +1106,10 @@
     }
 
     async function saveConfig(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       await setDoc(doc(db,"settings","main"),{
         ...state.config,
@@ -937,7 +1125,10 @@
     }
 
     async function saveAdminAccount(){
-      if(!hasCreatorAccess()){toast("Somente o criador pode alterar o administrador.");return;}
+      if(!hasCreatorAccess()){
+        toast("Somente o criador pode alterar o administrador.");
+        return;
+      }
 
       await setDoc(doc(db,"settings","main"),{
         ...state.config,
@@ -952,38 +1143,67 @@
     function loadLogoFile(event){
       const file = event.target.files[0];
       if(!file) return;
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const reader = new FileReader();
+
       reader.onload = async function(e){
         state.config.logoData = e.target.result;
+
         await setDoc(doc(db,"settings","main"),{
           ...state.config,
           logoData:state.config.logoData,
           updatedAt:serverTimestamp()
         },{merge:true});
+
         toast("Logo salva.");
       };
+
       reader.readAsDataURL(file);
     }
 
     function loadPosterFile(event){
       const file = event.target.files[0];
       if(!file) return;
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const reader = new FileReader();
+
       reader.onload = function(e){
         selectedPosterData = e.target.result;
         els.posterPreview.src = selectedPosterData;
         els.posterPreview.style.display = "block";
         toast("Cartaz carregado. Agora publique o evento.");
       };
+
       reader.readAsDataURL(file);
     }
 
+    async function createPublicNotification(title,message,type,sourceId){
+      await addDoc(collection(db,"publicNotifications"),{
+        title,
+        message,
+        type:type || "geral",
+        sourceId:sourceId || "",
+        createdAt:serverTimestamp()
+      });
+
+      notifyLocal(title,message);
+    }
+
     async function savePosterEvent(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const title = $("posterTitleInput").value.trim();
       const date = $("posterDateInput").value;
@@ -991,14 +1211,24 @@
       const place = $("posterPlaceInput").value.trim();
       const description = $("posterDescInput").value.trim();
 
-      if(!title || !date){toast("Preencha título e data do evento.");return;}
+      if(!title || !date){
+        toast("Preencha título e data do evento.");
+        return;
+      }
 
-      await addDoc(collection(db,"eventos"),{
+      const docRef = await addDoc(collection(db,"eventos"),{
         title,date,time,place,description,
         imageData:selectedPosterData || "",
         public:true,
         createdAt:serverTimestamp()
       });
+
+      await createPublicNotification(
+        "Novo evento publicado",
+        `${title} • ${dateBR(date)}${time ? " às " + time : ""}${place ? " • " + place : ""}`,
+        "evento",
+        docRef.id
+      );
 
       $("posterTitleInput").value = "";
       $("posterDateInput").value = "";
@@ -1010,50 +1240,114 @@
       els.posterPreview.src = "";
       els.posterPreview.style.display = "none";
 
-      toast("Evento publicado.");
+      toast("Evento publicado e notificação criada.");
     }
 
     async function deletePosterEvent(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar este evento/cartaz?")) return;
+
       await deleteDoc(doc(db,"eventos",id));
       toast("Evento apagado.");
     }
 
     async function savePublicPost(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const title = $("publicPostTitleInput").value.trim();
       const message = $("publicPostMessageInput").value.trim();
 
-      if(!title || !message){toast("Digite título e mensagem.");return;}
+      if(!title || !message){
+        toast("Digite título e mensagem.");
+        return;
+      }
 
-      await addDoc(collection(db,"publicPosts"),{
+      const docRef = await addDoc(collection(db,"publicPosts"),{
         title,message,
         createdAt:serverTimestamp()
       });
 
+      await createPublicNotification(
+        "Nova mensagem da Banda FENDA",
+        title,
+        "mensagem",
+        docRef.id
+      );
+
       $("publicPostTitleInput").value = "";
       $("publicPostMessageInput").value = "";
-      toast("Mensagem pública publicada.");
+
+      toast("Mensagem pública publicada e notificação criada.");
+    }
+
+    async function saveManualNotification(){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
+      const title = els.manualNotificationTitleInput.value.trim();
+      const message = els.manualNotificationMessageInput.value.trim();
+
+      if(!title || !message){
+        toast("Digite título e mensagem da notificação.");
+        return;
+      }
+
+      await createPublicNotification(title,message,"manual","");
+
+      els.manualNotificationTitleInput.value = "";
+      els.manualNotificationMessageInput.value = "";
+
+      toast("Notificação publicada.");
     }
 
     async function deletePublicPost(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar esta mensagem pública?")) return;
+
       await deleteDoc(doc(db,"publicPosts",id));
       toast("Mensagem pública apagada.");
     }
 
+    async function deletePublicNotification(id){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
+      if(!confirm("Deseja apagar esta notificação?")) return;
+
+      await deleteDoc(doc(db,"publicNotifications",id));
+      toast("Notificação apagada.");
+    }
+
     async function saveMember(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const name = $("memberNameInput").value.trim();
       const phone = $("memberPhoneInput").value.trim();
       const role = $("memberRoleInput").value.trim();
       const group = $("memberGroupInput").value;
 
-      if(!name || !phone){toast("Digite nome e celular.");return;}
+      if(!name || !phone){
+        toast("Digite nome e celular.");
+        return;
+      }
 
       await setDoc(doc(db,"members",cleanPhone(phone)),{
         name,phone,role,group,
@@ -1069,14 +1363,34 @@
     }
 
     async function removeMember(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja remover este membro?")) return;
+
       await deleteDoc(doc(db,"members",id));
       toast("Membro removido.");
     }
 
+    async function removeVisitor(id){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
+      if(!confirm("Deseja remover este visitante?")) return;
+
+      await deleteDoc(doc(db,"visitors",id));
+      toast("Visitante removido.");
+    }
+
     async function saveAgenda(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const title = $("agendaTitleInput").value.trim();
       const type = $("agendaTypeInput").value;
@@ -1085,7 +1399,10 @@
       const place = $("agendaPlaceInput").value.trim();
       const obs = $("agendaObsInput").value.trim();
 
-      if(!title || !date || !time){toast("Preencha título, data e horário.");return;}
+      if(!title || !date || !time){
+        toast("Preencha título, data e horário.");
+        return;
+      }
 
       await addDoc(collection(db,"agendas"),{
         title,type,date,time,place,obs,
@@ -1106,14 +1423,22 @@
     }
 
     async function deleteAgenda(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar esta agenda?")) return;
+
       await deleteDoc(doc(db,"agendas",id));
       toast("Agenda apagada.");
     }
 
     async function markPresence(agendaId,status){
-      if(!isMember()){toast("Área exclusiva para membros cadastrados.");return;}
+      if(!isMember()){
+        toast("Área exclusiva para membros cadastrados.");
+        return;
+      }
 
       const name = currentUserName();
       const agenda = state.agendas.find(a => a.id === agendaId);
@@ -1149,14 +1474,20 @@
     }
 
     async function sendRecado(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const title = $("recadoTitleInput").value.trim();
       const message = $("recadoMessageInput").value.trim();
       const priority = $("recadoPriorityInput").value;
       const target = $("recadoTargetInput").value;
 
-      if(!title || !message){toast("Digite título e mensagem.");return;}
+      if(!title || !message){
+        toast("Digite título e mensagem.");
+        return;
+      }
 
       await addDoc(collection(db,"recados"),{
         title,message,priority,target,
@@ -1175,7 +1506,10 @@
     }
 
     async function markRecadoSeen(id){
-      if(!isMember()){toast("Área exclusiva para membros cadastrados.");return;}
+      if(!isMember()){
+        toast("Área exclusiva para membros cadastrados.");
+        return;
+      }
 
       const name = currentUserName();
       const recado = state.recados.find(r => r.id === id);
@@ -1188,17 +1522,29 @@
     }
 
     async function deleteRecado(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar este recado?")) return;
+
       await deleteDoc(doc(db,"recados",id));
       toast("Recado apagado.");
     }
 
     async function sendChatMessage(){
-      if(!hasChatAccess()){toast("Chat exclusivo para membros cadastrados.");return;}
+      if(!hasChatAccess()){
+        toast("Chat exclusivo para membros cadastrados.");
+        return;
+      }
 
       const text = els.chatMessageInput.value.trim();
-      if(!text){toast("Digite uma mensagem.");return;}
+
+      if(!text){
+        toast("Digite uma mensagem.");
+        return;
+      }
 
       await addDoc(collection(db,"chatMessages"),{
         text,
@@ -1240,13 +1586,22 @@
       if(!msg) return;
 
       const canEdit = hasAdminAccess() || msg.authorPhone === currentUserPhone();
-      if(!canEdit){toast("Você só pode editar suas próprias mensagens.");return;}
+
+      if(!canEdit){
+        toast("Você só pode editar suas próprias mensagens.");
+        return;
+      }
 
       const newText = prompt("Editar mensagem:",msg.text || "");
+
       if(newText === null) return;
 
       const text = newText.trim();
-      if(!text){toast("Mensagem vazia não pode ser salva.");return;}
+
+      if(!text){
+        toast("Mensagem vazia não pode ser salva.");
+        return;
+      }
 
       await updateDoc(doc(db,"chatMessages",id),{
         text,edited:true,updatedAt:serverTimestamp()
@@ -1260,7 +1615,11 @@
       if(!msg) return;
 
       const canDelete = hasAdminAccess() || msg.authorPhone === currentUserPhone();
-      if(!canDelete){toast("Você só pode apagar suas próprias mensagens.");return;}
+
+      if(!canDelete){
+        toast("Você só pode apagar suas próprias mensagens.");
+        return;
+      }
 
       if(!confirm("Deseja apagar esta mensagem?")) return;
 
@@ -1269,7 +1628,11 @@
     }
 
     async function clearChat(){
-      if(!hasAdminAccess()){toast("Somente admin/criador pode limpar o chat.");return;}
+      if(!hasAdminAccess()){
+        toast("Somente admin/criador pode limpar o chat.");
+        return;
+      }
+
       if(!confirm("Deseja apagar TODO o chat?")) return;
 
       const snap = await getDocs(collection(db,"chatMessages"));
@@ -1278,10 +1641,17 @@
     }
 
     function prepareWhatsBroadcast(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const text = els.whatsBroadcastInput.value.trim();
-      if(!text){toast("Digite a mensagem primeiro.");return;}
+
+      if(!text){
+        toast("Digite a mensagem primeiro.");
+        return;
+      }
 
       if(!state.members.length){
         els.whatsBroadcastList.innerHTML = `<div class="empty">Nenhum membro cadastrado.</div>`;
@@ -1311,6 +1681,7 @@
         toast("Contato de agenda ainda não cadastrado.");
         return;
       }
+
       window.open(whatsappLink(state.config.bookingPhone,state.config.bookingText || "Olá, quero marcar uma agenda com a Banda FENDA."),"_blank");
     }
 
@@ -1368,6 +1739,7 @@
       const visible = {
         inicio:true,
         eventos:entered || admin,
+        notificacoes:entered || admin,
         contato:entered || admin,
         agenda:member,
         recados:member,
@@ -1388,7 +1760,9 @@
       if(hasAdminAccess()){
         els.entryCard.style.display = "none";
         els.homeAfterEntry.style.display = "block";
-        els.welcomeTitle.textContent = state.accessRole === "creator" ? "Criador conectado" : "Administrador conectado";
+        els.welcomeTitle.textContent = state.accessRole === "creator"
+          ? "Criador conectado"
+          : "Administrador conectado";
 
         els.entryResult.innerHTML = `
           <div class="notice success">
@@ -1434,7 +1808,7 @@
         els.adminPanel.style.display = "block";
         els.adminModeNotice.innerHTML = state.accessRole === "creator"
           ? "<strong>Modo criador ativo.</strong> Você pode administrar o app e alterar o login do administrador."
-          : "<strong>Modo administrador ativo.</strong> Você pode cadastrar eventos, recados, agendas e membros.";
+          : "<strong>Modo administrador ativo.</strong> Você pode cadastrar eventos, recados, agendas, notificações e membros.";
       }else{
         els.adminLoginCard.style.display = "block";
         els.adminPanel.style.display = "none";
@@ -1473,6 +1847,9 @@
 
       els.publicAccessBlockedEventos.style.display = entered ? "none" : "block";
       els.eventosPanel.style.display = entered ? "block" : "none";
+
+      els.publicAccessBlockedNotificacoes.style.display = entered ? "none" : "block";
+      els.notificacoesPanel.style.display = entered ? "block" : "none";
 
       els.publicAccessBlockedContato.style.display = entered ? "none" : "block";
       els.contatoPanel.style.display = entered ? "block" : "none";
@@ -1520,6 +1897,24 @@
           </div>
           <div class="line"><span>📖</span><div>${escapeHTML(p.message)}</div></div>
           ${mode === "admin" ? `<div class="actions"><button class="btn red" onclick="deletePublicPost('${p.id}')">Apagar</button></div>` : ""}
+        </div>
+      `;
+    }
+
+    function publicNotificationCard(n,mode){
+      const typeName = n.type === "evento" ? "Evento" : n.type === "mensagem" ? "Mensagem" : "Aviso";
+
+      return `
+        <div class="item">
+          <div class="itemHead">
+            <div>
+              <p class="itemTitle">🔔 ${escapeHTML(n.title)}</p>
+              <div class="small">${n.createdAt?.toDate ? n.createdAt.toDate().toLocaleString("pt-BR") : ""}</div>
+            </div>
+            <span class="badge normal">${typeName}</span>
+          </div>
+          <div class="line"><span>📣</span><div>${escapeHTML(n.message)}</div></div>
+          ${mode === "admin" ? `<div class="actions"><button class="btn red" onclick="deletePublicNotification('${n.id}')">Apagar notificação</button></div>` : ""}
         </div>
       `;
     }
@@ -1674,12 +2069,31 @@
               <div class="small">${escapeHTML(m.phone)} • ${escapeHTML(m.role || "Sem função")} • ${escapeHTML(targetName(m.group || "todos"))}</div>
             </div>
             <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <span class="badge member">Membro</span>
               <a class="btn green" target="_blank" href="${whatsappLink(m.phone,`Olá ${m.name}, você foi cadastrado no app da banda ${state.config.bandName}.`)}">WhatsApp</a>
               <button class="btn red" onclick="removeMember('${m.id}')">Remover</button>
             </div>
           </div>
         `).join("")
         : `<div class="empty">Nenhum membro cadastrado.</div>`;
+    }
+
+    function renderVisitorsAdmin(){
+      els.visitorsAdminList.innerHTML = state.visitors.length
+        ? state.visitors.map(v => `
+          <div class="memberRow">
+            <div>
+              <strong>${escapeHTML(v.name)}</strong>
+              <div class="small">${escapeHTML(v.phone)} • ${v.updatedAt?.toDate ? v.updatedAt.toDate().toLocaleString("pt-BR") : "Visitante cadastrado"}</div>
+            </div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap;">
+              <span class="badge visitor">Visitante / fã</span>
+              <a class="btn green" target="_blank" href="${whatsappLink(v.phone,`Olá ${v.name}, obrigado por acompanhar a Banda ${state.config.bandName}.`)}">WhatsApp</a>
+              <button class="btn red" onclick="removeVisitor('${v.id}')">Remover</button>
+            </div>
+          </div>
+        `).join("")
+        : `<div class="empty">Nenhum visitante cadastrado ainda.</div>`;
     }
 
     function renderBooking(){
@@ -1701,6 +2115,7 @@
 
     function renderStats(){
       if(els.statMembers) els.statMembers.textContent = state.members.length;
+      if(els.statVisitors) els.statVisitors.textContent = state.visitors.length;
       if(els.statEventos) els.statEventos.textContent = state.eventos.length;
       if(els.statAgendas) els.statAgendas.textContent = state.agendas.length;
       if(els.statRecados) els.statRecados.textContent = state.recados.length;
@@ -1714,6 +2129,7 @@
       renderConfig();
       renderPanelsByAccess();
       renderMembersAdmin();
+      renderVisitorsAdmin();
       renderStats();
       renderChat();
       renderBooking();
@@ -1725,6 +2141,14 @@
       els.publicPostsList.innerHTML = state.publicPosts.length
         ? state.publicPosts.map(p => publicPostCard(p,"public")).join("")
         : `<div class="empty">Nenhuma mensagem pública cadastrada ainda.</div>`;
+
+      els.publicNotificationsList.innerHTML = state.publicNotifications.length
+        ? state.publicNotifications.map(n => publicNotificationCard(n,"public")).join("")
+        : `<div class="empty">Nenhuma notificação publicada ainda.</div>`;
+
+      els.adminPublicNotificationsList.innerHTML = state.publicNotifications.length
+        ? state.publicNotifications.map(n => publicNotificationCard(n,"admin")).join("")
+        : `<div class="empty">Nenhuma notificação publicada ainda.</div>`;
 
       els.adminEventosList.innerHTML = state.eventos.length
         ? sortByDate(state.eventos).map(e => eventoCard(e,"admin")).join("")
@@ -1751,6 +2175,31 @@
         : `<div class="empty">Nenhum recado enviado ainda.</div>`;
     }
 
+    function renderPanelsByAccess(){
+      const entered = hasEntered() || hasAdminAccess();
+      const internal = isMember();
+
+      els.publicAccessBlockedEventos.style.display = entered ? "none" : "block";
+      els.eventosPanel.style.display = entered ? "block" : "none";
+
+      els.publicAccessBlockedNotificacoes.style.display = entered ? "none" : "block";
+      els.notificacoesPanel.style.display = entered ? "block" : "none";
+
+      els.publicAccessBlockedContato.style.display = entered ? "none" : "block";
+      els.contatoPanel.style.display = entered ? "block" : "none";
+
+      els.agendaLocked.style.display = internal ? "none" : "block";
+      els.agendaPanel.style.display = internal ? "block" : "none";
+
+      els.recadosLocked.style.display = internal ? "none" : "block";
+      els.recadosPanel.style.display = internal ? "block" : "none";
+
+      els.chatLocked.style.display = internal ? "none" : "block";
+      els.chatPanel.style.display = internal ? "block" : "none";
+
+      els.clearChatBtn.style.display = hasAdminAccess() ? "inline-flex" : "none";
+    }
+
     function listenFirestore(){
       onSnapshot(doc(db,"settings","main"),snap => {
         if(snap.exists()) state.config = {...state.config,...snap.data()};
@@ -1764,6 +2213,7 @@
 
       onSnapshot(collection(db,"visitors"),snap => {
         state.visitors = snap.docs.map(d => ({id:d.id,...d.data()}));
+        renderAll();
       });
 
       onSnapshot(query(collection(db,"eventos"),orderBy("createdAt","desc")),snap => {
@@ -1773,6 +2223,11 @@
 
       onSnapshot(query(collection(db,"publicPosts"),orderBy("createdAt","desc")),snap => {
         state.publicPosts = snap.docs.map(d => ({id:d.id,...d.data()}));
+        renderAll();
+      });
+
+      onSnapshot(query(collection(db,"publicNotifications"),orderBy("createdAt","desc")),snap => {
+        state.publicNotifications = snap.docs.map(d => ({id:d.id,...d.data()}));
         renderAll();
       });
 
@@ -1808,8 +2263,11 @@
     window.deletePosterEvent = deletePosterEvent;
     window.savePublicPost = savePublicPost;
     window.deletePublicPost = deletePublicPost;
+    window.saveManualNotification = saveManualNotification;
+    window.deletePublicNotification = deletePublicNotification;
     window.saveMember = saveMember;
     window.removeMember = removeMember;
+    window.removeVisitor = removeVisitor;
     window.saveAgenda = saveAgenda;
     window.deleteAgenda = deleteAgenda;
     window.markPresence = markPresence;
