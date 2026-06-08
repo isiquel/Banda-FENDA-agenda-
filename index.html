@@ -22,10 +22,7 @@
       --shadow:0 18px 45px rgba(0,0,0,.35);
     }
 
-    *{
-      box-sizing:border-box;
-      -webkit-tap-highlight-color:transparent;
-    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 
     body{
       margin:0;
@@ -38,9 +35,7 @@
         linear-gradient(180deg,#020307 0%,#070b14 45%,#04060b 100%);
     }
 
-    button,input,textarea,select{
-      font-family:inherit;
-    }
+    button,input,textarea,select{font-family:inherit;}
 
     .app{
       width:100%;
@@ -143,6 +138,18 @@
       font-weight:900;
     }
 
+    .pill.creator{
+      background:rgba(168,85,247,.15);
+      color:#e9d5ff;
+      border-color:rgba(168,85,247,.35);
+    }
+
+    .pill.admin{
+      background:rgba(34,197,94,.15);
+      color:#bbf7d0;
+      border-color:rgba(34,197,94,.35);
+    }
+
     .tabs{
       position:sticky;
       top:0;
@@ -173,13 +180,8 @@
       border:0;
     }
 
-    .screen{
-      display:none;
-    }
-
-    .screen.active{
-      display:block;
-    }
+    .screen{display:none;}
+    .screen.active{display:block;}
 
     .grid{
       display:grid;
@@ -258,9 +260,7 @@
       text-decoration:none;
     }
 
-    .btn.full{
-      width:100%;
-    }
+    .btn.full{width:100%;}
 
     .btn.primary{
       background:linear-gradient(135deg,#fff,#d1d5db);
@@ -420,6 +420,12 @@
       margin-bottom:12px;
     }
 
+    .notice.warning{
+      background:rgba(251,146,60,.10);
+      border-color:rgba(251,146,60,.25);
+      color:#fed7aa;
+    }
+
     .empty{
       text-align:center;
       color:var(--muted);
@@ -471,37 +477,13 @@
     }
 
     @media(max-width:800px){
-      .app{
-        padding:12px;
-        padding-bottom:78px;
-      }
-
-      .grid{
-        grid-template-columns:1fr;
-      }
-
-      .tabs{
-        grid-template-columns:repeat(5,1fr);
-        gap:5px;
-      }
-
-      .tab{
-        font-size:10.5px;
-        padding:10px 3px;
-      }
-
-      h1{
-        font-size:24px;
-      }
-
-      .logoBox{
-        width:68px;
-        height:68px;
-      }
-
-      .actions{
-        grid-template-columns:1fr;
-      }
+      .app{padding:12px;padding-bottom:78px;}
+      .grid{grid-template-columns:1fr;}
+      .tabs{grid-template-columns:repeat(5,1fr);gap:5px;}
+      .tab{font-size:10.5px;padding:10px 3px;}
+      h1{font-size:24px;}
+      .logoBox{width:68px;height:68px;}
+      .actions{grid-template-columns:1fr;}
     }
   </style>
 </head>
@@ -520,7 +502,7 @@
       <div class="pills">
         <div class="pill" id="firebaseStatus">● Conectando Firebase...</div>
         <div class="pill">● Tempo real</div>
-        <div class="pill">● App da banda</div>
+        <div class="pill" id="accessStatus">● Modo membro</div>
       </div>
     </section>
 
@@ -597,15 +579,35 @@
     <section id="admin" class="screen">
       <div id="adminLoginCard" class="card">
         <h2>Login do administrador</h2>
-        <div class="notice">Senha padrão inicial: <strong>1234</strong></div>
 
-        <label>Senha</label>
-        <input id="adminPasswordInput" type="password" placeholder="Digite a senha"/>
+        <div class="notice">
+          O administrador da banda entra com o login e senha cadastrados pelo criador do app.
+        </div>
 
-        <button class="btn primary full" style="margin-top:12px;" onclick="loginAdmin()">Entrar</button>
+        <label>Login do administrador</label>
+        <input id="adminLoginInput" placeholder="Ex: admin, pastor, responsavel..." />
+
+        <label>Senha do administrador</label>
+        <input id="adminPasswordInput" type="password" placeholder="Digite a senha" />
+
+        <button class="btn primary full" style="margin-top:12px;" onclick="loginAdmin()">Entrar como administrador</button>
+
+        <div class="divider"></div>
+
+        <h3>Acesso do criador / manutenção</h3>
+        <div class="notice warning">
+          Esse acesso é para você, criador do app, fazer manutenção e cadastrar ou alterar o administrador.
+        </div>
+
+        <label>Senha do criador</label>
+        <input id="creatorPasswordInput" type="password" placeholder="Senha do criador" />
+
+        <button class="btn purple full" style="margin-top:12px;" onclick="loginCreator()">Entrar como criador</button>
       </div>
 
       <div id="adminPanel" style="display:none;">
+        <div class="notice" id="adminModeNotice"></div>
+
         <div class="grid">
           <div class="card">
             <h2>Nova agenda</h2>
@@ -689,7 +691,7 @@
           </div>
 
           <div class="card">
-            <h2>Membros online</h2>
+            <h2>Membros cadastrados</h2>
             <div id="membersAdminList"></div>
           </div>
         </div>
@@ -707,37 +709,59 @@
     </section>
 
     <section id="config" class="screen">
-      <div class="grid">
-        <div class="card">
-          <h2>Personalização</h2>
-
-          <label>Nome da banda</label>
-          <input id="configBandName" placeholder="FENDA"/>
-
-          <label>Subtítulo</label>
-          <input id="configSubtitle" placeholder="App oficial da banda"/>
-
-          <label>Logo da banda</label>
-          <input id="configLogoFile" type="file" accept="image/*" onchange="loadLogoFile(event)"/>
-          <img id="logoPreview" class="previewLogo"/>
-
-          <label>Senha do admin</label>
-          <input id="configAdminPassword" placeholder="Senha do admin"/>
-
-          <button class="btn primary full" style="margin-top:12px;" onclick="saveConfig()">Salvar personalização</button>
+      <div id="configBlocked" class="card">
+        <h2>Configurações protegidas</h2>
+        <div class="notice warning">
+          Para editar o app, entre primeiro como administrador ou criador na aba Admin.
         </div>
+        <button class="btn primary full" onclick="openScreen('admin')">Ir para login</button>
+      </div>
 
-        <div class="card">
-          <h2>Informações</h2>
-          <div class="notice">
-            Os dados principais ficam no Firebase Firestore. Se um membro abrir o app no celular dele, ele verá os recados e agendas em tempo real.
+      <div id="configPanel" style="display:none;">
+        <div class="grid">
+          <div class="card">
+            <h2>Personalização</h2>
+
+            <label>Nome da banda</label>
+            <input id="configBandName" placeholder="FENDA"/>
+
+            <label>Subtítulo</label>
+            <input id="configSubtitle" placeholder="App oficial da banda"/>
+
+            <label>Logo da banda</label>
+            <input id="configLogoFile" type="file" accept="image/*" onchange="loadLogoFile(event)"/>
+            <img id="logoPreview" class="previewLogo"/>
+
+            <button class="btn primary full" style="margin-top:12px;" onclick="saveConfig()">Salvar personalização</button>
           </div>
 
-          <button class="btn blue full" onclick="activatePush()">Ativar notificação neste aparelho</button>
+          <div class="card" id="creatorAdminBox">
+            <h2>Cadastrar administrador</h2>
+            <div class="notice">
+              Somente o criador pode criar ou trocar o login e senha do administrador da banda.
+            </div>
 
-          <div class="divider"></div>
+            <label>Login do administrador</label>
+            <input id="configAdminLogin" placeholder="Ex: admin" />
 
-          <button class="btn red full" onclick="logoutAdmin()">Sair do admin</button>
+            <label>Senha do administrador</label>
+            <input id="configAdminPassword" placeholder="Senha do administrador" />
+
+            <button class="btn purple full" style="margin-top:12px;" onclick="saveAdminAccount()">Salvar login do administrador</button>
+          </div>
+
+          <div class="card">
+            <h2>Informações</h2>
+            <div class="notice">
+              Dados em tempo real pelo Firebase. Membros veem agenda e recados, mas não acessam administração.
+            </div>
+
+            <button class="btn blue full" onclick="activatePush()">Ativar notificação neste aparelho</button>
+
+            <div class="divider"></div>
+
+            <button class="btn red full" onclick="logoutAccess()">Sair do acesso administrativo</button>
+          </div>
         </div>
       </div>
     </section>
@@ -781,6 +805,7 @@
     };
 
     const VAPID_KEY = "";
+    const CREATOR_PASSWORD = "1234";
 
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
@@ -791,29 +816,29 @@
       config:{
         bandName:"FENDA",
         subtitle:"App da banda • agenda, recados e membros.",
-        adminPassword:"1234",
-        logoData:""
+        logoData:"",
+        adminLogin:"admin",
+        adminPassword:"1234"
       },
       members:[],
       agendas:[],
       recados:[],
-      adminLogged: localStorage.getItem("fenda_admin_logged") === "yes"
+      accessRole: localStorage.getItem("fenda_access_role") || ""
     };
 
     const els = {};
 
-    function $(id){
-      return document.getElementById(id);
-    }
+    function $(id){return document.getElementById(id);}
 
     function cacheEls(){
       [
-        "topLogo","topTitle","topSubtitle","firebaseStatus",
+        "topLogo","topTitle","topSubtitle","firebaseStatus","accessStatus",
         "myName","myPhone","myRole","myGroup",
         "homeSummary","homeRecados","agendaList","recadosList",
-        "adminLoginCard","adminPanel","membersAdminList",
+        "adminLoginCard","adminPanel","adminModeNotice","membersAdminList",
         "adminAgendaList","adminRecadosList",
-        "configBandName","configSubtitle","configAdminPassword","logoPreview"
+        "configBlocked","configPanel","creatorAdminBox",
+        "configBandName","configSubtitle","configAdminLogin","configAdminPassword","logoPreview"
       ].forEach(id => els[id] = $(id));
     }
 
@@ -854,6 +879,14 @@
       if(!date) return "";
       const [y,m,d] = date.split("-");
       return `${d}/${m}/${y}`;
+    }
+
+    function hasAdminAccess(){
+      return state.accessRole === "admin" || state.accessRole === "creator";
+    }
+
+    function hasCreatorAccess(){
+      return state.accessRole === "creator";
     }
 
     function openScreen(id){
@@ -924,7 +957,7 @@
         }
 
         if(!VAPID_KEY){
-          toast("Notificação local ativada. Falta colocar a VAPID KEY para push avançado.");
+          toast("Notificação local ativada. Falta VAPID KEY para push avançado.");
           notifyLocal("FENDA", "Notificação local ativada neste aparelho.");
           return;
         }
@@ -969,7 +1002,7 @@
         toast("Notificação push ativada neste aparelho.");
       }catch(error){
         console.error(error);
-        toast("Erro ao ativar notificação. Verifique a VAPID KEY.");
+        toast("Erro ao ativar notificação.");
       }
     }
 
@@ -982,34 +1015,52 @@
     }
 
     async function loginAdmin(){
+      const login = $("adminLoginInput").value.trim();
       const password = $("adminPasswordInput").value.trim();
 
-      if(password === state.config.adminPassword){
-        state.adminLogged = true;
-        localStorage.setItem("fenda_admin_logged", "yes");
+      if(login === state.config.adminLogin && password === state.config.adminPassword){
+        state.accessRole = "admin";
+        localStorage.setItem("fenda_access_role", "admin");
         renderAll();
-        toast("Admin liberado.");
+        toast("Administrador liberado.");
       }else{
-        toast("Senha incorreta.");
+        toast("Login ou senha do administrador incorretos.");
       }
     }
 
-    function logoutAdmin(){
-      state.adminLogged = false;
-      localStorage.removeItem("fenda_admin_logged");
+    function loginCreator(){
+      const password = $("creatorPasswordInput").value.trim();
+
+      if(password === CREATOR_PASSWORD){
+        state.accessRole = "creator";
+        localStorage.setItem("fenda_access_role", "creator");
+        renderAll();
+        toast("Criador liberado.");
+      }else{
+        toast("Senha do criador incorreta.");
+      }
+    }
+
+    function logoutAccess(){
+      state.accessRole = "";
+      localStorage.removeItem("fenda_access_role");
       renderAll();
-      toast("Admin desconectado.");
+      toast("Acesso administrativo encerrado.");
     }
 
     async function saveConfig(){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       const bandName = els.configBandName.value.trim() || "FENDA";
       const subtitle = els.configSubtitle.value.trim() || "App da banda";
-      const adminPassword = els.configAdminPassword.value.trim() || "1234";
 
       await setDoc(doc(db, "settings", "main"), {
+        ...state.config,
         bandName,
         subtitle,
-        adminPassword,
         logoData: state.config.logoData || "",
         updatedAt: serverTimestamp()
       }, { merge:true });
@@ -1017,9 +1068,33 @@
       toast("Personalização salva online.");
     }
 
+    async function saveAdminAccount(){
+      if(!hasCreatorAccess()){
+        toast("Somente o criador pode alterar o administrador.");
+        return;
+      }
+
+      const adminLogin = els.configAdminLogin.value.trim() || "admin";
+      const adminPassword = els.configAdminPassword.value.trim() || "1234";
+
+      await setDoc(doc(db, "settings", "main"), {
+        ...state.config,
+        adminLogin,
+        adminPassword,
+        updatedAt: serverTimestamp()
+      }, { merge:true });
+
+      toast("Login do administrador salvo.");
+    }
+
     function loadLogoFile(event){
       const file = event.target.files[0];
       if(!file) return;
+
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const reader = new FileReader();
 
@@ -1039,6 +1114,11 @@
     }
 
     async function saveMember(){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       const name = $("memberNameInput").value.trim();
       const phone = $("memberPhoneInput").value.trim();
       const role = $("memberRoleInput").value.trim();
@@ -1068,12 +1148,22 @@
     }
 
     async function removeMember(id){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja remover este membro?")) return;
       await deleteDoc(doc(db, "members", id));
       toast("Membro removido.");
     }
 
     async function saveAgenda(){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       const title = $("agendaTitleInput").value.trim();
       const type = $("agendaTypeInput").value;
       const date = $("agendaDateInput").value;
@@ -1109,6 +1199,11 @@
     }
 
     async function deleteAgenda(id){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar esta agenda?")) return;
       await deleteDoc(doc(db, "agendas", id));
       toast("Agenda apagada.");
@@ -1156,6 +1251,11 @@
     }
 
     async function sendRecado(){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       const title = $("recadoTitleInput").value.trim();
       const message = $("recadoMessageInput").value.trim();
       const priority = $("recadoPriorityInput").value;
@@ -1205,6 +1305,11 @@
     }
 
     async function deleteRecado(id){
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar este recado?")) return;
       await deleteDoc(doc(db, "recados", id));
       toast("Recado apagado.");
@@ -1230,7 +1335,7 @@
       if(state.config.logoData){
         els.topLogo.innerHTML = `<img src="${state.config.logoData}" alt="Logo FENDA">`;
       }else{
-        els.topLogo.innerHTML = `<img src="logo-fenda.png" alt="Logo FENDA" onerror="this.parentNode.innerHTML='<div class=&quot;logoFallback&quot;>♫</div>';">`;
+        els.topLogo.innerHTML = `<div class="logoFallback">♫</div>`;
       }
     }
 
@@ -1239,12 +1344,27 @@
       els.topTitle.textContent = state.config.bandName || "FENDA";
       els.topSubtitle.textContent = state.config.subtitle || "App da banda";
       renderLogo();
+
+      if(state.accessRole === "creator"){
+        els.accessStatus.textContent = "● Criador conectado";
+        els.accessStatus.className = "pill creator";
+      }else if(state.accessRole === "admin"){
+        els.accessStatus.textContent = "● Administrador conectado";
+        els.accessStatus.className = "pill admin";
+      }else{
+        els.accessStatus.textContent = "● Modo membro";
+        els.accessStatus.className = "pill";
+      }
     }
 
     function renderAdmin(){
-      if(state.adminLogged){
+      if(hasAdminAccess()){
         els.adminLoginCard.style.display = "none";
         els.adminPanel.style.display = "block";
+
+        els.adminModeNotice.innerHTML = state.accessRole === "creator"
+          ? "<strong>Modo criador ativo.</strong> Você pode administrar o app e alterar o login do administrador."
+          : "<strong>Modo administrador ativo.</strong> Você pode cadastrar agendas, recados e membros.";
       }else{
         els.adminLoginCard.style.display = "block";
         els.adminPanel.style.display = "none";
@@ -1252,8 +1372,19 @@
     }
 
     function renderConfig(){
+      if(hasAdminAccess()){
+        els.configBlocked.style.display = "none";
+        els.configPanel.style.display = "block";
+      }else{
+        els.configBlocked.style.display = "block";
+        els.configPanel.style.display = "none";
+      }
+
+      els.creatorAdminBox.style.display = hasCreatorAccess() ? "block" : "none";
+
       els.configBandName.value = state.config.bandName || "FENDA";
       els.configSubtitle.value = state.config.subtitle || "";
+      els.configAdminLogin.value = state.config.adminLogin || "admin";
       els.configAdminPassword.value = state.config.adminPassword || "1234";
 
       if(state.config.logoData){
@@ -1499,8 +1630,10 @@
     window.registerCurrentMember = registerCurrentMember;
     window.activatePush = activatePush;
     window.loginAdmin = loginAdmin;
-    window.logoutAdmin = logoutAdmin;
+    window.loginCreator = loginCreator;
+    window.logoutAccess = logoutAccess;
     window.saveConfig = saveConfig;
+    window.saveAdminAccount = saveAdminAccount;
     window.loadLogoFile = loadLogoFile;
     window.saveMember = saveMember;
     window.removeMember = removeMember;
