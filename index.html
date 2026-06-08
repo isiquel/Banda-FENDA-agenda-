@@ -1061,7 +1061,7 @@
               <option value="todos">Todos os membros</option>
               <option value="vocal">Somente vocal</option>
               <option value="instrumental">Somente instrumental</option>
-              <option value="tecnica">Somente equipe técnica</option>
+              <option value="tecnica">Equipe técnica</option>
             </select>
 
             <button class="btn primary full" style="margin-top:12px;" onclick="sendRecado()">Enviar recado interno</button>
@@ -1196,12 +1196,27 @@
 
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-app.js";
+
     import {
-      getFirestore, collection, doc, addDoc, setDoc, updateDoc, deleteDoc, getDocs,
-      onSnapshot, query, orderBy, serverTimestamp
+      getFirestore,
+      collection,
+      doc,
+      addDoc,
+      setDoc,
+      updateDoc,
+      deleteDoc,
+      getDocs,
+      onSnapshot,
+      query,
+      orderBy,
+      serverTimestamp
     } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-firestore.js";
+
     import {
-      getMessaging, getToken, onMessage, isSupported
+      getMessaging,
+      getToken,
+      onMessage,
+      isSupported
     } from "https://www.gstatic.com/firebasejs/10.13.2/firebase-messaging.js";
 
     const firebaseConfig = {
@@ -1240,13 +1255,15 @@
       agendas:[],
       recados:[],
       chatMessages:[],
-      accessRole: localStorage.getItem("fenda_access_role") || "",
+      accessRole:"",
       personType: localStorage.getItem("fenda_person_type") || ""
     };
 
     const els = {};
 
-    function $(id){return document.getElementById(id);}
+    function $(id){
+      return document.getElementById(id);
+    }
 
     function cacheEls(){
       [
@@ -1284,7 +1301,9 @@
         .replaceAll("'","&#039;");
     }
 
-    function cleanPhone(phone){return String(phone || "").replace(/\D/g,"");}
+    function cleanPhone(phone){
+      return String(phone || "").replace(/\D/g,"");
+    }
 
     function whatsappPhone(phone){
       let p = cleanPhone(phone);
@@ -1305,12 +1324,29 @@
       return `${d}/${m}/${y}`;
     }
 
-    function hasAdminAccess(){return state.accessRole === "admin" || state.accessRole === "creator";}
-    function hasCreatorAccess(){return state.accessRole === "creator";}
-    function hasEntered(){return !!localStorage.getItem("fenda_name") || hasAdminAccess();}
-    function isMember(){return state.personType === "member" || hasAdminAccess();}
-    function isVisitor(){return state.personType === "visitor" && !hasAdminAccess();}
-    function hasChatAccess(){return isMember();}
+    function hasAdminAccess(){
+      return state.accessRole === "admin" || state.accessRole === "creator";
+    }
+
+    function hasCreatorAccess(){
+      return state.accessRole === "creator";
+    }
+
+    function hasEntered(){
+      return !!localStorage.getItem("fenda_name");
+    }
+
+    function isMember(){
+      return state.personType === "member" || hasAdminAccess();
+    }
+
+    function isVisitor(){
+      return state.personType === "visitor" && !hasAdminAccess();
+    }
+
+    function hasChatAccess(){
+      return isMember();
+    }
 
     function currentUserName(){
       if(state.accessRole === "creator") return "Criador";
@@ -1318,7 +1354,9 @@
       return localStorage.getItem("fenda_name") || "";
     }
 
-    function currentUserPhone(){return localStorage.getItem("fenda_phone") || "";}
+    function currentUserPhone(){
+      return localStorage.getItem("fenda_phone") || "";
+    }
 
     function findMemberByPhone(phone){
       const clean = cleanPhone(phone);
@@ -1356,6 +1394,9 @@
         return;
       }
 
+      state.accessRole = "";
+      localStorage.removeItem("fenda_access_role");
+
       const member = findMemberByPhone(phone);
 
       localStorage.setItem("fenda_name", name);
@@ -1391,7 +1432,7 @@
         els.entryResult.innerHTML = `
           <div class="notice">
             <strong>Bem-vindo, ${escapeHTML(name)}.</strong><br>
-            Você entrou como visitante. Você pode ver eventos públicos, mensagens públicas e contato para agenda.
+            Você entrou como visitante. Você pode ver apenas eventos públicos, mensagens públicas e contato para agenda.
           </div>
         `;
 
@@ -1403,6 +1444,8 @@
 
     function logoutPerson(){
       state.personType = "";
+      state.accessRole = "";
+      localStorage.removeItem("fenda_access_role");
       localStorage.removeItem("fenda_person_type");
       localStorage.removeItem("fenda_role");
       localStorage.removeItem("fenda_group");
@@ -1417,9 +1460,17 @@
 
     async function activatePush(){
       try{
-        if(!("Notification" in window)){toast("Este navegador não suporta notificação.");return;}
+        if(!("Notification" in window)){
+          toast("Este navegador não suporta notificação.");
+          return;
+        }
+
         const permission = await Notification.requestPermission();
-        if(permission !== "granted"){toast("Permissão de notificação não liberada.");return;}
+
+        if(permission !== "granted"){
+          toast("Permissão de notificação não liberada.");
+          return;
+        }
 
         if(!VAPID_KEY){
           toast("Notificação local ativada. Falta VAPID KEY para push avançado.");
@@ -1428,8 +1479,16 @@
         }
 
         const supported = await isSupported();
-        if(!supported){toast("Firebase Messaging não é suportado neste navegador.");return;}
-        if(!("serviceWorker" in navigator)){toast("Este navegador não suporta service worker.");return;}
+
+        if(!supported){
+          toast("Firebase Messaging não é suportado neste navegador.");
+          return;
+        }
+
+        if(!("serviceWorker" in navigator)){
+          toast("Este navegador não suporta service worker.");
+          return;
+        }
 
         const registration = await navigator.serviceWorker.register("./firebase-messaging-sw.js");
         messaging = getMessaging(app);
@@ -1456,7 +1515,9 @@
 
     function notifyLocal(title,body){
       if("Notification" in window && Notification.permission === "granted"){
-        try{new Notification(title,{body,tag:"fenda-app"});}catch(e){}
+        try{
+          new Notification(title,{body,tag:"fenda-app"});
+        }catch(e){}
       }
     }
 
@@ -1466,7 +1527,12 @@
 
       if(login === state.config.adminLogin && password === state.config.adminPassword){
         state.accessRole = "admin";
-        localStorage.setItem("fenda_access_role","admin");
+        state.personType = "";
+        localStorage.removeItem("fenda_person_type");
+        localStorage.removeItem("fenda_role");
+        localStorage.removeItem("fenda_group");
+        localStorage.removeItem("fenda_name");
+        localStorage.removeItem("fenda_phone");
         renderAll();
         toast("Administrador liberado.");
       }else{
@@ -1479,7 +1545,12 @@
 
       if(password === CREATOR_PASSWORD){
         state.accessRole = "creator";
-        localStorage.setItem("fenda_access_role","creator");
+        state.personType = "";
+        localStorage.removeItem("fenda_person_type");
+        localStorage.removeItem("fenda_role");
+        localStorage.removeItem("fenda_group");
+        localStorage.removeItem("fenda_name");
+        localStorage.removeItem("fenda_phone");
         renderAll();
         toast("Criador liberado.");
       }else{
@@ -1504,7 +1575,10 @@
     }
 
     async function saveConfig(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       await setDoc(doc(db,"settings","main"),{
         ...state.config,
@@ -1520,7 +1594,10 @@
     }
 
     async function saveAdminAccount(){
-      if(!hasCreatorAccess()){toast("Somente o criador pode alterar o administrador.");return;}
+      if(!hasCreatorAccess()){
+        toast("Somente o criador pode alterar o administrador.");
+        return;
+      }
 
       await setDoc(doc(db,"settings","main"),{
         ...state.config,
@@ -1535,38 +1612,55 @@
     function loadLogoFile(event){
       const file = event.target.files[0];
       if(!file) return;
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const reader = new FileReader();
+
       reader.onload = async function(e){
         state.config.logoData = e.target.result;
+
         await setDoc(doc(db,"settings","main"),{
           ...state.config,
           logoData:state.config.logoData,
           updatedAt:serverTimestamp()
         },{merge:true});
+
         toast("Logo salva online.");
       };
+
       reader.readAsDataURL(file);
     }
 
     function loadPosterFile(event){
       const file = event.target.files[0];
       if(!file) return;
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const reader = new FileReader();
+
       reader.onload = function(e){
         selectedPosterData = e.target.result;
         els.posterPreview.src = selectedPosterData;
         els.posterPreview.style.display = "block";
         toast("Cartaz carregado. Agora publique o evento.");
       };
+
       reader.readAsDataURL(file);
     }
 
     async function savePosterEvent(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const title = $("posterTitleInput").value.trim();
       const date = $("posterDateInput").value;
@@ -1574,7 +1668,10 @@
       const place = $("posterPlaceInput").value.trim();
       const description = $("posterDescInput").value.trim();
 
-      if(!title || !date){toast("Preencha título e data do evento.");return;}
+      if(!title || !date){
+        toast("Preencha título e data do evento.");
+        return;
+      }
 
       await addDoc(collection(db,"eventos"),{
         title,date,time,place,description,
@@ -1597,19 +1694,30 @@
     }
 
     async function deletePosterEvent(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar este evento/cartaz?")) return;
+
       await deleteDoc(doc(db,"eventos",id));
       toast("Evento apagado.");
     }
 
     async function savePublicPost(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const title = $("publicPostTitleInput").value.trim();
       const message = $("publicPostMessageInput").value.trim();
 
-      if(!title || !message){toast("Digite título e mensagem.");return;}
+      if(!title || !message){
+        toast("Digite título e mensagem.");
+        return;
+      }
 
       await addDoc(collection(db,"publicPosts"),{
         title,message,
@@ -1623,21 +1731,32 @@
     }
 
     async function deletePublicPost(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar esta mensagem pública?")) return;
+
       await deleteDoc(doc(db,"publicPosts",id));
       toast("Mensagem pública apagada.");
     }
 
     async function saveMember(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const name = $("memberNameInput").value.trim();
       const phone = $("memberPhoneInput").value.trim();
       const role = $("memberRoleInput").value.trim();
       const group = $("memberGroupInput").value;
 
-      if(!name || !phone){toast("Digite nome e celular.");return;}
+      if(!name || !phone){
+        toast("Digite nome e celular.");
+        return;
+      }
 
       await setDoc(doc(db,"members",cleanPhone(phone)),{
         name,phone,role,group,
@@ -1653,14 +1772,22 @@
     }
 
     async function removeMember(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja remover este membro?")) return;
+
       await deleteDoc(doc(db,"members",id));
       toast("Membro removido.");
     }
 
     async function saveAgenda(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const title = $("agendaTitleInput").value.trim();
       const type = $("agendaTypeInput").value;
@@ -1669,7 +1796,10 @@
       const place = $("agendaPlaceInput").value.trim();
       const obs = $("agendaObsInput").value.trim();
 
-      if(!title || !date || !time){toast("Preencha título, data e horário.");return;}
+      if(!title || !date || !time){
+        toast("Preencha título, data e horário.");
+        return;
+      }
 
       await addDoc(collection(db,"agendas"),{
         title,type,date,time,place,obs,
@@ -1690,14 +1820,22 @@
     }
 
     async function deleteAgenda(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar esta agenda?")) return;
+
       await deleteDoc(doc(db,"agendas",id));
       toast("Agenda apagada.");
     }
 
     async function markPresence(agendaId,status){
-      if(!isMember()){toast("Área exclusiva para membros cadastrados.");return;}
+      if(!isMember()){
+        toast("Área exclusiva para membros cadastrados.");
+        return;
+      }
 
       const name = currentUserName();
       const agenda = state.agendas.find(a => a.id === agendaId);
@@ -1714,7 +1852,12 @@
     }
 
     function targetName(target){
-      const map = {todos:"Todos os membros",vocal:"Somente vocal",instrumental:"Somente instrumental",tecnica:"Somente equipe técnica"};
+      const map = {
+        todos:"Todos os membros",
+        vocal:"Somente vocal",
+        instrumental:"Somente instrumental",
+        tecnica:"Equipe técnica"
+      };
       return map[target] || "Todos";
     }
 
@@ -1728,14 +1871,20 @@
     }
 
     async function sendRecado(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const title = $("recadoTitleInput").value.trim();
       const message = $("recadoMessageInput").value.trim();
       const priority = $("recadoPriorityInput").value;
       const target = $("recadoTargetInput").value;
 
-      if(!title || !message){toast("Digite título e mensagem.");return;}
+      if(!title || !message){
+        toast("Digite título e mensagem.");
+        return;
+      }
 
       await addDoc(collection(db,"recados"),{
         title,message,priority,target,
@@ -1754,7 +1903,10 @@
     }
 
     async function markRecadoSeen(id){
-      if(!isMember()){toast("Área exclusiva para membros cadastrados.");return;}
+      if(!isMember()){
+        toast("Área exclusiva para membros cadastrados.");
+        return;
+      }
 
       const name = currentUserName();
       const recado = state.recados.find(r => r.id === id);
@@ -1767,17 +1919,29 @@
     }
 
     async function deleteRecado(id){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
+
       if(!confirm("Deseja apagar este recado?")) return;
+
       await deleteDoc(doc(db,"recados",id));
       toast("Recado apagado.");
     }
 
     async function sendChatMessage(){
-      if(!hasChatAccess()){toast("Chat exclusivo para membros cadastrados.");return;}
+      if(!hasChatAccess()){
+        toast("Chat exclusivo para membros cadastrados.");
+        return;
+      }
 
       const text = els.chatMessageInput.value.trim();
-      if(!text){toast("Digite uma mensagem.");return;}
+
+      if(!text){
+        toast("Digite uma mensagem.");
+        return;
+      }
 
       await addDoc(collection(db,"chatMessages"),{
         text,
@@ -1819,13 +1983,22 @@
       if(!msg) return;
 
       const canEdit = hasAdminAccess() || msg.authorPhone === currentUserPhone();
-      if(!canEdit){toast("Você só pode editar suas próprias mensagens.");return;}
+
+      if(!canEdit){
+        toast("Você só pode editar suas próprias mensagens.");
+        return;
+      }
 
       const newText = prompt("Editar mensagem:",msg.text || "");
+
       if(newText === null) return;
 
       const text = newText.trim();
-      if(!text){toast("Mensagem vazia não pode ser salva.");return;}
+
+      if(!text){
+        toast("Mensagem vazia não pode ser salva.");
+        return;
+      }
 
       await updateDoc(doc(db,"chatMessages",id),{
         text,edited:true,updatedAt:serverTimestamp()
@@ -1839,7 +2012,11 @@
       if(!msg) return;
 
       const canDelete = hasAdminAccess() || msg.authorPhone === currentUserPhone();
-      if(!canDelete){toast("Você só pode apagar suas próprias mensagens.");return;}
+
+      if(!canDelete){
+        toast("Você só pode apagar suas próprias mensagens.");
+        return;
+      }
 
       if(!confirm("Deseja apagar esta mensagem?")) return;
 
@@ -1848,7 +2025,11 @@
     }
 
     async function clearChat(){
-      if(!hasAdminAccess()){toast("Somente admin/criador pode limpar o chat.");return;}
+      if(!hasAdminAccess()){
+        toast("Somente admin/criador pode limpar o chat.");
+        return;
+      }
+
       if(!confirm("Deseja apagar TODO o chat do Firebase?")) return;
 
       const snap = await getDocs(collection(db,"chatMessages"));
@@ -1858,10 +2039,17 @@
     }
 
     function prepareWhatsBroadcast(){
-      if(!hasAdminAccess()){toast("Acesso negado.");return;}
+      if(!hasAdminAccess()){
+        toast("Acesso negado.");
+        return;
+      }
 
       const text = els.whatsBroadcastInput.value.trim();
-      if(!text){toast("Digite a mensagem primeiro.");return;}
+
+      if(!text){
+        toast("Digite a mensagem primeiro.");
+        return;
+      }
 
       if(!state.members.length){
         els.whatsBroadcastList.innerHTML = `<div class="empty">Nenhum membro cadastrado.</div>`;
@@ -1891,11 +2079,14 @@
         toast("Contato de agenda ainda não cadastrado.");
         return;
       }
+
       window.open(whatsappLink(state.config.bookingPhone,state.config.bookingText || "Olá, quero marcar uma agenda com a Banda FENDA."),"_blank");
     }
 
     function copyText(text){
-      navigator.clipboard.writeText(text).then(() => toast("Mensagem copiada.")).catch(() => toast("Não foi possível copiar."));
+      navigator.clipboard.writeText(text)
+        .then(() => toast("Mensagem copiada."))
+        .catch(() => toast("Não foi possível copiar."));
     }
 
     function sortByDate(list){
@@ -1963,10 +2154,28 @@
     function renderEntry(){
       const entered = hasEntered();
 
-      els.entryCard.style.display = entered && !hasAdminAccess() ? "none" : "block";
-      els.homeAfterEntry.style.display = entered && !hasAdminAccess() ? "block" : "none";
+      if(hasAdminAccess()){
+        els.entryCard.style.display = "none";
+        els.homeAfterEntry.style.display = "block";
+        els.welcomeTitle.textContent = state.accessRole === "creator"
+          ? "Criador conectado"
+          : "Administrador conectado";
 
-      if(entered && !hasAdminAccess()){
+        els.entryResult.innerHTML = `
+          <div class="notice success">
+            Acesso administrativo liberado. Use a aba Admin ou Config para gerenciar o aplicativo.
+          </div>
+        `;
+
+        els.visitorHomeMenu.style.display = "none";
+        els.memberHomeMenu.style.display = "grid";
+        return;
+      }
+
+      els.entryCard.style.display = entered ? "none" : "block";
+      els.homeAfterEntry.style.display = entered ? "block" : "none";
+
+      if(entered){
         const name = currentUserName() || "visitante";
         els.welcomeTitle.textContent = `Bem-vindo, ${name}`;
 
@@ -2030,7 +2239,7 @@
     }
 
     function renderPanelsByAccess(){
-      const entered = hasEntered();
+      const entered = hasEntered() || hasAdminAccess();
       const internal = isMember();
 
       els.publicAccessBlockedEventos.style.display = entered ? "none" : "block";
